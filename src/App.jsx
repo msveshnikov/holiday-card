@@ -17,8 +17,7 @@ import {
     Badge,
     Card,
     CardBody,
-    SimpleGrid,
-    Image
+    SimpleGrid
 } from '@chakra-ui/react';
 
 function App() {
