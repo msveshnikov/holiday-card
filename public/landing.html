@@ -1,0 +1,185 @@
+<!doctype html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>AI Christmas Card Message Generator 🎄</title>
+        <style>
+            :root {
+                --primary: #e63946;
+                --secondary: #1d3557;
+                --light: #f1faee;
+                --accent: #a8dadc;
+            }
+            * {
+                margin: 0;
+                padding: 0;
+                box-sizing: border-box;
+                font-family: 'Segoe UI', sans-serif;
+            }
+            body {
+                background: linear-gradient(135deg, var(--light), var(--accent));
+                color: var(--secondary);
+            }
+            .hero {
+                min-height: 100vh;
+                padding: 2rem;
+                display: flex;
+                flex-direction: column;
+                align-items: center;
+                text-align: center;
+                background: url('https://images.unsplash.com/photo-1512389098783-66b81f86e199?auto=format&fit=crop&w=2000') center/cover;
+                position: relative;
+            }
+            .hero::before {
+                content: '';
+                position: absolute;
+                top: 0;
+                left: 0;
+                right: 0;
+                bottom: 0;
+                background: rgba(0, 0, 0, 0.5);
+                z-index: 1;
+            }
+            .hero-content {
+                position: relative;
+                z-index: 2;
+                color: white;
+            }
+            .hero h1 {
+                font-size: 4rem;
+                margin: 2rem 0;
+                color: white;
+                text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+            }
+            .features {
+                display: grid;
+                grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+                gap: 2rem;
+                padding: 6rem 2rem;
+                max-width: 1400px;
+                margin: 0 auto;
+                background: url('https://images.unsplash.com/photo-1544657233-a0c468c89660?auto=format&fit=crop&w=2000') fixed center/cover;
+            }
+            .feature-card {
+                background: rgba(255, 255, 255, 0.95);
+                padding: 3rem 2rem;
+                border-radius: 1.5rem;
+                box-shadow: 0 8px 16px rgba(0, 0, 0, 0.1);
+                transition: all 0.4s ease;
+                backdrop-filter: blur(5px);
+            }
+            .feature-card:hover {
+                transform: translateY(-10px) scale(1.02);
+                box-shadow: 0 12px 24px rgba(0, 0, 0, 0.15);
+            }
+            .pricing {
+                padding: 6rem 2rem;
+                background: linear-gradient(rgba(29, 53, 87, 0.95), rgba(29, 53, 87, 0.95)), 
+                            url('https://images.unsplash.com/photo-1543589077-47d81606c1bf?auto=format&fit=crop&w=2000') center/cover;
+                color: var(--light);
+            }
+            .pricing-grid {
+                display: grid;
+                grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+                gap: 2rem;
+                max-width: 1400px;
+                margin: 3rem auto;
+            }
+            .price-card {
+                background: white;
+                color: var(--secondary);
+                padding: 3rem 2rem;
+                border-radius: 1.5rem;
+                text-align: center;
+                transform: scale(1);
+                transition: all 0.4s ease;
+                box-shadow: 0 8px 16px rgba(0, 0, 0, 0.1);
+            }
+            .price-card:hover {
+                transform: scale(1.05);
+                box-shadow: 0 12px 24px rgba(0, 0, 0, 0.2);
+            }
+            .cta-button {
+                display: inline-block;
+                padding: 1.2rem 2.5rem;
+                background: var(--primary);
+                color: white;
+                text-decoration: none;
+                border-radius: 3rem;
+                margin: 1.5rem 0;
+                transition: all 0.3s ease;
+                font-weight: bold;
+                text-transform: uppercase;
+                letter-spacing: 1px;
+                box-shadow: 0 4px 8px rgba(230, 57, 70, 0.3);
+            }
+            .cta-button:hover {
+                transform: scale(1.05) translateY(-2px);
+                box-shadow: 0 6px 12px rgba(230, 57, 70, 0.4);
+            }
+            @media (max-width: 768px) {
+                .hero h1 {
+                    font-size: 2.5rem;
+                }
+                .features, .pricing-grid {
+                    grid-template-columns: 1fr;
+                }
+            }
+        </style>
+    </head>
+    <body>
+        <section class="hero">
+            <div class="hero-content">
+                <h1>AI Christmas Card Message Generator 🎄</h1>
+                <p>Create magical holiday messages with the power of AI</p>
+                <a href="#" class="cta-button">Start Creating</a>
+            </div>
+        </section>
+
+        <section class="features">
+            <div class="feature-card">
+                <h3>AI-Powered Magic</h3>
+                <p>Generate heartfelt messages using cutting-edge AI technology</p>
+            </div>
+            <div class="feature-card">
+                <h3>Multiple Styles</h3>
+                <p>Choose from formal, casual, funny, or heartfelt messages</p>
+            </div>
+            <div class="feature-card">
+                <h3>Personal Touch</h3>
+                <p>Add your unique flair with custom details and preferences</p>
+            </div>
+            <div class="feature-card">
+                <h3>Festive Themes</h3>
+                <p>Select from beautiful holiday themes and designs</p>
+            </div>
+        </section>
+
+        <section class="pricing">
+            <h2>Choose Your Plan</h2>
+            <div class="pricing-grid">
+                <div class="price-card">
+                    <h3>Free Trial</h3>
+                    <p>3 Messages</p>
+                    <a href="#" class="cta-button">Start Free</a>
+                </div>
+                <div class="price-card">
+                    <h3>Basic</h3>
+                    <p>10 Credits</p>
+                    <a href="#" class="cta-button">Choose Basic</a>
+                </div>
+                <div class="price-card">
+                    <h3>Premium</h3>
+                    <p>50 Credits</p>
+                    <a href="#" class="cta-button">Go Premium</a>
+                </div>
+                <div class="price-card">
+                    <h3>Enterprise</h3>
+                    <p>Unlimited</p>
+                    <a href="#" class="cta-button">Contact Us</a>
+                </div>
+            </div>
+        </section>
+    </body>
+</html>
