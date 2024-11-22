@@ -23,7 +23,8 @@ import {
     Tooltip,
     Progress,
     FormControl,
-    FormLabel
+    FormLabel,
+    Switch
 } from '@chakra-ui/react';
 import { FaShareAlt, FaCrown, FaGift } from 'react-icons/fa';
 
@@ -48,6 +49,7 @@ function App() {
     const [progress, setProgress] = useState(0);
     const [fontSize, setFontSize] = useState(16);
     const [fontFamily, setFontFamily] = useState('Arial');
+    const [animation, setAnimation] = useState('fade');
 
     const toast = useToast();
 
@@ -66,6 +68,7 @@ function App() {
     ];
 
     const fonts = ['Arial', 'Times New Roman', 'Courier New', 'Georgia', 'Verdana'];
+    const animations = ['fade', 'slide', 'bounce', 'none'];
 
     const toneLabels = {
         0: 'Professional',
@@ -122,7 +125,7 @@ function App() {
                 body: JSON.stringify({
                     input: prompt,
                     lang: (navigator.languages && navigator.languages[0]) || navigator.language,
-                    model: 'gpt-4o-mini',
+                    model: 'gpt-4-turbo',
                     customGPT: 'Christmas'
                 })
             });
@@ -191,10 +194,10 @@ function App() {
                 });
             }
         } else {
+            navigator.clipboard.writeText(generatedMessage);
             toast({
-                title: 'Sharing not supported',
-                description: 'Your browser does not support sharing',
-                status: 'warning',
+                title: 'Message copied to clipboard',
+                status: 'success',
                 duration: 2000
             });
         }
@@ -215,20 +218,11 @@ function App() {
             <Container maxW="container.xl" py={8}>
                 <VStack spacing={8}>
                     <Box textAlign="center" position="relative" width="100%">
-                        {/* <IconButton
-                            aria-label="Toggle color mode"
-                            icon={colorMode === 'light' ? <FaMoon /> : <FaSun />}
-                            onClick={toggleColorMode}
-                            position="absolute"
-                            right="0"
-                            top="0"
-                        /> */}
                         <Text fontSize="3xl" fontWeight="bold">
                             Holiday Card Generator🎄
                         </Text>
-
                         <Badge colorScheme="green" ml={2}>
-                            Credits remaining: {credits}
+                            Credits: {credits}
                         </Badge>
                         <Tooltip label="Claim daily reward">
                             <IconButton
@@ -249,32 +243,43 @@ function App() {
                         </Tooltip>
                     </Box>
 
-                    <Box width="100%">
-                        <SimpleGrid columns={[1, 2]} spacing={4} width="100%">
-                            <FormControl>
-                                <FormLabel>Font Size</FormLabel>
-                                <Slider value={fontSize} min={12} max={24} onChange={setFontSize}>
-                                    <SliderTrack>
-                                        <SliderFilledTrack />
-                                    </SliderTrack>
-                                    <SliderThumb />
-                                </Slider>
-                            </FormControl>
-                            <FormControl>
-                                <FormLabel>Font Family</FormLabel>
-                                <Select
-                                    value={fontFamily}
-                                    onChange={(e) => setFontFamily(e.target.value)}
-                                >
-                                    {fonts.map((font) => (
-                                        <option key={font} value={font}>
-                                            {font}
-                                        </option>
-                                    ))}
-                                </Select>
-                            </FormControl>
-                        </SimpleGrid>
-                    </Box>
+                    <SimpleGrid columns={[1, 2, 3]} spacing={4} width="100%">
+                        <FormControl>
+                            <FormLabel>Font Size</FormLabel>
+                            <Slider value={fontSize} min={12} max={24} onChange={setFontSize}>
+                                <SliderTrack>
+                                    <SliderFilledTrack />
+                                </SliderTrack>
+                                <SliderThumb />
+                            </Slider>
+                        </FormControl>
+                        <FormControl>
+                            <FormLabel>Font Family</FormLabel>
+                            <Select
+                                value={fontFamily}
+                                onChange={(e) => setFontFamily(e.target.value)}
+                            >
+                                {fonts.map((font) => (
+                                    <option key={font} value={font}>
+                                        {font}
+                                    </option>
+                                ))}
+                            </Select>
+                        </FormControl>
+                        <FormControl>
+                            <FormLabel>Animation</FormLabel>
+                            <Select
+                                value={animation}
+                                onChange={(e) => setAnimation(e.target.value)}
+                            >
+                                {animations.map((anim) => (
+                                    <option key={anim} value={anim}>
+                                        {anim}
+                                    </option>
+                                ))}
+                            </Select>
+                        </FormControl>
+                    </SimpleGrid>
 
                     <SimpleGrid columns={[2, 2, 4]} spacing={4} width="100%">
                         {styles.map((style) => (
@@ -284,6 +289,7 @@ function App() {
                                 bg={messageStyle === style.id ? 'green.100' : 'white'}
                                 onClick={() => setMessageStyle(style.id)}
                                 transition="transform 0.2s"
+                                _hover={{ transform: 'scale(1.05)' }}
                             >
                                 <CardBody textAlign="center">
                                     <Text fontSize="2xl">{style.icon}</Text>
@@ -307,6 +313,8 @@ function App() {
                                     onClick={() => setSelectedImage(image)}
                                     height="200px"
                                     objectFit="cover"
+                                    transition="transform 0.2s"
+                                    _hover={{ transform: 'scale(1.05)' }}
                                 />
                             ))}
                         </SimpleGrid>
@@ -314,13 +322,7 @@ function App() {
 
                     <Box width="100%">
                         <Text mb={2}>Tone: {getToneLabel(tone)}</Text>
-                        <Slider
-                            value={tone}
-                            onChange={setTone}
-                            min={0}
-                            max={100}
-                            aria-label="tone-slider"
-                        >
+                        <Slider value={tone} onChange={setTone} min={0} max={100}>
                             <SliderTrack>
                                 <SliderFilledTrack />
                             </SliderTrack>
@@ -364,13 +366,13 @@ function App() {
                             value={recentEvents}
                             onChange={(e) => setRecentEvents(e.target.value)}
                         />
-                        <Button
-                            size="sm"
-                            colorScheme={useEmojis ? 'green' : 'gray'}
-                            onClick={() => setUseEmojis(!useEmojis)}
-                        >
-                            {useEmojis ? 'Emojis: On' : 'Emojis: Off'}
-                        </Button>
+                        <FormControl display="flex" alignItems="center">
+                            <FormLabel mb="0">Use Emojis</FormLabel>
+                            <Switch
+                                isChecked={useEmojis}
+                                onChange={() => setUseEmojis(!useEmojis)}
+                            />
+                        </FormControl>
                     </VStack>
 
                     <Button
@@ -378,6 +380,7 @@ function App() {
                         isLoading={isLoading}
                         onClick={generateMessage}
                         width="100%"
+                        size="lg"
                     >
                         Generate Message
                     </Button>
@@ -385,7 +388,12 @@ function App() {
                     {isLoading && <Progress value={progress} width="100%" colorScheme="green" />}
 
                     {generatedMessage && (
-                        <Card width="100%">
+                        <Card
+                            width="100%"
+                            animation={
+                                animation !== 'none' ? `${animation} 0.5s ease-in-out` : undefined
+                            }
+                        >
                             <CardBody>
                                 <Image
                                     src={selectedImage}
@@ -403,15 +411,15 @@ function App() {
                                     {generatedMessage}
                                 </Text>
                                 <SimpleGrid columns={[1, 2]} spacing={4} mt={4}>
-                                    <Button colorScheme="blue" onClick={handleDownload}>
-                                        Download Message
-                                    </Button>
                                     <Button
                                         leftIcon={<FaShareAlt />}
                                         colorScheme="green"
                                         onClick={handleShare}
                                     >
                                         Share Message
+                                    </Button>
+                                    <Button colorScheme="blue" onClick={handleDownload}>
+                                        Download
                                     </Button>
                                 </SimpleGrid>
                             </CardBody>

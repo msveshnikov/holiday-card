@@ -74,7 +74,6 @@ tones, and personalization options.
 
 ## Theme Customization
 
--   Light/Dark mode
 -   Custom color schemes
 -   Seasonal themes
 -   Font selection
@@ -109,3 +108,4 @@ tones, and personalization options.
 -   Rate limiting
 
 # TODO
+
