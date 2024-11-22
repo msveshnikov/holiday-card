@@ -168,5 +168,3 @@ tones, and personalization options.
 -   User feedback collection
 
 # TODO
-
--   use logic from handleSubmit to access model, fix everything and connect
