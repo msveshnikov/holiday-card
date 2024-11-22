@@ -24,7 +24,9 @@ import {
     Progress,
     FormControl,
     FormLabel,
-    Switch
+    Switch,
+    Grid,
+    GridItem
 } from '@chakra-ui/react';
 import { FaShareAlt, FaCrown, FaGift } from 'react-icons/fa';
 
@@ -330,50 +332,64 @@ function App() {
                         </Slider>
                     </Box>
 
-                    <VStack width="100%" spacing={4}>
-                        <Input
-                            placeholder="Recipient Name"
-                            value={recipientName}
-                            onChange={(e) => setRecipientName(e.target.value)}
-                        />
-                        <Select
-                            placeholder="Relationship"
-                            value={relationship}
-                            onChange={(e) => setRelationship(e.target.value)}
-                        >
-                            <option value="family">Family</option>
-                            <option value="friend">Friend</option>
-                            <option value="colleague">Colleague</option>
-                            <option value="other">Other</option>
-                        </Select>
-                        <Textarea
-                            placeholder="Special memories"
-                            value={memories}
-                            onChange={(e) => setMemories(e.target.value)}
-                        />
-                        <Textarea
-                            placeholder="Inside jokes"
-                            value={insideJokes}
-                            onChange={(e) => setInsideJokes(e.target.value)}
-                        />
-                        <Textarea
-                            placeholder="Shared interests"
-                            value={sharedInterests}
-                            onChange={(e) => setSharedInterests(e.target.value)}
-                        />
-                        <Textarea
-                            placeholder="Recent events"
-                            value={recentEvents}
-                            onChange={(e) => setRecentEvents(e.target.value)}
-                        />
-                        <FormControl display="flex" alignItems="center">
-                            <FormLabel mb="0">Use Emojis</FormLabel>
-                            <Switch
-                                isChecked={useEmojis}
-                                onChange={() => setUseEmojis(!useEmojis)}
+                    <Grid templateColumns={['1fr', '1fr', 'repeat(2, 1fr)']} gap={4} width="100%">
+                        <GridItem>
+                            <Input
+                                placeholder="Recipient Name"
+                                value={recipientName}
+                                onChange={(e) => setRecipientName(e.target.value)}
                             />
-                        </FormControl>
-                    </VStack>
+                        </GridItem>
+                        <GridItem>
+                            <Select
+                                placeholder="Relationship"
+                                value={relationship}
+                                onChange={(e) => setRelationship(e.target.value)}
+                            >
+                                <option value="family">Family</option>
+                                <option value="friend">Friend</option>
+                                <option value="colleague">Colleague</option>
+                                <option value="other">Other</option>
+                            </Select>
+                        </GridItem>
+                        <GridItem colSpan={[1, 1, 2]}>
+                            <Textarea
+                                placeholder="Special memories"
+                                value={memories}
+                                onChange={(e) => setMemories(e.target.value)}
+                            />
+                        </GridItem>
+                        <GridItem colSpan={[1, 1, 2]}>
+                            <Textarea
+                                placeholder="Inside jokes"
+                                value={insideJokes}
+                                onChange={(e) => setInsideJokes(e.target.value)}
+                            />
+                        </GridItem>
+                        <GridItem>
+                            <Textarea
+                                placeholder="Shared interests"
+                                value={sharedInterests}
+                                onChange={(e) => setSharedInterests(e.target.value)}
+                            />
+                        </GridItem>
+                        <GridItem>
+                            <Textarea
+                                placeholder="Recent events"
+                                value={recentEvents}
+                                onChange={(e) => setRecentEvents(e.target.value)}
+                            />
+                        </GridItem>
+                        <GridItem colSpan={[1, 1, 2]}>
+                            <FormControl display="flex" alignItems="center">
+                                <FormLabel mb="0">Use Emojis</FormLabel>
+                                <Switch
+                                    isChecked={useEmojis}
+                                    onChange={() => setUseEmojis(!useEmojis)}
+                                />
+                            </FormControl>
+                        </GridItem>
+                    </Grid>
 
                     <Button
                         colorScheme="green"
