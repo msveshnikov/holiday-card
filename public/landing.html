@@ -3,16 +3,35 @@
     <head>
         <meta charset="UTF-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-        <meta name="description" content="Hilarious AI-powered Christmas card messages that'll make Santa laugh!" />
-        <meta name="keywords" content="funny Christmas cards, AI humor, holiday jokes, festive messages" />
+        <meta
+            name="description"
+            content="AI-powered Christmas card message generator with customizable styles and themes"
+        />
+        <meta
+            name="keywords"
+            content="AI, Christmas, card, message, generator, holiday, greetings"
+        />
+        <meta name="author" content="AutoCode" />
+        <meta property="og:title" content="AI Christmas Card Message Generator 🎄" />
+        <meta
+            property="og:description"
+            content="Create heartfelt holiday messages in seconds with the power of AI"
+        />
+        <meta
+            property="og:image"
+            content="https://images.unsplash.com/photo-1576692155415-95f820a2c4c1"
+        />
         <title>🎅 Super Funny AI Christmas Cards! 🎄</title>
         <link rel="preconnect" href="https://fonts.googleapis.com" />
         <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-        <link href="https://fonts.googleapis.com/css2?family=Mountains+of+Christmas:wght@700&family=Montserrat:wght@400;600;700&display=swap" rel="stylesheet" />
+        <link
+            href="https://fonts.googleapis.com/css2?family=Mountains+of+Christmas:wght@700&family=Montserrat:wght@400;600;700&display=swap"
+            rel="stylesheet"
+        />
         <style>
             :root {
                 --primary: #ff4757;
-                --secondary: #2ed573;
+                --secondary: #1d3557;
                 --light: #f8f9fa;
                 --accent: #ffd32a;
                 --success: #7bed9f;
@@ -25,7 +44,8 @@
                 box-sizing: border-box;
             }
             body {
-                background: url('https://www.transparenttextures.com/patterns/snow.png'), linear-gradient(135deg, var(--light), #e3f2fd);
+                background: url('https://www.transparenttextures.com/patterns/snow.png'),
+                    linear-gradient(135deg, var(--light), #e3f2fd);
                 color: var(--dark);
                 line-height: 1.6;
                 font-family: 'Montserrat', sans-serif;
@@ -38,7 +58,10 @@
                 align-items: center;
                 justify-content: center;
                 text-align: center;
-                background: linear-gradient(rgba(0,0,0,0.3), rgba(0,0,0,0.3)), url('https://images.unsplash.com/photo-1543589077-47d81606c1bf?auto=format&fit=crop&w=2000') center/cover;
+                background:
+                    linear-gradient(rgba(0, 0, 0, 0.3), rgba(0, 0, 0, 0.3)),
+                    url('https://images.unsplash.com/photo-1543589077-47d81606c1bf?auto=format&fit=crop&w=2000')
+                        center/cover;
                 position: relative;
                 overflow: hidden;
             }
@@ -52,73 +75,194 @@
                 animation: snowfall linear infinite;
             }
             @keyframes snowfall {
-                0% { transform: translateY(-100vh) rotate(0deg); }
-                100% { transform: translateY(100vh) rotate(360deg); }
+                0% {
+                    transform: translateY(-100vh) rotate(0deg);
+                }
+                100% {
+                    transform: translateY(100vh) rotate(360deg);
+                }
             }
             .hero h1 {
                 font-family: 'Mountains of Christmas', cursive;
                 font-size: clamp(3rem, 8vw, 6rem);
                 color: var(--accent);
-                text-shadow: 3px 3px 0 var(--primary), -3px -3px 0 var(--secondary);
+                text-shadow:
+                    3px 3px 0 var(--primary),
+                    -3px -3px 0 var(--secondary);
                 animation: bounce 2s infinite;
             }
             @keyframes bounce {
-                0%, 100% { transform: translateY(0); }
-                50% { transform: translateY(-20px); }
+                0%,
+                100% {
+                    transform: translateY(0);
+                }
+                50% {
+                    transform: translateY(-20px);
+                }
+            }
+            .features {
+                display: grid;
+                grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+                gap: 2rem;
+                padding: 6rem max(2rem, 10%);
+                background:
+                    linear-gradient(rgba(255, 255, 255, 0.9), rgba(255, 255, 255, 0.9)),
+                    url('https://images.unsplash.com/photo-1512389098783-66b81f86e199?auto=format&fit=crop&w=2000')
+                        fixed center/cover;
             }
             .feature-card {
                 background: white;
-                padding: 2rem;
-                border-radius: 20px;
-                box-shadow: 0 10px 30px rgba(0,0,0,0.1);
-                transform-style: preserve-3d;
-                transition: transform 0.6s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-            }
-            .feature-card:hover {
-                transform: rotateY(10deg) rotateX(5deg);
-            }
-            .feature-card h3 {
-                color: var(--primary);
-                font-family: 'Mountains of Christmas', cursive;
-                font-size: 2rem;
-            }
-            .cta-button {
-                background: linear-gradient(45deg, var(--primary), var(--secondary));
-                color: white;
-                padding: 1.5rem 3rem;
-                border-radius: 50px;
-                font-size: 1.2rem;
-                text-transform: uppercase;
-                text-decoration: none;
+                padding: 3rem 2rem;
+                border-radius: 1.5rem;
+                box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+                transition: transform 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
                 position: relative;
                 overflow: hidden;
-                transition: transform 0.3s;
             }
-            .cta-button:hover {
-                transform: scale(1.1);
-                animation: rainbow 3s linear infinite;
+            .feature-card::before {
+                content: '';
+                position: absolute;
+                top: 0;
+                left: 0;
+                width: 100%;
+                height: 4px;
+                background: var(--primary);
+                transform: scaleX(0);
+                transition: transform 0.4s ease;
             }
-            @keyframes rainbow {
-                0% { filter: hue-rotate(0deg); }
-                100% { filter: hue-rotate(360deg); }
+            .feature-card:hover::before {
+                transform: scaleX(1);
+            }
+            .feature-card:hover {
+                transform: translateY(-10px);
+            }
+            .pricing {
+                padding: 6rem max(2rem, 10%);
+                background:
+                    linear-gradient(rgba(29, 53, 87, 0.95), rgba(29, 53, 87, 0.95)),
+                    url('https://images.unsplash.com/photo-1543589077-47d81606c1bf?auto=format&fit=crop&w=2000')
+                        center/cover;
+                color: var(--light);
+            }
+            .pricing h2 {
+                text-align: center;
+                font-size: clamp(2rem, 4vw, 3rem);
+                margin-bottom: 3rem;
+            }
+            .pricing-grid {
+                display: grid;
+                grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+                gap: 2rem;
+                max-width: 1400px;
+                margin: 0 auto;
             }
             .price-card {
                 background: white;
-                border-radius: 30px;
-                padding: 3rem;
-                position: relative;
+                color: var(--secondary);
+                padding: 3rem 2rem;
+                border-radius: 1.5rem;
+                text-align: center;
+                transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+                box-shadow: 0 8px 32px rgba(0, 0, 0, 0.15);
             }
-            .price-card::before {
-                content: '🎁';
-                font-size: 3rem;
+            .price-card:hover {
+                transform: scale(1.05);
+            }
+            .cta-button {
+                display: inline-block;
+                padding: 1.2rem 2.5rem;
+                background: var(--primary);
+                color: white;
+                text-decoration: none;
+                border-radius: 3rem;
+                margin: 1.5rem 0;
+                transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+                font-weight: 600;
+                text-transform: uppercase;
+                letter-spacing: 1px;
+                box-shadow: 0 4px 16px rgba(230, 57, 70, 0.3);
+            }
+            .cta-button:hover {
+                transform: scale(1.05) translateY(-2px);
+                box-shadow: 0 6px 24px rgba(230, 57, 70, 0.4);
+            }
+            @keyframes fadeIn {
+                from {
+                    opacity: 0;
+                    transform: translateY(20px);
+                }
+                to {
+                    opacity: 1;
+                    transform: translateY(0);
+                }
+            }
+            @media (prefers-reduced-motion: reduce) {
+                .feature-card,
+                .price-card,
+                .cta-button {
+                    transition: none;
+                }
+                .hero-content {
+                    animation: none;
+                }
+            }
+            @media (max-width: 768px) {
+                .features,
+                .pricing-grid {
+                    grid-template-columns: 1fr;
+                }
+                .price-card:hover {
+                    transform: scale(1.02);
+                }
+            }
+            .skip-link {
                 position: absolute;
-                top: -20px;
-                right: -20px;
-                animation: wiggle 1s ease-in-out infinite;
+                top: -40px;
+                left: 0;
+                background: var(--primary);
+                color: white;
+                padding: 8px;
+                z-index: 100;
             }
+            .skip-link:focus {
+                top: 0;
+            }
+
+            .cta-button {
+                display: inline-block;
+                padding: 1.2rem 2.5rem;
+                background: var(--primary);
+                color: white;
+                text-decoration: none;
+                border-radius: 3rem;
+                margin: 1.5rem 0;
+                transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+                font-weight: 600;
+                text-transform: uppercase;
+                letter-spacing: 1px;
+                box-shadow: 0 4px 16px rgba(230, 57, 70, 0.3);
+            }
+            .cta-button:hover {
+                transform: scale(1.05) translateY(-2px);
+                box-shadow: 0 6px 24px rgba(230, 57, 70, 0.4);
+            }
+            @keyframes rainbow {
+                0% {
+                    filter: hue-rotate(0deg);
+                }
+                100% {
+                    filter: hue-rotate(360deg);
+                }
+            }
+
             @keyframes wiggle {
-                0%, 100% { transform: rotate(-10deg); }
-                50% { transform: rotate(10deg); }
+                0%,
+                100% {
+                    transform: rotate(-10deg);
+                }
+                50% {
+                    transform: rotate(10deg);
+                }
             }
         </style>
     </head>
@@ -127,15 +271,57 @@
             <section class="hero">
                 <div class="hero-content">
                     <h1>Ho Ho Ho-larious Christmas Cards! 🎅</h1>
-                    <p style="font-size: 1.5rem; color: white; margin: 2rem 0;">Let AI spread some holiday cheer with messages that'll make Rudolf's nose even redder! 🦌</p>
-                    <a href="https://christmas-autocode.netlify.app/" class="cta-button">Make Santa Laugh! 😂</a>
+                    <p style="font-size: 1.5rem; color: white; margin: 2rem 0">
+                        Let AI spread some holiday cheer with messages that'll make Rudolf's nose
+                        even redder! 🦌
+                    </p>
+                    <a href="https://christmas-autocode.netlify.app/" class="cta-button"
+                        >Make Card</a
+                    >
                 </div>
             </section>
-            <section class="features">
-                <!-- Previous feature cards with updated humorous content -->
+            <section class="features" role="region" aria-labelledby="features-heading">
+                <div class="feature-card">
+                    <h3>AI-Powered Magic</h3>
+                    <p>Generate unique, heartfelt messages using cutting-edge AI technology</p>
+                </div>
+                <div class="feature-card">
+                    <h3>Multiple Styles</h3>
+                    <p>Choose from formal, casual, funny, or heartfelt message styles</p>
+                </div>
+                <div class="feature-card">
+                    <h3>Personal Touch</h3>
+                    <p>Customize messages with personal details and preferences</p>
+                </div>
+                <div class="feature-card">
+                    <h3>Festive Themes</h3>
+                    <p>Select from beautiful holiday themes and seasonal designs</p>
+                </div>
             </section>
-            <section class="pricing">
-                <!-- Previous pricing section with fun animations -->
+            <section class="pricing" role="region" aria-labelledby="pricing-heading">
+                <h2 id="pricing-heading">Choose Your Plan</h2>
+                <div class="pricing-grid">
+                    <div class="price-card">
+                        <h3>Free Trial</h3>
+                        <p>3 Messages</p>
+                        <p>Basic Features</p>
+                        <a href="#" class="cta-button" aria-label="Start free trial">Start Free</a>
+                    </div>
+                    <div class="price-card">
+                        <h3>Basic</h3>
+                        <p>10 Credits</p>
+                        <p>All Styles</p>
+                        <a href="#" class="cta-button" aria-label="Choose basic plan"
+                            >Choose Basic</a
+                        >
+                    </div>
+                    <div class="price-card">
+                        <h3>Premium</h3>
+                        <p>50 Credits</p>
+                        <p>Priority Generation</p>
+                        <a href="#" class="cta-button" aria-label="Go premium">Go Premium</a>
+                    </div>
+                </div>
             </section>
         </main>
         <script>
