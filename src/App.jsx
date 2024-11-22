@@ -18,18 +18,14 @@ import {
     Card,
     CardBody,
     SimpleGrid,
-    Link,
-    Icon,
-    useColorMode,
     IconButton,
     Image,
     Tooltip,
     Progress,
-    Switch,
     FormControl,
     FormLabel
 } from '@chakra-ui/react';
-import { FaGithub, FaSun, FaMoon, FaShareAlt, FaCrown, FaGift } from 'react-icons/fa';
+import { FaShareAlt, FaCrown, FaGift } from 'react-icons/fa';
 
 const API_URL = 'https://allchat.online/api';
 
@@ -52,9 +48,6 @@ function App() {
     const [progress, setProgress] = useState(0);
     const [fontSize, setFontSize] = useState(16);
     const [fontFamily, setFontFamily] = useState('Arial');
-    const [highContrast, setHighContrast] = useState(false);
-    const [reducedMotion, setReducedMotion] = useState(false);
-    const { colorMode, toggleColorMode } = useColorMode();
 
     const toast = useToast();
 
@@ -217,25 +210,78 @@ function App() {
         });
     };
 
+    const FormContent = () => (
+        <VStack spacing={4} width="100%">
+            <Input
+                placeholder="Recipient Name"
+                value={recipientName}
+                onChange={(e) => setRecipientName(e.target.value)}
+            />
+            <Select
+                placeholder="Relationship"
+                value={relationship}
+                onChange={(e) => setRelationship(e.target.value)}
+            >
+                <option value="family">Family</option>
+                <option value="friend">Friend</option>
+                <option value="colleague">Colleague</option>
+                <option value="other">Other</option>
+            </Select>
+            <Textarea
+                placeholder="Special memories"
+                value={memories}
+                onChange={(e) => setMemories(e.target.value)}
+            />
+            <Textarea
+                placeholder="Inside jokes"
+                value={insideJokes}
+                onChange={(e) => setInsideJokes(e.target.value)}
+            />
+            <Textarea
+                placeholder="Shared interests"
+                value={sharedInterests}
+                onChange={(e) => setSharedInterests(e.target.value)}
+            />
+            <Textarea
+                placeholder="Recent events"
+                value={recentEvents}
+                onChange={(e) => setRecentEvents(e.target.value)}
+            />
+            <Button
+                size="sm"
+                colorScheme={useEmojis ? 'green' : 'gray'}
+                onClick={() => setUseEmojis(!useEmojis)}
+            >
+                {useEmojis ? 'Emojis: On' : 'Emojis: Off'}
+            </Button>
+            <Button
+                colorScheme="green"
+                isLoading={isLoading}
+                onClick={generateMessage}
+                width="100%"
+            >
+                Generate Message
+            </Button>
+        </VStack>
+    );
+
     return (
         <ChakraProvider>
             <Container maxW="container.xl" py={8}>
                 <VStack spacing={8}>
                     <Box textAlign="center" position="relative" width="100%">
-                        <IconButton
+                        {/* <IconButton
                             aria-label="Toggle color mode"
                             icon={colorMode === 'light' ? <FaMoon /> : <FaSun />}
                             onClick={toggleColorMode}
                             position="absolute"
                             right="0"
                             top="0"
-                        />
+                        /> */}
                         <Text fontSize="3xl" fontWeight="bold">
-                            AI Christmas Card Message Generator 🎄
+                            Holiday Card Generator🎄
                         </Text>
-                        <Link href="https://github.com/msveshnikov/christmas-autocode" isExternal>
-                            <Icon as={FaGithub} boxSize={6} />
-                        </Link>
+
                         <Badge colorScheme="green" ml={2}>
                             Credits remaining: {credits}
                         </Badge>
@@ -259,21 +305,7 @@ function App() {
                     </Box>
 
                     <Box width="100%">
-                        <SimpleGrid columns={[1, 2]} spacing={4}>
-                            <FormControl display="flex" alignItems="center">
-                                <FormLabel mb="0">High Contrast Mode</FormLabel>
-                                <Switch
-                                    isChecked={highContrast}
-                                    onChange={(e) => setHighContrast(e.target.checked)}
-                                />
-                            </FormControl>
-                            <FormControl display="flex" alignItems="center">
-                                <FormLabel mb="0">Reduced Motion</FormLabel>
-                                <Switch
-                                    isChecked={reducedMotion}
-                                    onChange={(e) => setReducedMotion(e.target.checked)}
-                                />
-                            </FormControl>
+                        <SimpleGrid columns={[1, 2]} spacing={4} width="100%">
                             <FormControl>
                                 <FormLabel>Font Size</FormLabel>
                                 <Slider value={fontSize} min={12} max={24} onChange={setFontSize}>
@@ -299,14 +331,13 @@ function App() {
                         </SimpleGrid>
                     </Box>
 
-                    <SimpleGrid columns={[1, 2, 4]} spacing={4} width="100%">
+                    <SimpleGrid columns={[2, 2, 4]} spacing={4} width="100%">
                         {styles.map((style) => (
                             <Card
                                 key={style.id}
                                 cursor="pointer"
                                 bg={messageStyle === style.id ? 'green.100' : 'white'}
                                 onClick={() => setMessageStyle(style.id)}
-                                _hover={{ transform: reducedMotion ? 'none' : 'scale(1.02)' }}
                                 transition="transform 0.2s"
                             >
                                 <CardBody textAlign="center">
@@ -352,59 +383,7 @@ function App() {
                         </Slider>
                     </Box>
 
-                    <VStack width="100%" spacing={4}>
-                        <Input
-                            placeholder="Recipient Name"
-                            value={recipientName}
-                            onChange={(e) => setRecipientName(e.target.value)}
-                        />
-                        <Select
-                            placeholder="Relationship"
-                            value={relationship}
-                            onChange={(e) => setRelationship(e.target.value)}
-                        >
-                            <option value="family">Family</option>
-                            <option value="friend">Friend</option>
-                            <option value="colleague">Colleague</option>
-                            <option value="other">Other</option>
-                        </Select>
-                        <Textarea
-                            placeholder="Special memories"
-                            value={memories}
-                            onChange={(e) => setMemories(e.target.value)}
-                        />
-                        <Textarea
-                            placeholder="Inside jokes"
-                            value={insideJokes}
-                            onChange={(e) => setInsideJokes(e.target.value)}
-                        />
-                        <Textarea
-                            placeholder="Shared interests"
-                            value={sharedInterests}
-                            onChange={(e) => setSharedInterests(e.target.value)}
-                        />
-                        <Textarea
-                            placeholder="Recent events"
-                            value={recentEvents}
-                            onChange={(e) => setRecentEvents(e.target.value)}
-                        />
-                        <Button
-                            size="sm"
-                            colorScheme={useEmojis ? 'green' : 'gray'}
-                            onClick={() => setUseEmojis(!useEmojis)}
-                        >
-                            {useEmojis ? 'Emojis: On' : 'Emojis: Off'}
-                        </Button>
-                    </VStack>
-
-                    <Button
-                        colorScheme="green"
-                        isLoading={isLoading}
-                        onClick={generateMessage}
-                        width="100%"
-                    >
-                        Generate Message
-                    </Button>
+                    <FormContent />
 
                     {isLoading && <Progress value={progress} width="100%" colorScheme="green" />}
 
@@ -421,8 +400,7 @@ function App() {
                                     whiteSpace="pre-wrap"
                                     style={{
                                         fontSize: `${fontSize}px`,
-                                        fontFamily: fontFamily,
-                                        filter: highContrast ? 'contrast(1.5)' : 'none'
+                                        fontFamily: fontFamily
                                     }}
                                 >
                                     {generatedMessage}
