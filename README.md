@@ -168,3 +168,5 @@ tones, and personalization options.
 -   User feedback collection
 
 # TODO
+
+-   fix SEO

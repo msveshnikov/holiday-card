@@ -3,11 +3,31 @@
     <head>
         <meta charset="UTF-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-        <meta name="description" content="AI-powered Christmas card message generator with customizable styles and themes" />
+        <meta
+            name="description"
+            content="AI-powered Christmas card message generator with customizable styles and themes"
+        />
+        <meta
+            name="keywords"
+            content="AI, Christmas, card, message, generator, holiday, greetings"
+        />
+        <meta name="author" content="AutoCode" />
+        <meta property="og:title" content="AI Christmas Card Message Generator 🎄" />
+        <meta
+            property="og:description"
+            content="Create heartfelt holiday messages in seconds with the power of AI"
+        />
+        <meta
+            property="og:image"
+            content="https://images.unsplash.com/photo-1576692155415-95f820a2c4c1"
+        />
         <title>AI Christmas Card Message Generator 🎄</title>
-        <link rel="preconnect" href="https://fonts.googleapis.com">
-        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-        <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700&display=swap" rel="stylesheet">
+        <link rel="preconnect" href="https://fonts.googleapis.com" />
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+        <link
+            href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700&display=swap"
+            rel="stylesheet"
+        />
         <style>
             :root {
                 --primary: #e63946;
@@ -37,7 +57,10 @@
                 align-items: center;
                 justify-content: center;
                 text-align: center;
-                background: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url('https://images.unsplash.com/photo-1576692155415-95f820a2c4c1?auto=format&fit=crop&w=2000') center/cover;
+                background:
+                    linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)),
+                    url('https://images.unsplash.com/photo-1576692155415-95f820a2c4c1?auto=format&fit=crop&w=2000')
+                        center/cover;
                 position: relative;
             }
             .hero-content {
@@ -61,7 +84,10 @@
                 grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
                 gap: 2rem;
                 padding: 6rem max(2rem, 10%);
-                background: linear-gradient(rgba(255, 255, 255, 0.9), rgba(255, 255, 255, 0.9)), url('https://images.unsplash.com/photo-1512389098783-66b81f86e199?auto=format&fit=crop&w=2000') fixed center/cover;
+                background:
+                    linear-gradient(rgba(255, 255, 255, 0.9), rgba(255, 255, 255, 0.9)),
+                    url('https://images.unsplash.com/photo-1512389098783-66b81f86e199?auto=format&fit=crop&w=2000')
+                        fixed center/cover;
             }
             .feature-card {
                 background: white;
@@ -91,8 +117,10 @@
             }
             .pricing {
                 padding: 6rem max(2rem, 10%);
-                background: linear-gradient(rgba(29, 53, 87, 0.95), rgba(29, 53, 87, 0.95)), 
-                            url('https://images.unsplash.com/photo-1543589077-47d81606c1bf?auto=format&fit=crop&w=2000') center/cover;
+                background:
+                    linear-gradient(rgba(29, 53, 87, 0.95), rgba(29, 53, 87, 0.95)),
+                    url('https://images.unsplash.com/photo-1543589077-47d81606c1bf?auto=format&fit=crop&w=2000')
+                        center/cover;
                 color: var(--light);
             }
             .pricing h2 {
@@ -138,78 +166,115 @@
                 box-shadow: 0 6px 24px rgba(230, 57, 70, 0.4);
             }
             @keyframes fadeIn {
-                from { opacity: 0; transform: translateY(20px); }
-                to { opacity: 1; transform: translateY(0); }
+                from {
+                    opacity: 0;
+                    transform: translateY(20px);
+                }
+                to {
+                    opacity: 1;
+                    transform: translateY(0);
+                }
             }
             @media (prefers-reduced-motion: reduce) {
-                .feature-card, .price-card, .cta-button {
+                .feature-card,
+                .price-card,
+                .cta-button {
                     transition: none;
+                }
+                .hero-content {
+                    animation: none;
                 }
             }
             @media (max-width: 768px) {
-                .features, .pricing-grid {
+                .features,
+                .pricing-grid {
                     grid-template-columns: 1fr;
                 }
                 .price-card:hover {
                     transform: scale(1.02);
                 }
             }
+            .skip-link {
+                position: absolute;
+                top: -40px;
+                left: 0;
+                background: var(--primary);
+                color: white;
+                padding: 8px;
+                z-index: 100;
+            }
+            .skip-link:focus {
+                top: 0;
+            }
         </style>
     </head>
     <body>
-        <section class="hero" role="banner">
-            <div class="hero-content">
-                <h1>AI Christmas Card Message Generator 🎄</h1>
-                <p>Create heartfelt holiday messages in seconds with the power of AI</p>
-                <a href="https://christmas-autocode.netlify.app/" class="cta-button" role="button">Start Creating</a>
-            </div>
-        </section>
-        <section class="features" role="region" aria-label="Features">
-            <div class="feature-card">
-                <h3>AI-Powered Magic</h3>
-                <p>Generate unique, heartfelt messages using cutting-edge AI technology</p>
-            </div>
-            <div class="feature-card">
-                <h3>Multiple Styles</h3>
-                <p>Choose from formal, casual, funny, or heartfelt message styles</p>
-            </div>
-            <div class="feature-card">
-                <h3>Personal Touch</h3>
-                <p>Customize messages with personal details and preferences</p>
-            </div>
-            <div class="feature-card">
-                <h3>Festive Themes</h3>
-                <p>Select from beautiful holiday themes and seasonal designs</p>
-            </div>
-        </section>
-        <section class="pricing" role="region" aria-label="Pricing">
-            <h2>Choose Your Plan</h2>
-            <div class="pricing-grid">
-                <div class="price-card">
-                    <h3>Free Trial</h3>
-                    <p>3 Messages</p>
-                    <p>Basic Features</p>
-                    <a href="#" class="cta-button">Start Free</a>
+        <a href="#main" class="skip-link">Skip to main content</a>
+        <main id="main">
+            <section class="hero" role="banner">
+                <div class="hero-content">
+                    <h1>AI Christmas Card Message Generator 🎄</h1>
+                    <p>Create heartfelt holiday messages in seconds with the power of AI</p>
+                    <a
+                        href="https://christmas-autocode.netlify.app/"
+                        class="cta-button"
+                        role="button"
+                        aria-label="Start creating messages"
+                        >Start Creating</a
+                    >
                 </div>
-                <div class="price-card">
-                    <h3>Basic</h3>
-                    <p>10 Credits</p>
-                    <p>All Styles</p>
-                    <a href="#" class="cta-button">Choose Basic</a>
+            </section>
+            <section class="features" role="region" aria-labelledby="features-heading">
+                <div class="feature-card">
+                    <h3>AI-Powered Magic</h3>
+                    <p>Generate unique, heartfelt messages using cutting-edge AI technology</p>
                 </div>
-                <div class="price-card">
-                    <h3>Premium</h3>
-                    <p>50 Credits</p>
-                    <p>Priority Generation</p>
-                    <a href="#" class="cta-button">Go Premium</a>
+                <div class="feature-card">
+                    <h3>Multiple Styles</h3>
+                    <p>Choose from formal, casual, funny, or heartfelt message styles</p>
                 </div>
-                <div class="price-card">
-                    <h3>Enterprise</h3>
-                    <p>Unlimited</p>
-                    <p>Custom Solutions</p>
-                    <a href="#" class="cta-button">Contact Us</a>
+                <div class="feature-card">
+                    <h3>Personal Touch</h3>
+                    <p>Customize messages with personal details and preferences</p>
                 </div>
-            </div>
-        </section>
+                <div class="feature-card">
+                    <h3>Festive Themes</h3>
+                    <p>Select from beautiful holiday themes and seasonal designs</p>
+                </div>
+            </section>
+            <section class="pricing" role="region" aria-labelledby="pricing-heading">
+                <h2 id="pricing-heading">Choose Your Plan</h2>
+                <div class="pricing-grid">
+                    <div class="price-card">
+                        <h3>Free Trial</h3>
+                        <p>3 Messages</p>
+                        <p>Basic Features</p>
+                        <a href="#" class="cta-button" aria-label="Start free trial">Start Free</a>
+                    </div>
+                    <div class="price-card">
+                        <h3>Basic</h3>
+                        <p>10 Credits</p>
+                        <p>All Styles</p>
+                        <a href="#" class="cta-button" aria-label="Choose basic plan"
+                            >Choose Basic</a
+                        >
+                    </div>
+                    <div class="price-card">
+                        <h3>Premium</h3>
+                        <p>50 Credits</p>
+                        <p>Priority Generation</p>
+                        <a href="#" class="cta-button" aria-label="Go premium">Go Premium</a>
+                    </div>
+                    <div class="price-card">
+                        <h3>Enterprise</h3>
+                        <p>Unlimited</p>
+                        <p>Custom Solutions</p>
+                        <a href="#" class="cta-button" aria-label="Contact us for enterprise plan"
+                            >Contact Us</a
+                        >
+                    </div>
+                </div>
+            </section>
+        </main>
     </body>
 </html>
