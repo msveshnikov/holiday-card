@@ -22,9 +22,11 @@ import {
     Icon,
     useColorMode,
     IconButton,
-    Image
+    Image,
+    Tooltip,
+    Progress
 } from '@chakra-ui/react';
-import { FaGithub, FaSun, FaMoon, FaShareAlt } from 'react-icons/fa';
+import { FaGithub, FaSun, FaMoon, FaShareAlt, FaCrown, FaGift } from 'react-icons/fa';
 
 function App() {
     const [messageStyle, setMessageStyle] = useState('formal');
@@ -41,6 +43,8 @@ function App() {
     const [selectedImage, setSelectedImage] = useState(
         'https://plus.unsplash.com/premium_photo-1661766896016-16e307246d5d?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D'
     );
+    const [useEmojis, setUseEmojis] = useState(true);
+    const [progress, setProgress] = useState(0);
     const { colorMode, toggleColorMode } = useColorMode();
 
     const toast = useToast();
@@ -88,10 +92,20 @@ function App() {
         }
 
         setIsLoading(true);
+        setProgress(0);
+        const progressInterval = setInterval(() => {
+            setProgress((prev) => Math.min(prev + 10, 90));
+        }, 500);
+
         try {
-            const message = `Dear ${recipientName},\n\nHappy Holidays! [AI generated message would go here based on:\nStyle: ${messageStyle}\nTone: ${getToneLabel(tone)}\nRelationship: ${relationship}\nMemories: ${memories}\nJokes: ${insideJokes}\nInterests: ${sharedInterests}\nEvents: ${recentEvents}]`;
+            const message = `Dear ${recipientName},\n\nHappy Holidays! [AI generated message would go here based on:\nStyle: ${messageStyle}\nTone: ${getToneLabel(
+                tone
+            )}\nRelationship: ${relationship}\nMemories: ${memories}\nJokes: ${insideJokes}\nInterests: ${sharedInterests}\nEvents: ${recentEvents}]\n\n${
+                useEmojis ? '🎄✨🎅' : ''
+            }`;
             setGeneratedMessage(message);
             setCredits(credits - 1);
+            setProgress(100);
             toast({
                 title: 'Message generated successfully',
                 status: 'success',
@@ -104,8 +118,10 @@ function App() {
                 status: 'error',
                 duration: 3000
             });
+        } finally {
+            clearInterval(progressInterval);
+            setIsLoading(false);
         }
-        setIsLoading(false);
     };
 
     const getToneLabel = (value) => {
@@ -155,6 +171,16 @@ function App() {
         }
     };
 
+    const handleDailyReward = () => {
+        setCredits((prev) => prev + 1);
+        toast({
+            title: 'Daily reward claimed!',
+            description: '+1 credit added to your account',
+            status: 'success',
+            duration: 2000
+        });
+    };
+
     return (
         <ChakraProvider>
             <Container maxW="container.xl" py={8}>
@@ -177,6 +203,23 @@ function App() {
                         <Badge colorScheme="green" ml={2}>
                             Credits remaining: {credits}
                         </Badge>
+                        <Tooltip label="Claim daily reward">
+                            <IconButton
+                                aria-label="Claim daily reward"
+                                icon={<FaGift />}
+                                ml={2}
+                                onClick={handleDailyReward}
+                                colorScheme="pink"
+                            />
+                        </Tooltip>
+                        <Tooltip label="Upgrade to Premium">
+                            <IconButton
+                                aria-label="Upgrade to Premium"
+                                icon={<FaCrown />}
+                                ml={2}
+                                colorScheme="yellow"
+                            />
+                        </Tooltip>
                     </Box>
 
                     <SimpleGrid columns={[1, 2, 4]} spacing={4} width="100%">
@@ -268,6 +311,13 @@ function App() {
                             value={recentEvents}
                             onChange={(e) => setRecentEvents(e.target.value)}
                         />
+                        <Button
+                            size="sm"
+                            colorScheme={useEmojis ? 'green' : 'gray'}
+                            onClick={() => setUseEmojis(!useEmojis)}
+                        >
+                            {useEmojis ? 'Emojis: On' : 'Emojis: Off'}
+                        </Button>
                     </VStack>
 
                     <Button
@@ -278,6 +328,8 @@ function App() {
                     >
                         Generate Message
                     </Button>
+
+                    {isLoading && <Progress value={progress} width="100%" colorScheme="green" />}
 
                     {generatedMessage && (
                         <Card width="100%">

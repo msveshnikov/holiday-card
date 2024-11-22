@@ -169,4 +169,3 @@ tones, and personalization options.
 
 # TODO
 
--   fix SEO
