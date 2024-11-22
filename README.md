@@ -169,4 +169,4 @@ tones, and personalization options.
 
 # TODO
 
--   put text to image with nice font
+-   use logic from handleSubmit to access model, fix everything and connect

@@ -29,7 +29,9 @@ import {
     FormControl,
     FormLabel
 } from '@chakra-ui/react';
-import { FaGithub, FaSun, FaMoon, FaShareAlt, FaCrown, FaGift, FaHistory, FaFont } from 'react-icons/fa';
+import { FaGithub, FaSun, FaMoon, FaShareAlt, FaCrown, FaGift } from 'react-icons/fa';
+
+const API_URL = 'https://allchat.online/api';
 
 function App() {
     const [messageStyle, setMessageStyle] = useState('formal');
@@ -107,12 +109,37 @@ function App() {
         }, 500);
 
         try {
-            const message = `Dear ${recipientName},\n\nHappy Holidays! [AI generated message would go here based on:\nStyle: ${messageStyle}\nTone: ${getToneLabel(
+            const token = import.meta.env.VITE_CHAT_TOKEN;
+            const prompt = `Create a ${messageStyle} Christmas message with a ${getToneLabel(
                 tone
-            )}\nRelationship: ${relationship}\nMemories: ${memories}\nJokes: ${insideJokes}\nInterests: ${sharedInterests}\nEvents: ${recentEvents}]\n\n${
-                useEmojis ? '🎄✨🎅' : ''
+            )} tone for my ${relationship} named ${recipientName}.${
+                memories ? ` Include these memories: ${memories}.` : ''
+            }${insideJokes ? ` Reference these inside jokes: ${insideJokes}.` : ''}${
+                sharedInterests ? ` Mention our shared interests in: ${sharedInterests}.` : ''
+            }${recentEvents ? ` Acknowledge these recent events: ${recentEvents}.` : ''}${
+                useEmojis ? ' Include appropriate emojis.' : ''
             }`;
-            setGeneratedMessage(message);
+
+            const response = await fetch(`${API_URL}/interact`, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                    Authorization: `Bearer ${token}`
+                },
+                body: JSON.stringify({
+                    input: prompt,
+                    lang: (navigator.languages && navigator.languages[0]) || navigator.language,
+                    model: 'gpt-4o-mini',
+                    customGPT: 'Christmas'
+                })
+            });
+
+            if (!response.ok) {
+                throw new Error('Failed to generate message');
+            }
+
+            const data = await response.json();
+            setGeneratedMessage(data.textResponse);
             setCredits(credits - 1);
             setProgress(100);
             toast({
@@ -235,11 +262,17 @@ function App() {
                         <SimpleGrid columns={[1, 2]} spacing={4}>
                             <FormControl display="flex" alignItems="center">
                                 <FormLabel mb="0">High Contrast Mode</FormLabel>
-                                <Switch isChecked={highContrast} onChange={(e) => setHighContrast(e.target.checked)} />
+                                <Switch
+                                    isChecked={highContrast}
+                                    onChange={(e) => setHighContrast(e.target.checked)}
+                                />
                             </FormControl>
                             <FormControl display="flex" alignItems="center">
                                 <FormLabel mb="0">Reduced Motion</FormLabel>
-                                <Switch isChecked={reducedMotion} onChange={(e) => setReducedMotion(e.target.checked)} />
+                                <Switch
+                                    isChecked={reducedMotion}
+                                    onChange={(e) => setReducedMotion(e.target.checked)}
+                                />
                             </FormControl>
                             <FormControl>
                                 <FormLabel>Font Size</FormLabel>
@@ -252,7 +285,10 @@ function App() {
                             </FormControl>
                             <FormControl>
                                 <FormLabel>Font Family</FormLabel>
-                                <Select value={fontFamily} onChange={(e) => setFontFamily(e.target.value)}>
+                                <Select
+                                    value={fontFamily}
+                                    onChange={(e) => setFontFamily(e.target.value)}
+                                >
                                     {fonts.map((font) => (
                                         <option key={font} value={font}>
                                             {font}
