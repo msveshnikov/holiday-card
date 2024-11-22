@@ -169,5 +169,3 @@ tones, and personalization options.
 -   User feedback collection
 
 # TODO
-
--   add selection of some good hardcoded unsplash url image and include into card

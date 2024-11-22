@@ -209,6 +209,8 @@ function App() {
                                     borderRadius="md"
                                     border={selectedImage === image ? '2px solid green' : 'none'}
                                     onClick={() => setSelectedImage(image)}
+                                    height="200px"
+                                    objectFit="cover"
                                 />
                             ))}
                         </SimpleGrid>
