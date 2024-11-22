@@ -169,3 +169,4 @@ tones, and personalization options.
 
 # TODO
 
+-   put text to image with nice font

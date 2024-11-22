@@ -24,9 +24,12 @@ import {
     IconButton,
     Image,
     Tooltip,
-    Progress
+    Progress,
+    Switch,
+    FormControl,
+    FormLabel
 } from '@chakra-ui/react';
-import { FaGithub, FaSun, FaMoon, FaShareAlt, FaCrown, FaGift } from 'react-icons/fa';
+import { FaGithub, FaSun, FaMoon, FaShareAlt, FaCrown, FaGift, FaHistory, FaFont } from 'react-icons/fa';
 
 function App() {
     const [messageStyle, setMessageStyle] = useState('formal');
@@ -45,6 +48,10 @@ function App() {
     );
     const [useEmojis, setUseEmojis] = useState(true);
     const [progress, setProgress] = useState(0);
+    const [fontSize, setFontSize] = useState(16);
+    const [fontFamily, setFontFamily] = useState('Arial');
+    const [highContrast, setHighContrast] = useState(false);
+    const [reducedMotion, setReducedMotion] = useState(false);
     const { colorMode, toggleColorMode } = useColorMode();
 
     const toast = useToast();
@@ -62,6 +69,8 @@ function App() {
         { id: 'funny', name: 'Funny', icon: '😂' },
         { id: 'heartfelt', name: 'Heartfelt', icon: '❤️' }
     ];
+
+    const fonts = ['Arial', 'Times New Roman', 'Courier New', 'Georgia', 'Verdana'];
 
     const toneLabels = {
         0: 'Professional',
@@ -222,6 +231,38 @@ function App() {
                         </Tooltip>
                     </Box>
 
+                    <Box width="100%">
+                        <SimpleGrid columns={[1, 2]} spacing={4}>
+                            <FormControl display="flex" alignItems="center">
+                                <FormLabel mb="0">High Contrast Mode</FormLabel>
+                                <Switch isChecked={highContrast} onChange={(e) => setHighContrast(e.target.checked)} />
+                            </FormControl>
+                            <FormControl display="flex" alignItems="center">
+                                <FormLabel mb="0">Reduced Motion</FormLabel>
+                                <Switch isChecked={reducedMotion} onChange={(e) => setReducedMotion(e.target.checked)} />
+                            </FormControl>
+                            <FormControl>
+                                <FormLabel>Font Size</FormLabel>
+                                <Slider value={fontSize} min={12} max={24} onChange={setFontSize}>
+                                    <SliderTrack>
+                                        <SliderFilledTrack />
+                                    </SliderTrack>
+                                    <SliderThumb />
+                                </Slider>
+                            </FormControl>
+                            <FormControl>
+                                <FormLabel>Font Family</FormLabel>
+                                <Select value={fontFamily} onChange={(e) => setFontFamily(e.target.value)}>
+                                    {fonts.map((font) => (
+                                        <option key={font} value={font}>
+                                            {font}
+                                        </option>
+                                    ))}
+                                </Select>
+                            </FormControl>
+                        </SimpleGrid>
+                    </Box>
+
                     <SimpleGrid columns={[1, 2, 4]} spacing={4} width="100%">
                         {styles.map((style) => (
                             <Card
@@ -229,7 +270,7 @@ function App() {
                                 cursor="pointer"
                                 bg={messageStyle === style.id ? 'green.100' : 'white'}
                                 onClick={() => setMessageStyle(style.id)}
-                                _hover={{ transform: 'scale(1.02)' }}
+                                _hover={{ transform: reducedMotion ? 'none' : 'scale(1.02)' }}
                                 transition="transform 0.2s"
                             >
                                 <CardBody textAlign="center">
@@ -340,7 +381,16 @@ function App() {
                                     mb={4}
                                     borderRadius="md"
                                 />
-                                <Text whiteSpace="pre-wrap">{generatedMessage}</Text>
+                                <Text
+                                    whiteSpace="pre-wrap"
+                                    style={{
+                                        fontSize: `${fontSize}px`,
+                                        fontFamily: fontFamily,
+                                        filter: highContrast ? 'contrast(1.5)' : 'none'
+                                    }}
+                                >
+                                    {generatedMessage}
+                                </Text>
                                 <SimpleGrid columns={[1, 2]} spacing={4} mt={4}>
                                     <Button colorScheme="blue" onClick={handleDownload}>
                                         Download Message
