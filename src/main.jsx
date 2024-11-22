@@ -1,4 +1,3 @@
-import { StrictMode } from 'react';
 import { createRoot } from 'react-dom/client';
 import { ChakraProvider, ColorModeScript } from '@chakra-ui/react';
 import { Helmet, HelmetProvider } from 'react-helmet-async';
@@ -8,23 +7,18 @@ import App from './App';
 const root = createRoot(document.getElementById('root'));
 
 root.render(
-    <StrictMode>
-        <HelmetProvider>
-            <Helmet>
-                <title>AI Christmas Card Message Generator</title>
-                <meta
-                    name="description"
-                    content="Generate personalized AI-powered holiday messages"
-                />
-                <meta property="og:title" content="AI Christmas Card Message Generator" />
-                <meta property="og:description" content="Create unique holiday messages with AI" />
-                <meta property="og:type" content="website" />
-                <meta name="viewport" content="width=device-width, initial-scale=1" />
-            </Helmet>
-            <ColorModeScript initialColorMode={theme.config.initialColorMode} />
-            <ChakraProvider theme={theme}>
-                <App />
-            </ChakraProvider>
-        </HelmetProvider>
-    </StrictMode>
+    <HelmetProvider>
+        <Helmet>
+            <title>AI Christmas Card Message Generator</title>
+            <meta name="description" content="Generate personalized AI-powered holiday messages" />
+            <meta property="og:title" content="AI Christmas Card Message Generator" />
+            <meta property="og:description" content="Create unique holiday messages with AI" />
+            <meta property="og:type" content="website" />
+            <meta name="viewport" content="width=device-width, initial-scale=1" />
+        </Helmet>
+        <ColorModeScript initialColorMode={theme.config.initialColorMode} />
+        <ChakraProvider theme={theme}>
+            <App />
+        </ChakraProvider>
+    </HelmetProvider>
 );
