@@ -21,9 +21,10 @@ import {
     Link,
     Icon,
     useColorMode,
-    IconButton
+    IconButton,
+    Image
 } from '@chakra-ui/react';
-import { FaGithub, FaSun, FaMoon } from 'react-icons/fa';
+import { FaGithub, FaSun, FaMoon, FaShareAlt } from 'react-icons/fa';
 
 function App() {
     const [messageStyle, setMessageStyle] = useState('formal');
@@ -37,9 +38,19 @@ function App() {
     const [generatedMessage, setGeneratedMessage] = useState('');
     const [credits, setCredits] = useState(3);
     const [isLoading, setIsLoading] = useState(false);
+    const [selectedImage, setSelectedImage] = useState(
+        'https://plus.unsplash.com/premium_photo-1661766896016-16e307246d5d?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D'
+    );
     const { colorMode, toggleColorMode } = useColorMode();
 
     const toast = useToast();
+
+    const backgroundImages = [
+        'https://plus.unsplash.com/premium_photo-1661766896016-16e307246d5d?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D',
+        'https://images.unsplash.com/photo-1480930700499-dc44aa7cb2cf?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D',
+        'https://images.unsplash.com/photo-1483373018724-770a096812ff?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D',
+        'https://images.unsplash.com/photo-1461010083959-8a5727311252?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D'
+    ];
 
     const styles = [
         { id: 'formal', name: 'Formal', icon: '🎩' },
@@ -81,6 +92,11 @@ function App() {
             const message = `Dear ${recipientName},\n\nHappy Holidays! [AI generated message would go here based on:\nStyle: ${messageStyle}\nTone: ${getToneLabel(tone)}\nRelationship: ${relationship}\nMemories: ${memories}\nJokes: ${insideJokes}\nInterests: ${sharedInterests}\nEvents: ${recentEvents}]`;
             setGeneratedMessage(message);
             setCredits(credits - 1);
+            toast({
+                title: 'Message generated successfully',
+                status: 'success',
+                duration: 2000
+            });
         } catch (error) {
             toast({
                 title: 'Error generating message',
@@ -108,6 +124,35 @@ function App() {
         document.body.appendChild(element);
         element.click();
         document.body.removeChild(element);
+    };
+
+    const handleShare = async () => {
+        if (navigator.share) {
+            try {
+                await navigator.share({
+                    title: 'Christmas Message',
+                    text: generatedMessage
+                });
+                toast({
+                    title: 'Shared successfully',
+                    status: 'success',
+                    duration: 2000
+                });
+            } catch (error) {
+                toast({
+                    title: 'Error sharing message',
+                    status: 'error',
+                    duration: 2000
+                });
+            }
+        } else {
+            toast({
+                title: 'Sharing not supported',
+                description: 'Your browser does not support sharing',
+                status: 'warning',
+                duration: 2000
+            });
+        }
     };
 
     return (
@@ -151,6 +196,23 @@ function App() {
                             </Card>
                         ))}
                     </SimpleGrid>
+
+                    <Box width="100%">
+                        <Text mb={2}>Background Image:</Text>
+                        <SimpleGrid columns={[2, 2, 4]} spacing={4}>
+                            {backgroundImages.map((image, index) => (
+                                <Image
+                                    key={index}
+                                    src={image}
+                                    alt={`Background ${index + 1}`}
+                                    cursor="pointer"
+                                    borderRadius="md"
+                                    border={selectedImage === image ? '2px solid green' : 'none'}
+                                    onClick={() => setSelectedImage(image)}
+                                />
+                            ))}
+                        </SimpleGrid>
+                    </Box>
 
                     <Box width="100%">
                         <Text mb={2}>Tone: {getToneLabel(tone)}</Text>
@@ -218,10 +280,25 @@ function App() {
                     {generatedMessage && (
                         <Card width="100%">
                             <CardBody>
+                                <Image
+                                    src={selectedImage}
+                                    alt="Christmas Background"
+                                    mb={4}
+                                    borderRadius="md"
+                                />
                                 <Text whiteSpace="pre-wrap">{generatedMessage}</Text>
-                                <Button mt={4} colorScheme="blue" onClick={handleDownload}>
-                                    Download Message
-                                </Button>
+                                <SimpleGrid columns={[1, 2]} spacing={4} mt={4}>
+                                    <Button colorScheme="blue" onClick={handleDownload}>
+                                        Download Message
+                                    </Button>
+                                    <Button
+                                        leftIcon={<FaShareAlt />}
+                                        colorScheme="green"
+                                        onClick={handleShare}
+                                    >
+                                        Share Message
+                                    </Button>
+                                </SimpleGrid>
                             </CardBody>
                         </Card>
                     )}

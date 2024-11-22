@@ -5,7 +5,8 @@ tones, and personalization options.
 
 # DEMO
 
-https://christmas-autocode.netlify.app/
+-   https://christmas-autocode.netlify.app/
+-   https://christmas-autocode.netlify.app/landing.html
 
 ## Features
 
@@ -169,3 +170,4 @@ https://christmas-autocode.netlify.app/
 
 # TODO
 
+-   add selection of some good hardcoded unsplash url image and include into card
