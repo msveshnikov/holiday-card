@@ -210,61 +210,6 @@ function App() {
         });
     };
 
-    const FormContent = () => (
-        <VStack spacing={4} width="100%">
-            <Input
-                placeholder="Recipient Name"
-                value={recipientName}
-                onChange={(e) => setRecipientName(e.target.value)}
-            />
-            <Select
-                placeholder="Relationship"
-                value={relationship}
-                onChange={(e) => setRelationship(e.target.value)}
-            >
-                <option value="family">Family</option>
-                <option value="friend">Friend</option>
-                <option value="colleague">Colleague</option>
-                <option value="other">Other</option>
-            </Select>
-            <Textarea
-                placeholder="Special memories"
-                value={memories}
-                onChange={(e) => setMemories(e.target.value)}
-            />
-            <Textarea
-                placeholder="Inside jokes"
-                value={insideJokes}
-                onChange={(e) => setInsideJokes(e.target.value)}
-            />
-            <Textarea
-                placeholder="Shared interests"
-                value={sharedInterests}
-                onChange={(e) => setSharedInterests(e.target.value)}
-            />
-            <Textarea
-                placeholder="Recent events"
-                value={recentEvents}
-                onChange={(e) => setRecentEvents(e.target.value)}
-            />
-            <Button
-                size="sm"
-                colorScheme={useEmojis ? 'green' : 'gray'}
-                onClick={() => setUseEmojis(!useEmojis)}
-            >
-                {useEmojis ? 'Emojis: On' : 'Emojis: Off'}
-            </Button>
-            <Button
-                colorScheme="green"
-                isLoading={isLoading}
-                onClick={generateMessage}
-                width="100%"
-            >
-                Generate Message
-            </Button>
-        </VStack>
-    );
-
     return (
         <ChakraProvider>
             <Container maxW="container.xl" py={8}>
@@ -383,7 +328,59 @@ function App() {
                         </Slider>
                     </Box>
 
-                    <FormContent />
+                    <VStack width="100%" spacing={4}>
+                        <Input
+                            placeholder="Recipient Name"
+                            value={recipientName}
+                            onChange={(e) => setRecipientName(e.target.value)}
+                        />
+                        <Select
+                            placeholder="Relationship"
+                            value={relationship}
+                            onChange={(e) => setRelationship(e.target.value)}
+                        >
+                            <option value="family">Family</option>
+                            <option value="friend">Friend</option>
+                            <option value="colleague">Colleague</option>
+                            <option value="other">Other</option>
+                        </Select>
+                        <Textarea
+                            placeholder="Special memories"
+                            value={memories}
+                            onChange={(e) => setMemories(e.target.value)}
+                        />
+                        <Textarea
+                            placeholder="Inside jokes"
+                            value={insideJokes}
+                            onChange={(e) => setInsideJokes(e.target.value)}
+                        />
+                        <Textarea
+                            placeholder="Shared interests"
+                            value={sharedInterests}
+                            onChange={(e) => setSharedInterests(e.target.value)}
+                        />
+                        <Textarea
+                            placeholder="Recent events"
+                            value={recentEvents}
+                            onChange={(e) => setRecentEvents(e.target.value)}
+                        />
+                        <Button
+                            size="sm"
+                            colorScheme={useEmojis ? 'green' : 'gray'}
+                            onClick={() => setUseEmojis(!useEmojis)}
+                        >
+                            {useEmojis ? 'Emojis: On' : 'Emojis: Off'}
+                        </Button>
+                    </VStack>
+
+                    <Button
+                        colorScheme="green"
+                        isLoading={isLoading}
+                        onClick={generateMessage}
+                        width="100%"
+                    >
+                        Generate Message
+                    </Button>
 
                     {isLoading && <Progress value={progress} width="100%" colorScheme="green" />}
 

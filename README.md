@@ -5,7 +5,7 @@ tones, and personalization options.
 
 # DEMO
 
--   https://christmas-autocode.netlify.app/landing.html
+-   https://holidaycard.shop/landing.html
 
 ## Features
 
