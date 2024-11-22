@@ -2,7 +2,8 @@
 
 ## Overview
 
-A web application that generates personalized holiday messages using AI, with customizable styles, tones, and personalization options.
+A web application that generates personalized holiday messages using AI, with customizable styles,
+tones, and personalization options.
 
 ## Features
 
