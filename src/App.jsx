@@ -1,6 +1,5 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import {
-    ChakraProvider,
     Box,
     VStack,
     Container,
@@ -52,8 +51,28 @@ function App() {
     const [fontSize, setFontSize] = useState(16);
     const [fontFamily, setFontFamily] = useState('Arial');
     const [animation, setAnimation] = useState('fade');
+    const [messageHistory, setMessageHistory] = useState([]);
 
     const toast = useToast();
+
+    useEffect(() => {
+        const savedCredits = localStorage.getItem('credits');
+        if (savedCredits) {
+            setCredits(parseInt(savedCredits, 10));
+        }
+        const savedHistory = localStorage.getItem('messageHistory');
+        if (savedHistory) {
+            setMessageHistory(JSON.parse(savedHistory));
+        }
+    }, []);
+
+    useEffect(() => {
+        localStorage.setItem('credits', credits);
+    }, [credits]);
+
+    useEffect(() => {
+        localStorage.setItem('messageHistory', JSON.stringify(messageHistory));
+    }, [messageHistory]);
 
     const backgroundImages = [
         'https://plus.unsplash.com/premium_photo-1661766896016-16e307246d5d?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D',
@@ -140,6 +159,7 @@ function App() {
             setGeneratedMessage(data.textResponse);
             setCredits(credits - 1);
             setProgress(100);
+            setMessageHistory([...messageHistory, data.textResponse]);
             toast({
                 title: 'Message generated successfully',
                 status: 'success',
@@ -216,7 +236,7 @@ function App() {
     };
 
     return (
-        <ChakraProvider>
+        <Box minHeight="100vh">
             <Container maxW="container.xl" py={8}>
                 <VStack spacing={8}>
                     <Box textAlign="center" position="relative" width="100%">
@@ -288,7 +308,7 @@ function App() {
                             <Card
                                 key={style.id}
                                 cursor="pointer"
-                                bg={messageStyle === style.id ? 'green.100' : 'white'}
+                                bg={messageStyle === style.id ? 'green.100' : 'grey.100'}
                                 onClick={() => setMessageStyle(style.id)}
                                 transition="transform 0.2s"
                                 _hover={{ transform: 'scale(1.05)' }}
@@ -441,9 +461,26 @@ function App() {
                             </CardBody>
                         </Card>
                     )}
+
+                    {messageHistory.length > 0 && (
+                        <Box width="100%">
+                            <Text fontSize="xl" fontWeight="bold" mb={2}>
+                                Message History
+                            </Text>
+                            <VStack spacing={2} align="stretch">
+                                {messageHistory.map((message, index) => (
+                                    <Card key={index}>
+                                        <CardBody>
+                                            <Text noOfLines={2}>{message}</Text>
+                                        </CardBody>
+                                    </Card>
+                                ))}
+                            </VStack>
+                        </Box>
+                    )}
                 </VStack>
             </Container>
-        </ChakraProvider>
+        </Box>
     );
 }
 
