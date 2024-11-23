@@ -127,7 +127,7 @@ function App() {
                 body: JSON.stringify({
                     input: prompt,
                     lang: (navigator.languages && navigator.languages[0]) || navigator.language,
-                    model: 'gpt-4-turbo',
+                    model: 'gpt-4o-mini',
                     customGPT: 'Christmas'
                 })
             });
