@@ -28,6 +28,7 @@ import {
     GridItem
 } from '@chakra-ui/react';
 import { FaShareAlt, FaCrown, FaGift } from 'react-icons/fa';
+import ReactGA from 'react-ga4';
 
 const API_URL = 'https://allchat.online/api';
 
@@ -51,7 +52,6 @@ function App() {
     const [progress, setProgress] = useState(0);
     const [fontSize, setFontSize] = useState(16);
     const [fontFamily, setFontFamily] = useState('Arial');
-    const [animation, setAnimation] = useState('fade');
     const [messageHistory, setMessageHistory] = useState([]);
 
     const toast = useToast();
@@ -68,6 +68,11 @@ function App() {
     }, []);
 
     useEffect(() => {
+        ReactGA.initialize('G-E5XZ9W8ZWN');
+        ReactGA.send({ hitType: 'pageview', page: window.location.pathname });
+    }, []);
+
+    useEffect(() => {
         localStorage.setItem('credits', credits);
     }, [credits]);
 
@@ -76,10 +81,10 @@ function App() {
     }, [messageHistory]);
 
     const backgroundImages = [
-        'https://plus.unsplash.com/premium_photo-1661766896016-16e307246d5d?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D',
-        'https://images.unsplash.com/photo-1480930700499-dc44aa7cb2cf?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D',
-        'https://images.unsplash.com/photo-1483373018724-770a096812ff?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D',
-        'https://images.unsplash.com/photo-1461010083959-8a5727311252?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D'
+        'https://plus.unsplash.com/premium_photo-1661766896016-16e307246d5d?q=80&w=570&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D',
+        'https://images.unsplash.com/photo-1480930700499-dc44aa7cb2cf?q=80&w=570&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D',
+        'https://images.unsplash.com/photo-1483373018724-770a096812ff?q=80&w=570&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D',
+        'https://images.unsplash.com/photo-1461010083959-8a5727311252?q=80&w=570&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D'
     ];
 
     const styles = [
@@ -90,7 +95,6 @@ function App() {
     ];
 
     const fonts = ['Arial', 'Times New Roman', 'Courier New', 'Georgia', 'Verdana'];
-    const animations = ['fade', 'slide', 'bounce', 'none'];
 
     const toneLabels = {
         0: 'Professional',
@@ -247,7 +251,7 @@ function App() {
                     status: 'success',
                     duration: 2000
                 });
-            } catch (error) {
+            } catch {
                 toast({
                     title: 'Error sharing message',
                     status: 'error',
@@ -323,19 +327,6 @@ function App() {
                                 {fonts.map((font) => (
                                     <option key={font} value={font}>
                                         {font}
-                                    </option>
-                                ))}
-                            </Select>
-                        </FormControl>
-                        <FormControl>
-                            <FormLabel>Animation</FormLabel>
-                            <Select
-                                value={animation}
-                                onChange={(e) => setAnimation(e.target.value)}
-                            >
-                                {animations.map((anim) => (
-                                    <option key={anim} value={anim}>
-                                        {anim}
                                     </option>
                                 ))}
                             </Select>
@@ -471,12 +462,7 @@ function App() {
                     {isLoading && <Progress value={progress} width="100%" colorScheme="green" />}
 
                     {generatedMessage && (
-                        <Card
-                            width="100%"
-                            animation={
-                                animation !== 'none' ? `${animation} 0.5s ease-in-out` : undefined
-                            }
-                        >
+                        <Card width="100%">
                             <CardBody>
                                 <Image
                                     src={selectedImage}

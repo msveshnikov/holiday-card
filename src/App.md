@@ -1,137 +1,113 @@
-# AI Christmas Card Message Generator Documentation
+# App.jsx Documentation
 
 ## Overview
 
-The `App.jsx` file is the main component of a React application that generates personalized
-Christmas card messages using AI. It provides a user-friendly interface built with Chakra UI
-components, allowing users to customize messages based on various parameters like style, tone, and
-personal details.
+This file contains the main React component for the Holiday Card Generator application. It provides a user interface for generating personalized Christmas messages using various inputs and styling options. The component integrates with an API to generate messages and manages user credits and message history.
 
-## Component Structure
+## Component: App
 
-### App Component
+The `App` component is the root component of the application. It manages the state, user interactions, and renders the UI for the Holiday Card Generator.
 
-The main functional component that manages the entire application state and UI.
+### State Variables
 
-## State Management
+- `messageStyle`: Controls the style of the message (formal, casual, funny, heartfelt)
+- `tone`: Numeric value representing the tone of the message
+- `recipientName`: Name of the message recipient
+- `relationship`: Relationship to the recipient
+- `memories`, `insideJokes`, `sharedInterests`, `recentEvents`, `customAdditions`: Additional context for message generation
+- `generatedMessage`: Stores the generated message
+- `credits`: Number of credits available to the user
+- `isLoading`: Boolean indicating if a message is being generated
+- `selectedImage`: URL of the selected background image
+- `useEmojis`: Boolean to include emojis in the message
+- `progress`: Numeric value for the progress bar during message generation
+- `fontSize`, `fontFamily`, `animation`: Styling options for the generated message
+- `messageHistory`: Array of previously generated messages
 
+### Main Functions
+
+#### generateMessage
+
+Generates a new message based on user inputs.
+
+**Usage:**
 ```javascript
-const [messageStyle, setMessageStyle] = useState('formal');
-const [tone, setTone] = useState(50);
-const [recipientName, setRecipientName] = useState('');
-const [relationship, setRelationship] = useState('');
-const [memories, setMemories] = useState('');
-const [insideJokes, setInsideJokes] = useState('');
-const [sharedInterests, setSharedInterests] = useState('');
-const [recentEvents, setRecentEvents] = useState('');
-const [generatedMessage, setGeneratedMessage] = useState('');
-const [credits, setCredits] = useState(3);
-const [isLoading, setIsLoading] = useState(false);
+generateMessage();
 ```
 
-## Key Functions
+#### handleDownload
 
-### generateMessage
+Allows the user to download the generated message as a text file.
 
+**Usage:**
 ```javascript
-const generateMessage = async () => { ... }
+handleDownload();
 ```
 
-**Purpose**: Generates a personalized Christmas message based on user inputs. **Validation**:
+#### handleShare
 
--   Checks for available credits
--   Validates required fields (recipient name and relationship) **Returns**: Sets the generated
-    message in state and decrements credits
+Shares the generated message using the Web Share API or copies it to the clipboard.
 
-### getToneLabel
-
+**Usage:**
 ```javascript
-const getToneLabel = (value) => { ... }
+handleShare();
 ```
 
-**Purpose**: Converts numeric tone value to corresponding label **Parameters**:
+#### handleDailyReward
 
--   `value`: Number (0-100) **Returns**: String (Professional, Warm, Playful, or Sentimental)
+Adds a daily reward credit to the user's account.
 
-### handleDownload
-
+**Usage:**
 ```javascript
-const handleDownload = () => { ... }
+handleDailyReward();
 ```
 
-**Purpose**: Creates and triggers download of generated message as text file **Output**: Downloads
-'christmas-message.txt'
+### Helper Functions
 
-## UI Components
+- `getToneLabel`: Converts the numeric tone value to a descriptive label
+- `useEffect` hooks: Manage local storage for credits and message history
 
-### Message Style Selection
+### UI Sections
 
--   Four style options: Formal, Casual, Funny, Heartfelt
--   Implemented using Chakra UI Cards with visual feedback
+1. Header with title and user credits
+2. Styling options (font size, font family, animation)
+3. Message style selection
+4. Background image selection
+5. Tone slider
+6. Input fields for recipient details and message context
+7. Generate message button
+8. Generated message display with sharing and download options
+9. Message history display
 
-### Tone Slider
+## Integration with Project
 
--   Range: 0-100
--   Maps to four tone categories
--   Visual slider implementation using Chakra UI Slider
-
-### Input Fields
-
--   Recipient Name (Input)
--   Relationship (Select)
--   Special memories (Textarea)
--   Inside jokes (Textarea)
--   Shared interests (Textarea)
--   Recent events (Textarea)
-
-### Action Buttons
-
--   Generate Message button
--   Download Message button (appears after generation)
-
-## Features
-
--   Dark/Light mode toggle
--   Credits system
--   Responsive design
--   Error handling with toast notifications
--   Message preview
--   Download functionality
-
-## Usage Example
-
-```jsx
-// Import and use in main.jsx
-import App from './App';
-
-ReactDOM.render(
-    <React.StrictMode>
-        <App />
-    </React.StrictMode>,
-    document.getElementById('root')
-);
-```
-
-## Project Integration
-
-This component is the main application file in a Vite-based React project. It works alongside:
-
--   `main.jsx`: Application entry point
--   `theme.jsx`: Chakra UI theme customization
--   Other configuration files (.prettierrc, vite.config.js)
+This component is the main interface of the Holiday Card Generator application. It should be rendered in `src/main.jsx` and uses the theme defined in `src/theme.jsx`. The component interacts with an API defined by the `API_URL` constant, which should be configured appropriately for the deployment environment.
 
 ## Dependencies
 
--   React
--   Chakra UI
--   React Icons
+- React
+- Chakra UI components
+- react-icons
+- Environment variables (VITE_CHAT_TOKEN)
 
-## Notes
+## Usage Example
 
--   The actual AI message generation is currently mocked
--   Credits system is implemented with a basic counter
--   Supports responsive design for various screen sizes
--   Includes accessibility features through Chakra UI components
+To use this component in the main application:
 
-This documentation provides a comprehensive overview of the `App.jsx` component and its
-functionality within the Christmas Card Message Generator application.
+```jsx
+import React from 'react';
+import ReactDOM from 'react-dom/client';
+import { ChakraProvider } from '@chakra-ui/react';
+import App from './App';
+import theme from './theme';
+
+ReactDOM.createRoot(document.getElementById('root')).render(
+  <React.StrictMode>
+    <ChakraProvider theme={theme}>
+      <App />
+    </ChakraProvider>
+  </React.StrictMode>
+);
+```
+
+This will render the Holiday Card Generator application with the appropriate theme and Chakra UI provider.
