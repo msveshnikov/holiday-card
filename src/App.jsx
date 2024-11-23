@@ -26,9 +26,12 @@ import {
     FormLabel,
     Switch,
     Grid,
-    GridItem
+    GridItem,
+    useColorMode,
+    HStack
 } from '@chakra-ui/react';
-import { FaShareAlt, FaCrown, FaGift } from 'react-icons/fa';
+import { FaShareAlt, FaCrown, FaGift, FaMoon, FaSun } from 'react-icons/fa';
+import theme from './theme';
 
 const API_URL = 'https://allchat.online/api';
 
@@ -50,9 +53,10 @@ function App() {
     const [useEmojis, setUseEmojis] = useState(true);
     const [progress, setProgress] = useState(0);
     const [fontSize, setFontSize] = useState(16);
-    const [fontFamily, setFontFamily] = useState('Arial');
+    const [fontFamily, setFontFamily] = useState(theme.fonts.body);
     const [animation, setAnimation] = useState('fade');
 
+    const { colorMode, toggleColorMode } = useColorMode();
     const toast = useToast();
 
     const backgroundImages = [
@@ -69,7 +73,7 @@ function App() {
         { id: 'heartfelt', name: 'Heartfelt', icon: '❤️' }
     ];
 
-    const fonts = ['Arial', 'Times New Roman', 'Courier New', 'Georgia', 'Verdana'];
+    const fonts = Object.values(theme.fonts);
     const animations = ['fade', 'slide', 'bounce', 'none'];
 
     const toneLabels = {
@@ -127,7 +131,7 @@ function App() {
                 body: JSON.stringify({
                     input: prompt,
                     lang: (navigator.languages && navigator.languages[0]) || navigator.language,
-                    model: 'gpt-4o-mini',
+                    model: 'gpt-4-turbo',
                     customGPT: 'Christmas'
                 })
             });
@@ -220,29 +224,34 @@ function App() {
             <Container maxW="container.xl" py={8}>
                 <VStack spacing={8}>
                     <Box textAlign="center" position="relative" width="100%">
-                        <Text fontSize="3xl" fontWeight="bold">
-                            Holiday Card Generator🎄
-                        </Text>
-                        <Badge colorScheme="green" ml={2}>
-                            Credits: {credits}
-                        </Badge>
-                        <Tooltip label="Claim daily reward">
-                            <IconButton
-                                aria-label="Claim daily reward"
-                                icon={<FaGift />}
-                                ml={2}
-                                onClick={handleDailyReward}
-                                colorScheme="pink"
-                            />
-                        </Tooltip>
-                        <Tooltip label="Upgrade to Premium">
-                            <IconButton
-                                aria-label="Upgrade to Premium"
-                                icon={<FaCrown />}
-                                ml={2}
-                                colorScheme="yellow"
-                            />
-                        </Tooltip>
+                        <HStack justify="space-between" align="center" mb={4}>
+                            <Text fontSize="3xl" fontWeight="bold">
+                                Holiday Card Generator🎄
+                            </Text>
+                            <HStack>
+                                <Badge colorScheme="green">Credits: {credits}</Badge>
+                                <Tooltip label="Claim daily reward">
+                                    <IconButton
+                                        aria-label="Claim daily reward"
+                                        icon={<FaGift />}
+                                        onClick={handleDailyReward}
+                                        variant="christmas"
+                                    />
+                                </Tooltip>
+                                <Tooltip label="Upgrade to Premium">
+                                    <IconButton
+                                        aria-label="Upgrade to Premium"
+                                        icon={<FaCrown />}
+                                        variant="holly"
+                                    />
+                                </Tooltip>
+                                <IconButton
+                                    aria-label="Toggle color mode"
+                                    icon={colorMode === 'light' ? <FaMoon /> : <FaSun />}
+                                    onClick={toggleColorMode}
+                                />
+                            </HStack>
+                        </HStack>
                     </Box>
 
                     <SimpleGrid columns={[1, 2, 3]} spacing={4} width="100%">
@@ -287,11 +296,9 @@ function App() {
                         {styles.map((style) => (
                             <Card
                                 key={style.id}
-                                cursor="pointer"
-                                bg={messageStyle === style.id ? 'green.100' : 'white'}
+                                variant="style"
+                                bg={messageStyle === style.id ? 'christmas.100' : undefined}
                                 onClick={() => setMessageStyle(style.id)}
-                                transition="transform 0.2s"
-                                _hover={{ transform: 'scale(1.05)' }}
                             >
                                 <CardBody textAlign="center">
                                     <Text fontSize="2xl">{style.icon}</Text>
@@ -311,7 +318,8 @@ function App() {
                                     alt={`Background ${index + 1}`}
                                     cursor="pointer"
                                     borderRadius="md"
-                                    border={selectedImage === image ? '2px solid green' : 'none'}
+                                    border={selectedImage === image ? '2px solid' : 'none'}
+                                    borderColor="christmas.500"
                                     onClick={() => setSelectedImage(image)}
                                     height="200px"
                                     objectFit="cover"
@@ -326,7 +334,7 @@ function App() {
                         <Text mb={2}>Tone: {getToneLabel(tone)}</Text>
                         <Slider value={tone} onChange={setTone} min={0} max={100}>
                             <SliderTrack>
-                                <SliderFilledTrack />
+                                <SliderFilledTrack bg="christmas.500" />
                             </SliderTrack>
                             <SliderThumb />
                         </Slider>
@@ -386,13 +394,14 @@ function App() {
                                 <Switch
                                     isChecked={useEmojis}
                                     onChange={() => setUseEmojis(!useEmojis)}
+                                    colorScheme="christmas"
                                 />
                             </FormControl>
                         </GridItem>
                     </Grid>
 
                     <Button
-                        colorScheme="green"
+                        variant="christmas"
                         isLoading={isLoading}
                         onClick={generateMessage}
                         width="100%"
@@ -401,10 +410,13 @@ function App() {
                         Generate Message
                     </Button>
 
-                    {isLoading && <Progress value={progress} width="100%" colorScheme="green" />}
+                    {isLoading && (
+                        <Progress value={progress} width="100%" colorScheme="christmas" />
+                    )}
 
                     {generatedMessage && (
                         <Card
+                            variant="message"
                             width="100%"
                             animation={
                                 animation !== 'none' ? `${animation} 0.5s ease-in-out` : undefined
@@ -429,12 +441,12 @@ function App() {
                                 <SimpleGrid columns={[1, 2]} spacing={4} mt={4}>
                                     <Button
                                         leftIcon={<FaShareAlt />}
-                                        colorScheme="green"
+                                        variant="christmas"
                                         onClick={handleShare}
                                     >
                                         Share Message
                                     </Button>
-                                    <Button colorScheme="blue" onClick={handleDownload}>
+                                    <Button variant="holly" onClick={handleDownload}>
                                         Download
                                     </Button>
                                 </SimpleGrid>

@@ -108,3 +108,5 @@ tones, and personalization options.
 -   Rate limiting
 
 # TODO
+
+-   Make design nicer
