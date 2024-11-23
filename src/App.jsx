@@ -40,6 +40,7 @@ function App() {
     const [insideJokes, setInsideJokes] = useState('');
     const [sharedInterests, setSharedInterests] = useState('');
     const [recentEvents, setRecentEvents] = useState('');
+    const [customAdditions, setCustomAdditions] = useState('');
     const [generatedMessage, setGeneratedMessage] = useState('');
     const [credits, setCredits] = useState(3);
     const [isLoading, setIsLoading] = useState(false);
@@ -98,6 +99,44 @@ function App() {
         100: 'Sentimental'
     };
 
+    const relationships = [
+        'Family',
+        'Friend',
+        'Colleague',
+        'Acquaintance',
+        'Romantic Partner',
+        'Mentor',
+        'Student',
+        'Neighbor',
+        'Boss',
+        'Employee',
+        'Client',
+        'Teacher',
+        'Classmate',
+        'Relative',
+        'In-law',
+        'Childhood Friend',
+        'Business Partner',
+        'Roommate',
+        'Pet Owner',
+        'Coach',
+        'Team Member',
+        'Religious Leader',
+        'Community Member',
+        'Online Friend',
+        'Ex-partner',
+        'Distant Relative',
+        'Pen Pal',
+        'Social Media Follower',
+        'Celebrity',
+        'Fan',
+        'Volunteer',
+        'Sponsor',
+        'Mentee',
+        'Service Provider',
+        'Customer'
+    ];
+
     const generateMessage = async () => {
         if (credits <= 0) {
             toast({
@@ -134,8 +173,8 @@ function App() {
             }${insideJokes ? ` Reference these inside jokes: ${insideJokes}.` : ''}${
                 sharedInterests ? ` Mention our shared interests in: ${sharedInterests}.` : ''
             }${recentEvents ? ` Acknowledge these recent events: ${recentEvents}.` : ''}${
-                useEmojis ? ' Include appropriate emojis.' : ''
-            }`;
+                customAdditions ? ` Add this custom message: ${customAdditions}.` : ''
+            }${useEmojis ? ' Include appropriate emojis.' : ''}`;
 
             const response = await fetch(`${API_URL}/interact`, {
                 method: 'POST',
@@ -366,10 +405,11 @@ function App() {
                                 value={relationship}
                                 onChange={(e) => setRelationship(e.target.value)}
                             >
-                                <option value="family">Family</option>
-                                <option value="friend">Friend</option>
-                                <option value="colleague">Colleague</option>
-                                <option value="other">Other</option>
+                                {relationships.map((rel) => (
+                                    <option key={rel} value={rel.toLowerCase()}>
+                                        {rel}
+                                    </option>
+                                ))}
                             </Select>
                         </GridItem>
                         <GridItem colSpan={[1, 1, 2]}>
@@ -398,6 +438,13 @@ function App() {
                                 placeholder="Recent events"
                                 value={recentEvents}
                                 onChange={(e) => setRecentEvents(e.target.value)}
+                            />
+                        </GridItem>
+                        <GridItem colSpan={[1, 1, 2]}>
+                            <Textarea
+                                placeholder="Custom message additions"
+                                value={customAdditions}
+                                onChange={(e) => setCustomAdditions(e.target.value)}
                             />
                         </GridItem>
                         <GridItem colSpan={[1, 1, 2]}>
