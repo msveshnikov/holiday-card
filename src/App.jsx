@@ -36,7 +36,7 @@ import {
     useDisclosure,
     Link
 } from '@chakra-ui/react';
-import { FaShareAlt, FaCrown, FaGift, FaCalendarAlt, FaLeaf } from 'react-icons/fa';
+import { FaShareAlt, FaCrown, FaGift, FaCalendarAlt } from 'react-icons/fa';
 import ReactGA from 'react-ga4';
 import { useTranslation } from 'react-i18next';
 import theme from './theme.js';
@@ -317,20 +317,12 @@ function App() {
                                 colorScheme="blue"
                             />
                         </Tooltip>
-                        <Tooltip label={t('ecoFriendly')}>
-                            <IconButton
-                                aria-label={t('ecoFriendly')}
-                                icon={<FaLeaf />}
-                                ml={2}
-                                colorScheme="green"
-                            />
-                        </Tooltip>
                     </Box>
 
                     <SimpleGrid columns={[1, 2, 3]} spacing={4} width="100%">
                         <FormControl>
                             <FormLabel>{t('fontSize')}</FormLabel>
-                            <br/>
+                            <br />
                             <Slider value={fontSize} min={12} max={24} onChange={setFontSize}>
                                 <SliderTrack>
                                     <SliderFilledTrack />
@@ -544,11 +536,7 @@ function App() {
                     <Box width="100%" textAlign="center">
                         <Text fontSize="sm" color="gray.500">
                             {t('ecoFriendlyMessage')}{' '}
-                            <Link
-                                color="green.500"
-                                href="https://holidaycard.shop/landing.html"
-                                isExternal
-                            >
+                            <Link color="green.500" href="https://holidaycard.shop/landing.html">
                                 {t('learnMore')}
                             </Link>
                         </Text>
