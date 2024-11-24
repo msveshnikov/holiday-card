@@ -56,7 +56,7 @@
         "anniversary": "Anniversaire de mariage"
     },
     "relationships": {
-        "family": "Famille",
+        "familyMember": "Famille",
         "friend": "Ami(e)",
         "colleague": "Collègue",
         "acquaintance": "Connaissance",

@@ -52,7 +52,7 @@
         "anniversary": "Anniversario"
     },
     "relationships": {
-        "family": "Famiglia",
+        "familyMember": "Famiglia",
         "friend": "Amico/a",
         "colleague": "Collega",
         "acquaintance": "Conoscente",

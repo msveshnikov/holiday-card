@@ -41,14 +41,14 @@ import ReactGA from 'react-ga4';
 import { useTranslation } from 'react-i18next';
 import theme from './theme.js';
 
-export const API_URL = import.meta.env.DEV ? 'http://localhost:3000' : 'https://holiday.autocode.work/api';
+export const API_URL = import.meta.env.DEV ? 'http://localhost:3000/api' : 'https://holidaycard.shop/api';
 
 function App() {
     const { t } = useTranslation();
     const [messageStyle, setMessageStyle] = useState('formal');
     const [tone, setTone] = useState(50);
     const [recipientName, setRecipientName] = useState('');
-    const [relationship, setRelationship] = useState('');
+    const [relationship, setRelationship] = useState('familyMember');
     const [memories, setMemories] = useState('');
     const [insideJokes, setInsideJokes] = useState('');
     const [sharedInterests, setSharedInterests] = useState('');

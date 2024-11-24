@@ -56,7 +56,7 @@
         "anniversary": "Årsdag"
     },
     "relationships": {
-        "family": "Familj",
+        "familyMember": "Familj",
         "friend": "Vän",
         "colleague": "Kollega",
         "acquaintance": "Bekant",

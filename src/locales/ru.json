@@ -56,7 +56,7 @@
         "anniversary": "Годовщина"
     },
     "relationships": {
-        "family": "Семья",
+        "familyMember": "Семья",
         "friend": "Друг",
         "colleague": "Коллега",
         "acquaintance": "Знакомый",

@@ -48,7 +48,7 @@ const User = mongoose.model('User', UserSchema);
 app.post('/api/generate-message', async (req, res) => {
     try {
         const { input } = req.body;
-
+        console.log(input);
         // const user = await User.findOne({ userId });
         // if (!user || user.credits < 1) {
         //     return res.status(403).json({ error: 'Insufficient credits' });
