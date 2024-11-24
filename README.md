@@ -109,7 +109,5 @@ tones, and personalization options.
 
 # TODO
 
--   add birthdays, anniversaries, and other US holidays (but Christmas default!)
-
     f) Sustainability Focus: Emphasize the eco-friendly aspect of digital cards to appeal to
     environmentally conscious users.

@@ -33,9 +33,10 @@ import {
     ModalFooter,
     ModalBody,
     ModalCloseButton,
-    useDisclosure
+    useDisclosure,
+    Link
 } from '@chakra-ui/react';
-import { FaShareAlt, FaCrown, FaGift, FaCalendarAlt } from 'react-icons/fa';
+import { FaShareAlt, FaCrown, FaGift, FaCalendarAlt, FaLeaf } from 'react-icons/fa';
 import ReactGA from 'react-ga4';
 import theme from './theme.js';
 
@@ -202,7 +203,7 @@ function App() {
                 sharedInterests ? ` Mention our shared interests in: ${sharedInterests}.` : ''
             }${recentEvents ? ` Acknowledge these recent events: ${recentEvents}.` : ''}${
                 customAdditions ? ` Add this custom message: ${customAdditions}.` : ''
-            }${useEmojis ? ' Include appropriate emojis.' : ''}`;
+            }${useEmojis ? ' Include appropriate emojis.' : ''} Also, mention the eco-friendly aspect of digital cards.`;
 
             const response = await fetch(`${API_URL}/interact`, {
                 method: 'POST',
@@ -214,7 +215,6 @@ function App() {
                     input: prompt,
                     lang: (navigator.languages && navigator.languages[0]) || navigator.language,
                     model: 'gpt-4o-mini'
-                    //   customGPT: selectedHoliday
                 })
             });
 
@@ -337,6 +337,14 @@ function App() {
                                 ml={2}
                                 onClick={onOpen}
                                 colorScheme="blue"
+                            />
+                        </Tooltip>
+                        <Tooltip label="Eco-friendly">
+                            <IconButton
+                                aria-label="Eco-friendly"
+                                icon={<FaLeaf />}
+                                ml={2}
+                                colorScheme="green"
                             />
                         </Tooltip>
                     </Box>
@@ -544,6 +552,16 @@ function App() {
                             </VStack>
                         </Box>
                     )}
+
+                    <Box width="100%" textAlign="center">
+                        <Text fontSize="sm" color="gray.500">
+                            By using our digital card generator, you're helping to reduce paper
+                            waste and protect the environment.{' '}
+                            <Link color="green.500" href="#" isExternal>
+                                Learn more about our eco-friendly initiative
+                            </Link>
+                        </Text>
+                    </Box>
                 </VStack>
             </Container>
 
