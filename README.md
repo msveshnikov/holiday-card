@@ -108,5 +108,3 @@ tones, and personalization options.
 -   Rate limiting
 
 # TODO
-
--   add localization to top10 europe langs

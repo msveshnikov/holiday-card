@@ -3,7 +3,7 @@ import { ChakraProvider, ColorModeScript } from '@chakra-ui/react';
 import { Helmet, HelmetProvider } from 'react-helmet-async';
 import theme from './theme';
 import App from './App';
-import './i18n';
+import './i18n.jsx';
 import { I18nextProvider } from 'react-i18next';
 
 const root = createRoot(document.getElementById('root'));
