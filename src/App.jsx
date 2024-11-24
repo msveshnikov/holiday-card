@@ -25,10 +25,19 @@ import {
     FormLabel,
     Switch,
     Grid,
-    GridItem
+    GridItem,
+    Modal,
+    ModalOverlay,
+    ModalContent,
+    ModalHeader,
+    ModalFooter,
+    ModalBody,
+    ModalCloseButton,
+    useDisclosure
 } from '@chakra-ui/react';
-import { FaShareAlt, FaCrown, FaGift } from 'react-icons/fa';
+import { FaShareAlt, FaCrown, FaGift, FaCalendarAlt } from 'react-icons/fa';
 import ReactGA from 'react-ga4';
+import theme from './theme.js';
 
 const API_URL = 'https://allchat.online/api';
 
@@ -53,6 +62,8 @@ function App() {
     const [fontSize, setFontSize] = useState(16);
     const [fontFamily, setFontFamily] = useState('Arial');
     const [messageHistory, setMessageHistory] = useState([]);
+    const [selectedHoliday, setSelectedHoliday] = useState('Christmas');
+    const { isOpen, onOpen, onClose } = useDisclosure();
 
     const toast = useToast();
 
@@ -141,6 +152,19 @@ function App() {
         'Customer'
     ];
 
+    const holidays = [
+        'Christmas',
+        'New Year',
+        "Valentine's Day",
+        'Easter',
+        "Mother's Day",
+        "Father's Day",
+        'Halloween',
+        'Thanksgiving',
+        'Birthday',
+        'Anniversary'
+    ];
+
     const generateMessage = async () => {
         if (credits <= 0) {
             toast({
@@ -170,7 +194,7 @@ function App() {
 
         try {
             const token = import.meta.env.VITE_CHAT_TOKEN;
-            const prompt = `Create a ${messageStyle} Christmas message with a ${getToneLabel(
+            const prompt = `Create a ${messageStyle} ${selectedHoliday} message with a ${getToneLabel(
                 tone
             )} tone for my ${relationship} named ${recipientName}.${
                 memories ? ` Include these memories: ${memories}.` : ''
@@ -189,8 +213,8 @@ function App() {
                 body: JSON.stringify({
                     input: prompt,
                     lang: (navigator.languages && navigator.languages[0]) || navigator.language,
-                    model: 'gpt-4o-mini',
-                    customGPT: 'Christmas'
+                    model: 'gpt-4o-mini'
+                    //   customGPT: selectedHoliday
                 })
             });
 
@@ -233,7 +257,7 @@ function App() {
         const element = document.createElement('a');
         const file = new Blob([generatedMessage], { type: 'text/plain' });
         element.href = URL.createObjectURL(file);
-        element.download = 'christmas-message.txt';
+        element.download = `${selectedHoliday.toLowerCase()}-message.txt`;
         document.body.appendChild(element);
         element.click();
         document.body.removeChild(element);
@@ -243,7 +267,7 @@ function App() {
         if (navigator.share) {
             try {
                 await navigator.share({
-                    title: 'Christmas Message',
+                    title: `${selectedHoliday} Message`,
                     text: generatedMessage
                 });
                 toast({
@@ -279,12 +303,12 @@ function App() {
     };
 
     return (
-        <Box minHeight="100vh">
+        <Box minHeight="100vh" bg={theme.colors.background}>
             <Container maxW="container.xl" py={8}>
                 <VStack spacing={8}>
                     <Box textAlign="center" position="relative" width="100%">
-                        <Text fontSize="3xl" fontWeight="bold">
-                            Holiday Card Generator🎄
+                        <Text fontSize="3xl" fontWeight="bold" color={theme.colors.primary}>
+                            {selectedHoliday} Card Generator
                         </Text>
                         <Badge colorScheme="green" ml={2}>
                             Credits: {credits}
@@ -304,6 +328,15 @@ function App() {
                                 icon={<FaCrown />}
                                 ml={2}
                                 colorScheme="yellow"
+                            />
+                        </Tooltip>
+                        <Tooltip label="Select Holiday">
+                            <IconButton
+                                aria-label="Select Holiday"
+                                icon={<FaCalendarAlt />}
+                                ml={2}
+                                onClick={onOpen}
+                                colorScheme="blue"
                             />
                         </Tooltip>
                     </Box>
@@ -466,7 +499,7 @@ function App() {
                             <CardBody>
                                 <Image
                                     src={selectedImage}
-                                    alt="Christmas Background"
+                                    alt="Holiday Background"
                                     mb={4}
                                     borderRadius="md"
                                 />
@@ -513,6 +546,31 @@ function App() {
                     )}
                 </VStack>
             </Container>
+
+            <Modal isOpen={isOpen} onClose={onClose}>
+                <ModalOverlay />
+                <ModalContent>
+                    <ModalHeader>Select Holiday</ModalHeader>
+                    <ModalCloseButton />
+                    <ModalBody>
+                        <Select
+                            value={selectedHoliday}
+                            onChange={(e) => setSelectedHoliday(e.target.value)}
+                        >
+                            {holidays.map((holiday) => (
+                                <option key={holiday} value={holiday}>
+                                    {holiday}
+                                </option>
+                            ))}
+                        </Select>
+                    </ModalBody>
+                    <ModalFooter>
+                        <Button colorScheme="blue" mr={3} onClick={onClose}>
+                            Close
+                        </Button>
+                    </ModalFooter>
+                </ModalContent>
+            </Modal>
         </Box>
     );
 }
