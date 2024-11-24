@@ -9,7 +9,7 @@
         />
         <meta
             name="keywords"
-            content="AI, Christmas, card, message, generator, holiday, greetings"
+            content="AI, Christmas, card, message, generator, holiday, greetings, eco-friendly"
         />
         <meta name="author" content="AutoCode" />
         <meta property="og:title" content="AI Christmas Card Message Generator 🎄" />
@@ -37,6 +37,7 @@
                 --success: #7bed9f;
                 --warning: #ffb8b8;
                 --dark: #2f3542;
+                --eco: #4caf50;
             }
             * {
                 margin: 0;
@@ -186,6 +187,21 @@
                 transform: scale(1.05) translateY(-2px);
                 box-shadow: 0 6px 24px rgba(230, 57, 70, 0.4);
             }
+            .eco-friendly {
+                background-color: var(--eco);
+                color: white;
+                padding: 4rem max(2rem, 10%);
+                text-align: center;
+            }
+            .eco-friendly h2 {
+                font-size: clamp(2rem, 4vw, 3rem);
+                margin-bottom: 2rem;
+            }
+            .eco-friendly p {
+                font-size: 1.2rem;
+                max-width: 800px;
+                margin: 0 auto;
+            }
             @keyframes fadeIn {
                 from {
                     opacity: 0;
@@ -227,25 +243,6 @@
             .skip-link:focus {
                 top: 0;
             }
-
-            .cta-button {
-                display: inline-block;
-                padding: 1.2rem 2.5rem;
-                background: var(--primary);
-                color: white;
-                text-decoration: none;
-                border-radius: 3rem;
-                margin: 1.5rem 0;
-                transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-                font-weight: 600;
-                text-transform: uppercase;
-                letter-spacing: 1px;
-                box-shadow: 0 4px 16px rgba(230, 57, 70, 0.3);
-            }
-            .cta-button:hover {
-                transform: scale(1.05) translateY(-2px);
-                box-shadow: 0 6px 24px rgba(230, 57, 70, 0.4);
-            }
             @keyframes rainbow {
                 0% {
                     filter: hue-rotate(0deg);
@@ -254,7 +251,6 @@
                     filter: hue-rotate(360deg);
                 }
             }
-
             @keyframes wiggle {
                 0%,
                 100% {
@@ -267,6 +263,7 @@
         </style>
     </head>
     <body>
+        <a href="#main" class="skip-link">Skip to main content</a>
         <main id="main">
             <section class="hero">
                 <div class="hero-content">
@@ -296,6 +293,15 @@
                     <p>Select from beautiful holiday themes and seasonal designs</p>
                 </div>
             </section>
+            <section class="eco-friendly" role="region" aria-labelledby="eco-heading">
+                <h2 id="eco-heading">Eco-Friendly Digital Cards</h2>
+                <p>
+                    By choosing our AI-generated digital cards, you're not just sending joy - you're
+                    also helping the environment! Reduce paper waste and carbon emissions associated
+                    with traditional card production and delivery. Spread holiday cheer sustainably!
+                    🌿🎄
+                </p>
+            </section>
             <section class="pricing" role="region" aria-labelledby="pricing-heading">
                 <h2 id="pricing-heading">Choose Your Plan</h2>
                 <div class="pricing-grid">
@@ -307,7 +313,7 @@
                     </div>
                     <div class="price-card">
                         <h3>Basic</h3>
-                        <p>$10 Credits</p>
+                        <p>10 Credits</p>
                         <p>All Styles</p>
                         <a href="#" class="cta-button" aria-label="Choose basic plan"
                             >Choose Basic</a

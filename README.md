@@ -109,5 +109,3 @@ tones, and personalization options.
 
 # TODO
 
-    f) Sustainability Focus: Emphasize the eco-friendly aspect of digital cards to appeal to
-    environmentally conscious users.
