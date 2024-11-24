@@ -517,7 +517,7 @@ function App() {
                                 {messageHistory.map((message, index) => (
                                     <Card key={index}>
                                         <CardBody>
-                                            <Text noOfLines={2}>{message}</Text>
+                                            <Text >{message}</Text>
                                         </CardBody>
                                     </Card>
                                 ))}
