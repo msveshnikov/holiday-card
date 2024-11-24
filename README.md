@@ -16,6 +16,8 @@ tones, and personalization options.
 -   Credit-based system for message generation
 -   Theme customization
 -   Real-time message preview
+-   Multi-language support (10 languages)
+-   Unsplash integration for background images
 
 ## Technical Stack
 
@@ -23,6 +25,10 @@ tones, and personalization options.
 -   Chakra UI
 -   OpenAI API
 -   Theme Provider
+-   i18next
+-   Docker
+-   Node.js backend
+-   Unsplash API
 
 ## Design Considerations
 
@@ -38,17 +44,22 @@ tones, and personalization options.
 -   Theme switcher
 -   Progress indicator
 -   Toast notifications
+-   Language selector
+-   Background image gallery
+-   Mobile-responsive layout
 
 ### User Flow
 
-1. User authentication (optional)
-2. Select message style
-3. Choose tone preference
-4. Fill in recipient details
-5. Generate message
-6. Preview and edit
-7. Apply theme customization
-8. Download or share
+1. Language selection
+2. User authentication (optional)
+3. Select message style
+4. Choose tone preference
+5. Fill in recipient details
+6. Select background image
+7. Generate message
+8. Preview and edit
+9. Apply theme customization
+10. Download or share
 
 ### Personalization Fields
 
@@ -60,6 +71,8 @@ tones, and personalization options.
 -   Recent events
 -   Custom message additions
 -   Emoji preferences
+-   Background image preferences
+-   Language preference
 
 ### Credit System
 
@@ -68,6 +81,8 @@ tones, and personalization options.
 -   Premium plan: 50 credits
 -   Referral bonuses
 -   Daily rewards
+-   Language-specific discounts
+-   Bulk purchase options
 
 ## Theme Customization
 
@@ -75,6 +90,10 @@ tones, and personalization options.
 -   Seasonal themes
 -   Font selection
 -   Card layouts
+-   Background image filters
+-   Typography combinations
+-   Animation effects
+-   Cultural theme variants
 
 ## State Management
 
@@ -84,10 +103,22 @@ tones, and personalization options.
 -   Credit balance
 -   Generation status
 -   Form validation
+-   Language settings
+-   Image cache
+-   Session persistence
+
+## Internationalization
+
+-   10 supported languages
+-   Region-specific themes
+-   Cultural customizations
+-   Local holiday variations
+-   Date/time formatting
+-   RTL support
+-   Currency localization
 
 ## Future Enhancements
 
--   Multi-language support
 -   Voice message generation
 -   Custom card designs
 -   Template library
@@ -97,6 +128,10 @@ tones, and personalization options.
 -   Saved messages history
 -   AI image generation
 -   Message scheduling
+-   Video message support
+-   Gift card integration
+-   Calendar sync
+-   Contact import
 
 ## Security Considerations
 
@@ -105,4 +140,11 @@ tones, and personalization options.
 
 # TODO
 
--   improve design/UX
+-   Implement remaining language translations
+-   Optimize image loading
+-   Set up monitoring
+-   Complete API documentation
+-   Implement backup strategy
+-   Optimize mobile experience
+-   Set up analytics
+-   Configure CDN

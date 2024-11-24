@@ -1,223 +1,266 @@
-# AI Christmas Card Message Generator - Project Documentation
+# AI Christmas Card Message Generator - Documentation
 
 ## Table of Contents
 
 1. [Project Overview](#project-overview)
-2. [Technical Architecture](#technical-architecture)
-3. [Installation Guide](#installation-guide)
+2. [Architecture](#architecture)
+3. [Installation](#installation)
 4. [Features & Functionality](#features--functionality)
-5. [Module Structure](#module-structure)
+5. [Technical Implementation](#technical-implementation)
 6. [Configuration](#configuration)
-7. [Development Guidelines](#development-guidelines)
-8. [Performance & Optimization](#performance--optimization)
-9. [Deployment](#deployment)
+7. [Deployment](#deployment)
+8. [API Documentation](#api-documentation)
+9. [Security](#security)
+10. [Maintenance & Monitoring](#maintenance--monitoring)
 
 ## Project Overview
 
 The AI Christmas Card Message Generator is a modern web application that leverages artificial
-intelligence to create personalized holiday messages. Built with React and Vite, it offers users an
-intuitive interface to generate custom Christmas card messages with various styles and tones.
+intelligence to create personalized holiday messages. Built with React and Node.js, it offers a
+sophisticated platform for generating customized holiday greetings in multiple languages with
+various styles and tones.
 
 ### Key Features
 
--   AI-powered message generation using OpenAI API
--   Multiple message styles and tone options
--   Personalization system
--   Credit-based usage model
--   Responsive and accessible design
+-   AI-powered message generation
+-   Support for 10 languages
+-   Customizable message styles and tones
+-   Credit-based usage system
+-   Theme customization
+-   Background image integration via Unsplash
+-   Mobile-responsive design
 
-## Technical Architecture
+## Architecture
 
-### Tech Stack
+### Frontend Stack
 
--   **Frontend Framework**: React + Vite
--   **UI Library**: Chakra UI
--   **State Management**: Zustand
--   **API Integration**: OpenAI API
--   **Data Fetching**: React Query
--   **Routing**: React Router DOM
+-   React + Vite
+-   Chakra UI for components
+-   i18next for internationalization
+-   Zustand for state management
+-   React Query for data fetching
+-   PWA support
 
-### Core Dependencies
+### Backend Stack
 
-```json
-{
-    "@chakra-ui/react": "^2.8.2",
-    "openai": "^4.20.1",
-    "react": "^18.2.0",
-    "react-query": "^3.39.3",
-    "zustand": "^4.4.7"
-}
+-   Node.js
+-   MongoDB
+-   Docker containerization
+-   OpenAI API integration
+-   Unsplash API integration
+
+### System Components
+
+```mermaid
+graph TD
+    A[Frontend React App] --> B[Node.js Backend]
+    B --> C[MongoDB]
+    B --> D[OpenAI API]
+    B --> E[Unsplash API]
+    B --> F[Email Service]
 ```
 
-## Installation Guide
+## Installation
 
-1. Clone the repository
+### Prerequisites
+
+-   Node.js 16+
+-   Docker and Docker Compose
+-   MongoDB
+-   Bun runtime
+
+### Local Development Setup
 
 ```bash
+# Clone the repository
 git clone [repository-url]
-cd ai-christmas-card-generator
+
+# Install dependencies
+bun install
+
+# Set up environment variables
+cp .env.example .env
+
+# Start development server
+bun run dev
+
+# Start backend services
+docker-compose up -d
 ```
 
-2. Install dependencies
+### Environment Variables
 
-```bash
-npm install
 ```
-
-3. Configure environment variables
-
-```bash
-VITE_OPENAI_API_KEY=your_api_key
-```
-
-4. Start development server
-
-```bash
-npm run dev
+OPENAI_KEY=
+GOOGLE_CLIENT_ID=
+UNSPLASH_API_KEY=
+ELEVEN_KEY=
+JWT_SECRET=
+EMAIL=
+FROM_EMAIL=
+EMAIL_PASSWORD=
 ```
 
 ## Features & Functionality
 
-### Message Generation System
+### Message Generation
 
--   Style selection (Formal, Casual, Funny, Heartfelt)
--   Tone customization
--   Personalization options
--   Credit management
+-   Multiple style options (Formal, Casual, Funny, Heartfelt)
+-   Tone selection (Warm, Professional, Playful, Sentimental)
+-   Personalization fields
+-   Real-time preview
 
-### User Interface Components
+### User Management
 
--   Message input form
--   Style selector cards
--   Tone adjustment controls
--   Preview functionality
--   Download/Share options
+-   Optional authentication
+-   Credit system
+-   Preference saving
+-   Message history
 
-## Module Structure
+### Internationalization
 
+-   10 supported languages
+-   Cultural customizations
+-   RTL support
+-   Region-specific themes
+
+## Technical Implementation
+
+### State Management
+
+```javascript
+// Example Zustand store structure
+const useStore = create((set) => ({
+    theme: 'light',
+    credits: 0,
+    language: 'en'
+    // ... other state
+}));
 ```
-src/
-├── components/
-│   ├── MessageForm/
-│   ├── StyleSelector/
-│   ├── ToneControls/
-│   └── Preview/
-├── hooks/
-├── services/
-├── store/
-└── utils/
+
+### API Integration
+
+```javascript
+// OpenAI integration example
+const generateMessage = async (prompt) => {
+    const response = await openai.createCompletion({
+        model: 'text-davinci-003',
+        prompt: prompt
+        // ... configuration
+    });
+    return response.data.choices[0].text;
+};
 ```
 
 ## Configuration
 
+### Docker Configuration
+
+```yaml
+version: '3.9'
+services:
+    backend:
+        image: extender777/holiday
+        ports:
+            - '8014:3000'
+        environment:
+            - NODE_ENV=production
+            # ... other env variables
+```
+
 ### Vite Configuration
 
 ```javascript
-// vite.config.js
 export default defineConfig({
     plugins: [
         react(),
         VitePWA({
-            registerType: 'autoUpdate'
             // PWA configuration
         })
     ]
 });
 ```
 
-### Prettier Configuration
-
-```json
-{
-    "singleQuote": true,
-    "printWidth": 100,
-    "tabWidth": 4,
-    "useTabs": false
-}
-```
-
-## Development Guidelines
-
-### Code Style
-
--   Follow ESLint and Prettier configurations
--   Use functional components
--   Implement proper error handling
--   Write meaningful component documentation
-
-### Best Practices
-
--   Implement lazy loading for components
--   Use proper semantic HTML
--   Follow accessibility guidelines
--   Optimize API calls
-
-## Performance & Optimization
-
-### Implemented Optimizations
-
--   PWA support
--   Response compression
--   Image optimization
--   Component lazy loading
--   API request caching
-
-### Monitoring
-
--   User behavior tracking
--   Performance metrics
--   Error logging
--   Usage analytics
-
 ## Deployment
 
-### Build Process
+### Production Deployment
+
+1. Build the frontend:
 
 ```bash
-npm run build
+bun run build
 ```
 
-### Production Considerations
+2. Deploy using Docker:
 
--   Enable GZIP compression
--   Configure CDN
--   Set up error monitoring
--   Implement proper caching strategies
+```bash
+docker-compose -f docker-compose.prod.yml up -d
+```
 
-### SEO Implementation
+### Deployment Checklist
 
--   Meta tags optimization
--   Structured data
--   Social media cards
--   Sitemap generation
+-   [ ] Environment variables configured
+-   [ ] Database backup verified
+-   [ ] SSL certificates installed
+-   [ ] CDN configuration
+-   [ ] Monitoring setup
 
-## Security Considerations
+## API Documentation
 
-### API Security
+### Endpoints
+
+-   `/api/messages/generate` - Generate new message
+-   `/api/users/credits` - Manage user credits
+-   `/api/themes` - Theme management
+-   `/api/images` - Background image handling
+
+### Authentication
+
+-   JWT-based authentication
+-   Google OAuth integration
+
+## Security
+
+### Implemented Measures
 
 -   API key protection
 -   Rate limiting
 -   Input validation
--   CORS configuration
+-   XSS protection
+-   CSRF protection
 
-### Data Protection
+### Best Practices
 
--   User data encryption
--   Secure storage practices
--   Privacy policy compliance
+-   Regular security audits
+-   Dependency updates
+-   Access control
+-   Data encryption
 
-## Support & Maintenance
+## Maintenance & Monitoring
 
-### Troubleshooting
+### Regular Tasks
 
--   Check API key configuration
--   Verify network connectivity
--   Review console logs
--   Check credit balance
+-   Database backups
+-   Log rotation
+-   Performance monitoring
+-   Error tracking
 
-### Updates & Maintenance
+### Monitoring Tools
 
--   Regular dependency updates
--   Security patches
--   Feature enhancements
--   Bug fixes
+-   Server metrics
+-   Application performance
+-   User analytics
+-   Error logging
+
+## Contributing
+
+Please refer to [CONTRIBUTING.md](CONTRIBUTING.md) for guidelines on contributing to this project.
+
+## License
+
+This project is licensed under the MIT License - see the [LICENSE.md](LICENSE.md) file for details.
+
+---
+
+For additional information or support, please contact the development team or refer to the project's
+issue tracker.
