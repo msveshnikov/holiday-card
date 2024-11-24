@@ -65,7 +65,7 @@ function App() {
     const [fontSize, setFontSize] = useState(16);
     const [fontFamily, setFontFamily] = useState('Arial');
     const [messageHistory, setMessageHistory] = useState([]);
-    const [selectedHoliday, setSelectedHoliday] = useState('Christmas');
+    const [selectedHoliday, setSelectedHoliday] = useState('christmas');
     const { isOpen, onOpen, onClose } = useDisclosure();
 
     const toast = useToast();
@@ -259,7 +259,7 @@ function App() {
                 <VStack spacing={8}>
                     <Box textAlign="center" position="relative" width="100%">
                         <Text fontSize="3xl" fontWeight="bold" color={theme.colors.primary}>
-                            {t('cardGenerator', { holiday: selectedHoliday })}
+                            {t('cardGenerator', { holiday: t('holidays.' + selectedHoliday) })}
                         </Text>
                         <Badge colorScheme="green" ml={2}>
                             {t('credits')}: {credits}
@@ -391,7 +391,6 @@ function App() {
                             <FormControl isRequired>
                                 <FormLabel>{t('relationship')}</FormLabel>
                                 <Select
-                                    placeholder={t('relationship')}
                                     value={relationship}
                                     onChange={(e) => setRelationship(e.target.value)}
                                 >
