@@ -109,4 +109,4 @@ tones, and personalization options.
 
 # TODO
 
--
+-   add birthdays, anniversaries, and other US holidays (but Christmas default!)
