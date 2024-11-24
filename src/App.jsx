@@ -41,7 +41,9 @@ import ReactGA from 'react-ga4';
 import { useTranslation } from 'react-i18next';
 import theme from './theme.js';
 
-export const API_URL = import.meta.env.DEV ? 'http://localhost:3000/api' : 'https://holidaycard.shop/api';
+export const API_URL = import.meta.env.DEV
+    ? 'http://localhost:3000/api'
+    : 'https://holidaycard.shop/api';
 
 function App() {
     const { t } = useTranslation();
@@ -57,15 +59,14 @@ function App() {
     const [generatedMessage, setGeneratedMessage] = useState('');
     const [credits, setCredits] = useState(3);
     const [isLoading, setIsLoading] = useState(false);
-    const [selectedImage, setSelectedImage] = useState(
-        'https://plus.unsplash.com/premium_photo-1661766896016-16e307246d5d?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D'
-    );
+    const [selectedImage, setSelectedImage] = useState('');
     const [useEmojis, setUseEmojis] = useState(true);
     const [progress, setProgress] = useState(0);
     const [fontSize, setFontSize] = useState(16);
     const [fontFamily, setFontFamily] = useState('Arial');
     const [messageHistory, setMessageHistory] = useState([]);
     const [selectedHoliday, setSelectedHoliday] = useState('christmas');
+    const [backgroundImages, setBackgroundImages] = useState([]);
     const { isOpen, onOpen, onClose } = useDisclosure();
 
     const toast = useToast();
@@ -84,7 +85,18 @@ function App() {
     useEffect(() => {
         ReactGA.initialize('G-8B86H1JDH1');
         ReactGA.send({ hitType: 'pageview', page: window.location.pathname });
+        fetchBackgroundImages();
+        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, []);
+
+    const fetchBackgroundImages = async () => {
+        const response = await fetch(`${API_URL}/images/${selectedHoliday}`);
+        const images = await response.json();
+        setBackgroundImages(images.images);
+        if (images.length > 0) {
+            setSelectedImage(images[0]);
+        }
+    };
 
     useEffect(() => {
         localStorage.setItem('credits', credits);
@@ -92,30 +104,12 @@ function App() {
 
     useEffect(() => {
         localStorage.setItem('messageHistory', JSON.stringify(messageHistory));
-    }, [messageHistory]);
+    }, [credits, messageHistory]);
 
-    const styles = [
-        { id: 'formal', name: t('formal'), icon: '🎩' },
-        { id: 'casual', name: t('casual'), icon: '😊' },
-        { id: 'funny', name: t('funny'), icon: '😂' },
-        { id: 'heartfelt', name: t('heartfelt'), icon: '❤️' }
-    ];
-
-    const fonts = ['Arial', 'Times New Roman', 'Courier New', 'Georgia', 'Verdana'];
-
-    const toneLabels = {
-        0: t('professional'),
-        33: t('warm'),
-        66: t('playful'),
-        100: t('sentimental')
-    };
-
-    const backgroundImages = [
-        'https://plus.unsplash.com/premium_photo-1661766896016-16e307246d5d?q=80&w=570&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D',
-        'https://images.unsplash.com/photo-1480930700499-dc44aa7cb2cf?q=80&w=570&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D',
-        'https://images.unsplash.com/photo-1483373018724-770a096812ff?q=80&w=570&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D',
-        'https://images.unsplash.com/photo-1461010083959-8a5727311252?q=80&w=570&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D'
-    ];
+    useEffect(() => {
+        fetchBackgroundImages();
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, [selectedHoliday]);
 
     const generateMessage = async () => {
         if (credits <= 0) {
@@ -145,53 +139,73 @@ function App() {
         }, 500);
 
         try {
-            const prompt = `Create a ${messageStyle} ${selectedHoliday} message with a ${getToneLabel(
-                tone
-            )} tone for my ${relationship} named ${recipientName}.${
-                memories ? ` Include these memories: ${memories}.` : ''
-            }${insideJokes ? ` Reference these inside jokes: ${insideJokes}.` : ''}${
-                sharedInterests ? ` Mention our shared interests in: ${sharedInterests}.` : ''
-            }${recentEvents ? ` Acknowledge these recent events: ${recentEvents}.` : ''}${
-                customAdditions ? ` Add this custom message: ${customAdditions}.` : ''
-            }${useEmojis ? ' Include appropriate emojis.' : ''} 
-            Language:${(navigator.languages && navigator.languages[0]) || navigator.language}
-            Respond with message only, without header`;
-
+            const prompt = buildPrompt();
             const response = await fetch(`${API_URL}/generate-message`, {
                 method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json'
-                },
-                body: JSON.stringify({
-                    input: prompt
-                })
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ input: prompt })
             });
 
-            if (!response.ok) {
-                throw new Error('Failed to generate message');
-            }
+            if (!response.ok) throw new Error('Failed to generate message');
 
             const data = await response.json();
-            setGeneratedMessage(data.textResponse);
-            setCredits(credits - 1);
-            setProgress(100);
-            setMessageHistory([...messageHistory, data.textResponse]);
-            toast({
-                title: 'Message generated successfully',
-                status: 'success',
-                duration: 2000
-            });
+            handleSuccessfulGeneration(data.textResponse);
         } catch (error) {
-            toast({
-                title: 'Error generating message',
-                description: error.message,
-                status: 'error',
-                duration: 3000
-            });
+            handleGenerationError(error);
         } finally {
             clearInterval(progressInterval);
             setIsLoading(false);
         }
+    };
+
+    const buildPrompt = () => {
+        const language = (navigator.languages && navigator.languages[0]) || navigator.language;
+        return `Create a ${messageStyle} ${selectedHoliday} message with a ${getToneLabel(tone)} tone for my ${relationship} named ${recipientName}.
+            ${memories ? `Include these memories: ${memories}.` : ''}
+            ${insideJokes ? `Reference these inside jokes: ${insideJokes}.` : ''}
+            ${sharedInterests ? `Mention our shared interests in: ${sharedInterests}.` : ''}
+            ${recentEvents ? `Acknowledge these recent events: ${recentEvents}.` : ''}
+            ${customAdditions ? `Add this custom message: ${customAdditions}.` : ''}
+            ${useEmojis ? 'Include appropriate emojis.' : ''} 
+            Language:${language}
+            Respond with message only, without header`;
+    };
+
+    const handleSuccessfulGeneration = (message) => {
+        setGeneratedMessage(message);
+        setCredits(credits - 1);
+        setProgress(100);
+        setMessageHistory([...messageHistory, message]);
+        toast({
+            title: t('messageGeneratedSuccess'),
+            status: 'success',
+            duration: 2000
+        });
+    };
+
+    const handleGenerationError = (error) => {
+        toast({
+            title: t('errorGeneratingMessage'),
+            description: error.message,
+            status: 'error',
+            duration: 3000
+        });
+    };
+
+    const styles = [
+        { id: 'formal', name: t('formal'), icon: '🎩' },
+        { id: 'casual', name: t('casual'), icon: '😊' },
+        { id: 'funny', name: t('funny'), icon: '😂' },
+        { id: 'heartfelt', name: t('heartfelt'), icon: '❤️' }
+    ];
+
+    const fonts = ['Arial', 'Times New Roman', 'Courier New', 'Georgia', 'Verdana'];
+
+    const toneLabels = {
+        0: t('professional'),
+        33: t('warm'),
+        66: t('playful'),
+        100: t('sentimental')
     };
 
     const getToneLabel = (value) => {
@@ -200,16 +214,6 @@ function App() {
             Math.abs(curr - value) < Math.abs(prev - value) ? curr : prev
         );
         return toneLabels[closest];
-    };
-
-    const handleDownload = () => {
-        const element = document.createElement('a');
-        const file = new Blob([generatedMessage], { type: 'text/plain' });
-        element.href = URL.createObjectURL(file);
-        element.download = `${selectedHoliday.toLowerCase()}-message.txt`;
-        document.body.appendChild(element);
-        element.click();
-        document.body.removeChild(element);
     };
 
     const handleShare = async () => {
@@ -225,20 +229,30 @@ function App() {
                     duration: 2000
                 });
             } catch {
-                toast({
-                    title: t('errorSharingMessage'),
-                    status: 'error',
-                    duration: 2000
-                });
+                handleClipboardCopy();
             }
         } else {
-            navigator.clipboard.writeText(generatedMessage);
-            toast({
-                title: t('messageCopiedToClipboard'),
-                status: 'success',
-                duration: 2000
-            });
+            handleClipboardCopy();
         }
+    };
+
+    const handleClipboardCopy = () => {
+        navigator.clipboard.writeText(generatedMessage);
+        toast({
+            title: t('messageCopiedToClipboard'),
+            status: 'success',
+            duration: 2000
+        });
+    };
+
+    const handleDownload = () => {
+        const element = document.createElement('a');
+        const file = new Blob([generatedMessage], { type: 'text/plain' });
+        element.href = URL.createObjectURL(file);
+        element.download = `${selectedHoliday.toLowerCase()}-message.txt`;
+        document.body.appendChild(element);
+        element.click();
+        document.body.removeChild(element);
     };
 
     const handleDailyReward = () => {
@@ -344,7 +358,7 @@ function App() {
                     <Box width="100%">
                         <Text mb={2}>{t('backgroundImage')}:</Text>
                         <SimpleGrid columns={[2, 2, 4]} spacing={4}>
-                            {backgroundImages.map((image, index) => (
+                            {backgroundImages?.slice(0, 4)?.map((image, index) => (
                                 <Image
                                     key={index}
                                     src={image}

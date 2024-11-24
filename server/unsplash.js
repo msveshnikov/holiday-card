@@ -12,5 +12,3 @@ export const getUnsplashImages = async (prompt) => {
     const data = await response.json();
     return data.results.map((r) => r.urls.regular);
 };
-
-console.log(await getUnsplashImages('christmas'));

@@ -9,6 +9,7 @@ import morgan from 'morgan';
 import compression from 'compression';
 import { dirname, join } from 'path';
 import { fileURLToPath } from 'url';
+import { getUnsplashImages } from './unsplash.js';
 
 dotenv.config();
 
@@ -36,35 +37,15 @@ app.use(limiter);
 
 mongoose.connect(process.env.MONGODB_URI, {});
 
-const UserSchema = new mongoose.Schema({
-    userId: String,
-    credits: Number,
-    messages: [{ content: String, createdAt: Date }],
-    lastDailyReward: Date
-});
-
-const User = mongoose.model('User', UserSchema);
-
 app.post('/api/generate-message', async (req, res) => {
     try {
         const { input } = req.body;
         console.log(input);
-        // const user = await User.findOne({ userId });
-        // if (!user || user.credits < 1) {
-        //     return res.status(403).json({ error: 'Insufficient credits' });
-        // }
 
         const completion = await openai.chat.completions.create({
             model: 'gpt-4o-mini',
             messages: [{ role: 'user', content: input }]
         });
-
-        // user.credits -= 1;
-        // user.messages.push({
-        //     content: completion.choices[0].message.content,
-        //     createdAt: new Date()
-        // });
-        // await user.save();
 
         res.json({ textResponse: completion.choices[0].message.content });
     } catch (error) {
@@ -73,62 +54,14 @@ app.post('/api/generate-message', async (req, res) => {
     }
 });
 
-app.get('/api/user-credits', async (req, res) => {
-    const userId = req.query.userId;
-    const user = await User.findOne({ userId });
-    res.json({ credits: user ? user.credits : 0 });
-});
-
-app.post('/api/use-credit', async (req, res) => {
-    const { userId } = req.body;
-    const user = await User.findOne({ userId });
-    if (user && user.credits > 0) {
-        user.credits -= 1;
-        await user.save();
-        res.json({ success: true });
-    } else {
-        res.json({ success: false });
-    }
-});
-
-app.get('/api/themes', (req, res) => {
-    const themes = ['Winter Wonderland', 'Cozy Fireplace', "Santa's Workshop"];
-    res.json({ themes });
-});
-
-app.post('/api/save-message', async (req, res) => {
-    const { userId, message } = req.body;
-    const user = await User.findOne({ userId });
-    if (user) {
-        user.messages.push({ content: message, createdAt: new Date() });
-        await user.save();
-        res.json({ success: true });
-    } else {
-        res.json({ success: false });
-    }
-});
-
-app.get('/api/message-history', async (req, res) => {
-    const userId = req.query.userId;
-    const user = await User.findOne({ userId });
-    res.json({ history: user ? user.messages : [] });
-});
-
-app.post('/api/daily-reward', async (req, res) => {
-    const { userId } = req.body;
-    const user = await User.findOne({ userId });
-    if (user) {
-        const today = new Date().setHours(0, 0, 0, 0);
-        if (!user.lastDailyReward || user.lastDailyReward < today) {
-            user.credits += 1;
-            user.lastDailyReward = new Date();
-            await user.save();
-            res.json({ reward: 1 });
-        } else {
-            res.json({ reward: 0 });
-        }
-    } else {
-        res.json({ reward: 0 });
+app.get('/api/images/:holiday', async (req, res) => {
+    try {
+        const { holiday } = req.params;
+        const images = await getUnsplashImages(holiday);
+        res.json({ images: images.slice(0, 10) });
+    } catch (error) {
+        console.error('Error fetching images:', error);
+        res.status(500).json({ error: 'Failed to fetch images' });
     }
 });
 
