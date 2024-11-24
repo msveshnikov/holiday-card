@@ -80,7 +80,7 @@ function App() {
     }, []);
 
     useEffect(() => {
-        ReactGA.initialize('G-E5XZ9W8ZWN');
+        ReactGA.initialize('G-8B86H1JDH1');
         ReactGA.send({ hitType: 'pageview', page: window.location.pathname });
     }, []);
 
