@@ -1,5 +1,5 @@
 {
-    "cardGenerator": "Gerador de Mensagens de {{holiday}}",
+    "cardGenerator": "Gerador de Cartões {{holiday}}",
     "credits": "Créditos",
     "claimDailyReward": "Receber Recompensa Diária",
     "upgradeToPremium": "Atualizar para Premium",
@@ -8,11 +8,16 @@
     "fontSize": "Tamanho da Fonte",
     "fontFamily": "Família da Fonte",
     "background": "Fundo",
+    "backgroundImage": "Imagem de Fundo",
     "tone": "Tom",
     "professional": "Profissional",
     "warm": "Caloroso",
     "playful": "Divertido",
     "sentimental": "Sentimental",
+    "formal": "Formal",
+    "casual": "Casual",
+    "funny": "Engraçado",
+    "heartfelt": "Sincero",
     "recipientName": "Nome do Destinatário",
     "relationship": "Relacionamento",
     "specialMemories": "Memórias Especiais",
@@ -29,10 +34,6 @@
     "ecoFriendlyMessage": "Escolha cartões digitais para um futuro mais sustentável",
     "learnMore": "Saiba mais",
     "close": "Fechar",
-    "formal": "Formal",
-    "casual": "Casual",
-    "funny": "Engraçado",
-    "heartfelt": "Sincero",
     "noCreditsRemaining": "Sem créditos restantes",
     "upgradePrompt": "Atualize sua conta para gerar mais mensagens",
     "missingInformation": "Informações faltando",
@@ -41,5 +42,5 @@
     "errorSharingMessage": "Erro ao compartilhar mensagem",
     "messageCopiedToClipboard": "Mensagem copiada para a área de transferência",
     "dailyRewardClaimed": "Recompensa diária recebida",
-    "creditAdded": "1 crédito adicionado à sua conta"
+    "creditAdded": "1 crédito foi adicionado à sua conta"
 }

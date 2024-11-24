@@ -8,6 +8,7 @@
     "fontSize": "Rozmiar czcionki",
     "fontFamily": "Rodzaj czcionki",
     "background": "Tło",
+    "backgroundImage": "Obraz tła",
     "tone": "Ton",
     "professional": "Profesjonalny",
     "warm": "Ciepły",

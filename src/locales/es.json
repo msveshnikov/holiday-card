@@ -8,6 +8,7 @@
     "fontSize": "Tamaño de fuente",
     "fontFamily": "Tipo de letra",
     "background": "Fondo",
+    "backgroundImage": "Imagen de fondo",
     "tone": "Tono",
     "professional": "Profesional",
     "warm": "Cálido",
@@ -41,6 +42,5 @@
     "errorSharingMessage": "Error al compartir el mensaje",
     "messageCopiedToClipboard": "Mensaje copiado al portapapeles",
     "dailyRewardClaimed": "Recompensa diaria reclamada",
-    "creditAdded": "Se ha añadido 1 crédito a tu cuenta",
-    "backgroundImage": "Imagen de fondo"
+    "creditAdded": "Se ha añadido 1 crédito a tu cuenta"
 }

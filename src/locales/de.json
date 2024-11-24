@@ -1,5 +1,5 @@
 {
-    "cardGenerator": "{{holiday}} Karten-Generator",
+    "cardGenerator": "{{holiday}}-Karten-Generator",
     "credits": "Guthaben",
     "claimDailyReward": "Tägliche Belohnung einfordern",
     "upgradeToPremium": "Auf Premium upgraden",
@@ -8,6 +8,7 @@
     "fontSize": "Schriftgröße",
     "fontFamily": "Schriftart",
     "background": "Hintergrund",
+    "backgroundImage": "Hintergrundbild",
     "tone": "Tonfall",
     "professional": "Professionell",
     "warm": "Warmherzig",
@@ -30,16 +31,16 @@
     "shareMessage": "Nachricht teilen",
     "download": "Herunterladen",
     "messageHistory": "Nachrichtenverlauf",
-    "ecoFriendlyMessage": "Umweltfreundliche digitale Karten sparen Papier",
+    "ecoFriendlyMessage": "Digitale Karten sind umweltfreundlich und schonen Ressourcen",
     "learnMore": "Mehr erfahren",
     "close": "Schließen",
     "noCreditsRemaining": "Keine Guthaben mehr",
-    "upgradePrompt": "Bitte upgraden Sie Ihr Konto",
+    "upgradePrompt": "Bitte upgraden Sie Ihr Konto für weitere Nachrichten",
     "missingInformation": "Fehlende Informationen",
     "fillRequiredFields": "Bitte füllen Sie alle erforderlichen Felder aus",
     "sharedSuccessfully": "Erfolgreich geteilt",
     "errorSharingMessage": "Fehler beim Teilen der Nachricht",
     "messageCopiedToClipboard": "Nachricht in die Zwischenablage kopiert",
     "dailyRewardClaimed": "Tägliche Belohnung eingefordert",
-    "creditAdded": "Guthaben hinzugefügt"
+    "creditAdded": "Ein Guthaben wurde Ihrem Konto hinzugefügt"
 }

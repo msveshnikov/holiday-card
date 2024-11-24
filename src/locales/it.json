@@ -8,6 +8,7 @@
     "fontSize": "Dimensione carattere",
     "fontFamily": "Tipo di carattere",
     "background": "Sfondo",
+    "backgroundImage": "Immagine di sfondo",
     "tone": "Tono",
     "professional": "Professionale",
     "warm": "Caloroso",
@@ -41,5 +42,5 @@
     "errorSharingMessage": "Errore durante la condivisione",
     "messageCopiedToClipboard": "Messaggio copiato negli appunti",
     "dailyRewardClaimed": "Premio giornaliero riscattato",
-    "creditAdded": "Credito aggiunto"
+    "creditAdded": "Credito aggiunto al tuo account"
 }

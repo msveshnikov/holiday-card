@@ -8,6 +8,7 @@
     "fontSize": "Taille de la police",
     "fontFamily": "Police",
     "background": "Arrière-plan",
+    "backgroundImage": "Image d'arrière-plan",
     "tone": "Ton",
     "professional": "Professionnel",
     "warm": "Chaleureux",
@@ -41,6 +42,5 @@
     "errorSharingMessage": "Erreur lors du partage",
     "messageCopiedToClipboard": "Message copié dans le presse-papiers",
     "dailyRewardClaimed": "Récompense quotidienne réclamée",
-    "creditAdded": "Un crédit a été ajouté à votre compte",
-    "backgroundImage": "Image d'arrière-plan"
+    "creditAdded": "Un crédit a été ajouté à votre compte"
 }
