@@ -104,7 +104,7 @@ function App() {
 
     useEffect(() => {
         localStorage.setItem('messageHistory', JSON.stringify(messageHistory));
-    }, [credits, messageHistory]);
+    }, [messageHistory]);
 
     useEffect(() => {
         fetchBackgroundImages();
@@ -287,6 +287,7 @@ function App() {
                         <Text fontSize="3xl" fontWeight="bold" color={theme.colors.primary}>
                             {t('cardGenerator', { holiday: t('holidays.' + selectedHoliday) })}
                         </Text>
+                        <br />
                         <Badge colorScheme="green" ml={2}>
                             {t('credits')}: {credits}
                         </Badge>
@@ -329,6 +330,7 @@ function App() {
                     <SimpleGrid columns={[1, 2, 3]} spacing={4} width="100%">
                         <FormControl>
                             <FormLabel>{t('fontSize')}</FormLabel>
+                            <br/>
                             <Slider value={fontSize} min={12} max={24} onChange={setFontSize}>
                                 <SliderTrack>
                                     <SliderFilledTrack />

@@ -104,3 +104,5 @@ tones, and personalization options.
 -   Rate limiting
 
 # TODO
+
+-   improve design/UX
