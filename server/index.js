@@ -1,21 +1,31 @@
 import express from 'express';
 import cors from 'cors';
+import fs from 'fs';
 import OpenAI from 'openai';
 import dotenv from 'dotenv';
 import rateLimit from 'express-rate-limit';
 import mongoose from 'mongoose';
 import morgan from 'morgan';
+import compression from 'compression';
+import { dirname, join } from 'path';
+import { fileURLToPath } from 'url';
 
 dotenv.config();
 
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = dirname(__filename);
+
 const app = express();
+app.set('trust proxy', 1);
 const port = process.env.PORT || 3000;
 
 const openai = new OpenAI({ apiKey: process.env.OPENAI_KEY });
 
 app.use(cors());
 app.use(express.json({ limit: '15mb' }));
+app.use(express.static(join(__dirname, '../dist'), { maxAge: '3d' }));
 app.use(morgan('dev'));
+app.use(compression());
 
 const limiter = rateLimit({
     windowMs: 15 * 60 * 1000,
@@ -35,65 +45,41 @@ const UserSchema = new mongoose.Schema({
 
 const User = mongoose.model('User', UserSchema);
 
-app.post('/generate-message', async (req, res) => {
+app.post('/api/generate-message', async (req, res) => {
     try {
-        const {
-            style,
-            tone,
-            recipient,
-            relationship,
-            occasions,
-            jokes,
-            interests,
-            events,
-            additions,
-            emojis,
-            userId
-        } = req.body;
+        const { input } = req.body;
 
-        const user = await User.findOne({ userId });
-        if (!user || user.credits < 1) {
-            return res.status(403).json({ error: 'Insufficient credits' });
-        }
-
-        const prompt = `Generate a Christmas card message with the following details:
-    Style: ${style}
-    Tone: ${tone}
-    Recipient: ${recipient}
-    Relationship: ${relationship}
-    Special occasions/memories: ${occasions}
-    Inside jokes: ${jokes}
-    Shared interests: ${interests}
-    Recent events: ${events}
-    Custom message additions: ${additions}
-    Emoji preferences: ${emojis}`;
+        // const user = await User.findOne({ userId });
+        // if (!user || user.credits < 1) {
+        //     return res.status(403).json({ error: 'Insufficient credits' });
+        // }
 
         const completion = await openai.chat.completions.create({
-            model: 'gpt-3.5-turbo',
-            messages: [{ role: 'user', content: prompt }]
+            model: 'gpt-4o-mini',
+            messages: [{ role: 'user', content: input }]
         });
 
-        user.credits -= 1;
-        user.messages.push({
-            content: completion.choices[0].message.content,
-            createdAt: new Date()
-        });
-        await user.save();
+        // user.credits -= 1;
+        // user.messages.push({
+        //     content: completion.choices[0].message.content,
+        //     createdAt: new Date()
+        // });
+        // await user.save();
 
-        res.json({ message: completion.choices[0].message.content });
+        res.json({ textResponse: completion.choices[0].message.content });
     } catch (error) {
         console.error('Error generating message:', error);
         res.status(500).json({ error: 'An error occurred while generating the message' });
     }
 });
 
-app.get('/user-credits', async (req, res) => {
+app.get('/api/user-credits', async (req, res) => {
     const userId = req.query.userId;
     const user = await User.findOne({ userId });
     res.json({ credits: user ? user.credits : 0 });
 });
 
-app.post('/use-credit', async (req, res) => {
+app.post('/api/use-credit', async (req, res) => {
     const { userId } = req.body;
     const user = await User.findOne({ userId });
     if (user && user.credits > 0) {
@@ -105,12 +91,12 @@ app.post('/use-credit', async (req, res) => {
     }
 });
 
-app.get('/themes', (req, res) => {
+app.get('/api/themes', (req, res) => {
     const themes = ['Winter Wonderland', 'Cozy Fireplace', "Santa's Workshop"];
     res.json({ themes });
 });
 
-app.post('/save-message', async (req, res) => {
+app.post('/api/save-message', async (req, res) => {
     const { userId, message } = req.body;
     const user = await User.findOne({ userId });
     if (user) {
@@ -122,13 +108,13 @@ app.post('/save-message', async (req, res) => {
     }
 });
 
-app.get('/message-history', async (req, res) => {
+app.get('/api/message-history', async (req, res) => {
     const userId = req.query.userId;
     const user = await User.findOne({ userId });
     res.json({ history: user ? user.messages : [] });
 });
 
-app.post('/daily-reward', async (req, res) => {
+app.post('/api/daily-reward', async (req, res) => {
     const { userId } = req.body;
     const user = await User.findOne({ userId });
     if (user) {
@@ -144,6 +130,18 @@ app.post('/daily-reward', async (req, res) => {
     } else {
         res.json({ reward: 0 });
     }
+});
+
+app.get('*', async (req, res) => {
+    return res.send(fs.readFileSync(join(__dirname, '../dist/index.html'), 'utf8'));
+});
+
+app.use((req, res) => {
+    res.status(404).json({ error: 'Not found' });
+});
+
+process.on('uncaughtException', (err, origin) => {
+    console.error(`Caught exception: ${err}`, `Exception origin: ${origin}`);
 });
 
 app.listen(port, () => {

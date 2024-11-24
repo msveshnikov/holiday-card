@@ -41,7 +41,7 @@ import ReactGA from 'react-ga4';
 import { useTranslation } from 'react-i18next';
 import theme from './theme.js';
 
-const API_URL = 'https://allchat.online/api';
+export const API_URL = import.meta.env.DEV ? 'http://localhost:3000' : 'https://holiday.autocode.work/api';
 
 function App() {
     const { t } = useTranslation();
@@ -145,7 +145,6 @@ function App() {
         }, 500);
 
         try {
-            const token = import.meta.env.VITE_CHAT_TOKEN;
             const prompt = `Create a ${messageStyle} ${selectedHoliday} message with a ${getToneLabel(
                 tone
             )} tone for my ${relationship} named ${recipientName}.${
@@ -154,18 +153,17 @@ function App() {
                 sharedInterests ? ` Mention our shared interests in: ${sharedInterests}.` : ''
             }${recentEvents ? ` Acknowledge these recent events: ${recentEvents}.` : ''}${
                 customAdditions ? ` Add this custom message: ${customAdditions}.` : ''
-            }${useEmojis ? ' Include appropriate emojis.' : ''}`;
+            }${useEmojis ? ' Include appropriate emojis.' : ''} 
+            Language:${(navigator.languages && navigator.languages[0]) || navigator.language}
+            Respond with message only, without header`;
 
-            const response = await fetch(`${API_URL}/interact`, {
+            const response = await fetch(`${API_URL}/generate-message`, {
                 method: 'POST',
                 headers: {
-                    'Content-Type': 'application/json',
-                    Authorization: `Bearer ${token}`
+                    'Content-Type': 'application/json'
                 },
                 body: JSON.stringify({
-                    input: prompt,
-                    lang: (navigator.languages && navigator.languages[0]) || navigator.language,
-                    model: 'gpt-4o-mini'
+                    input: prompt
                 })
             });
 
