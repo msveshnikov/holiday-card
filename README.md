@@ -23,8 +23,6 @@ tones, and personalization options.
 -   Chakra UI
 -   OpenAI API
 -   Theme Provider
--   Custom Hooks
--   Context API
 
 ## Design Considerations
 
@@ -68,7 +66,6 @@ tones, and personalization options.
 -   Free trial: 3 messages
 -   Basic plan: 10 credits
 -   Premium plan: 50 credits
--   Enterprise: Unlimited
 -   Referral bonuses
 -   Daily rewards
 
@@ -78,7 +75,6 @@ tones, and personalization options.
 -   Seasonal themes
 -   Font selection
 -   Card layouts
--   Animation preferences
 
 ## State Management
 

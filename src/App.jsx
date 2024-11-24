@@ -198,9 +198,23 @@ function App() {
         { id: 'funny', name: t('funny'), icon: '😂' },
         { id: 'heartfelt', name: t('heartfelt'), icon: '❤️' }
     ];
-
-    const fonts = ['Arial', 'Times New Roman', 'Courier New', 'Georgia', 'Verdana'];
-
+    const fonts = [
+        'Arial',
+        'Times New Roman',
+        'Courier New',
+        'Georgia',
+        'Verdana',
+        'Helvetica',
+        'Roboto',
+        'Open Sans',
+        'Lato',
+        'Montserrat',
+        'Playfair Display',
+        'Dancing Script',
+        'Pacifico',
+        'Comic Sans MS',
+        'Impact'
+    ];
     const toneLabels = {
         0: t('professional'),
         33: t('warm'),
@@ -517,7 +531,7 @@ function App() {
                                 {messageHistory.map((message, index) => (
                                     <Card key={index}>
                                         <CardBody>
-                                            <Text >{message}</Text>
+                                            <Text>{message}</Text>
                                         </CardBody>
                                     </Card>
                                 ))}
