@@ -1,0 +1,26 @@
+{
+    "name": "ai-christmas-card-generator-server",
+    "version": "1.0.0",
+    "description": "Backend server for AI Christmas Card Message Generator",
+    "main": "index.js",
+    "scripts": {
+        "dev": "nodemon index.js"
+    },
+    "type": "module",
+    "author": "",
+    "license": "ISC",
+    "dependencies": {
+        "express": "^4.21.1",
+        "openai": "^4.73.0",
+        "dotenv": "^16.4.5",
+        "cors": "^2.8.5",
+        "helmet": "^8.0.0",
+        "mongoose": "^8.8.2",
+        "jsonwebtoken": "^9.0.2",
+        "bcryptjs": "^2.4.3",
+        "express-rate-limit": "^7.4.1"
+    },
+    "devDependencies": {
+        "nodemon": "^3.1.7"
+    }
+}
