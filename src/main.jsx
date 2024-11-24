@@ -3,6 +3,8 @@ import { ChakraProvider, ColorModeScript } from '@chakra-ui/react';
 import { Helmet, HelmetProvider } from 'react-helmet-async';
 import theme from './theme';
 import App from './App';
+import './i18n';
+import { I18nextProvider } from 'react-i18next';
 
 const root = createRoot(document.getElementById('root'));
 
@@ -18,7 +20,9 @@ root.render(
         </Helmet>
         <ColorModeScript initialColorMode={theme.config.initialColorMode} />
         <ChakraProvider theme={theme}>
-            <App />
+            <I18nextProvider>
+                <App />
+            </I18nextProvider>
         </ChakraProvider>
     </HelmetProvider>
 );

@@ -38,11 +38,13 @@ import {
 } from '@chakra-ui/react';
 import { FaShareAlt, FaCrown, FaGift, FaCalendarAlt, FaLeaf } from 'react-icons/fa';
 import ReactGA from 'react-ga4';
+import { useTranslation } from 'react-i18next';
 import theme from './theme.js';
 
 const API_URL = 'https://allchat.online/api';
 
 function App() {
+    const { t } = useTranslation();
     const [messageStyle, setMessageStyle] = useState('formal');
     const [tone, setTone] = useState(50);
     const [recipientName, setRecipientName] = useState('');
@@ -100,19 +102,19 @@ function App() {
     ];
 
     const styles = [
-        { id: 'formal', name: 'Formal', icon: '🎩' },
-        { id: 'casual', name: 'Casual', icon: '😊' },
-        { id: 'funny', name: 'Funny', icon: '😂' },
-        { id: 'heartfelt', name: 'Heartfelt', icon: '❤️' }
+        { id: 'formal', name: t('formal'), icon: '🎩' },
+        { id: 'casual', name: t('casual'), icon: '😊' },
+        { id: 'funny', name: t('funny'), icon: '😂' },
+        { id: 'heartfelt', name: t('heartfelt'), icon: '❤️' }
     ];
 
     const fonts = ['Arial', 'Times New Roman', 'Courier New', 'Georgia', 'Verdana'];
 
     const toneLabels = {
-        0: 'Professional',
-        33: 'Warm',
-        66: 'Playful',
-        100: 'Sentimental'
+        0: t('professional'),
+        33: t('warm'),
+        66: t('playful'),
+        100: t('sentimental')
     };
 
     const relationships = [
@@ -169,8 +171,8 @@ function App() {
     const generateMessage = async () => {
         if (credits <= 0) {
             toast({
-                title: 'No credits remaining',
-                description: 'Please upgrade your plan to generate more messages',
+                title: t('noCreditsRemaining'),
+                description: t('upgradePrompt'),
                 status: 'error',
                 duration: 3000
             });
@@ -179,8 +181,8 @@ function App() {
 
         if (!recipientName || !relationship) {
             toast({
-                title: 'Missing information',
-                description: 'Please fill in at least the recipient name and relationship',
+                title: t('missingInformation'),
+                description: t('fillRequiredFields'),
                 status: 'warning',
                 duration: 3000
             });
@@ -271,13 +273,13 @@ function App() {
                     text: generatedMessage
                 });
                 toast({
-                    title: 'Shared successfully',
+                    title: t('sharedSuccessfully'),
                     status: 'success',
                     duration: 2000
                 });
             } catch {
                 toast({
-                    title: 'Error sharing message',
+                    title: t('errorSharingMessage'),
                     status: 'error',
                     duration: 2000
                 });
@@ -285,7 +287,7 @@ function App() {
         } else {
             navigator.clipboard.writeText(generatedMessage);
             toast({
-                title: 'Message copied to clipboard',
+                title: t('messageCopiedToClipboard'),
                 status: 'success',
                 duration: 2000
             });
@@ -295,8 +297,8 @@ function App() {
     const handleDailyReward = () => {
         setCredits((prev) => prev + 1);
         toast({
-            title: 'Daily reward claimed!',
-            description: '+1 credit added to your account',
+            title: t('dailyRewardClaimed'),
+            description: t('creditAdded'),
             status: 'success',
             duration: 2000
         });
@@ -308,40 +310,40 @@ function App() {
                 <VStack spacing={8}>
                     <Box textAlign="center" position="relative" width="100%">
                         <Text fontSize="3xl" fontWeight="bold" color={theme.colors.primary}>
-                            {selectedHoliday} Card Generator
+                            {t('cardGenerator', { holiday: selectedHoliday })}
                         </Text>
                         <Badge colorScheme="green" ml={2}>
-                            Credits: {credits}
+                            {t('credits')}: {credits}
                         </Badge>
-                        <Tooltip label="Claim daily reward">
+                        <Tooltip label={t('claimDailyReward')}>
                             <IconButton
-                                aria-label="Claim daily reward"
+                                aria-label={t('claimDailyReward')}
                                 icon={<FaGift />}
                                 ml={2}
                                 onClick={handleDailyReward}
                                 colorScheme="pink"
                             />
                         </Tooltip>
-                        <Tooltip label="Upgrade to Premium">
+                        <Tooltip label={t('upgradeToPremium')}>
                             <IconButton
-                                aria-label="Upgrade to Premium"
+                                aria-label={t('upgradeToPremium')}
                                 icon={<FaCrown />}
                                 ml={2}
                                 colorScheme="yellow"
                             />
                         </Tooltip>
-                        <Tooltip label="Select Holiday">
+                        <Tooltip label={t('selectHoliday')}>
                             <IconButton
-                                aria-label="Select Holiday"
+                                aria-label={t('selectHoliday')}
                                 icon={<FaCalendarAlt />}
                                 ml={2}
                                 onClick={onOpen}
                                 colorScheme="blue"
                             />
                         </Tooltip>
-                        <Tooltip label="Eco-friendly">
+                        <Tooltip label={t('ecoFriendly')}>
                             <IconButton
-                                aria-label="Eco-friendly"
+                                aria-label={t('ecoFriendly')}
                                 icon={<FaLeaf />}
                                 ml={2}
                                 colorScheme="green"
@@ -351,7 +353,7 @@ function App() {
 
                     <SimpleGrid columns={[1, 2, 3]} spacing={4} width="100%">
                         <FormControl>
-                            <FormLabel>Font Size</FormLabel>
+                            <FormLabel>{t('fontSize')}</FormLabel>
                             <Slider value={fontSize} min={12} max={24} onChange={setFontSize}>
                                 <SliderTrack>
                                     <SliderFilledTrack />
@@ -360,7 +362,7 @@ function App() {
                             </Slider>
                         </FormControl>
                         <FormControl>
-                            <FormLabel>Font Family</FormLabel>
+                            <FormLabel>{t('fontFamily')}</FormLabel>
                             <Select
                                 value={fontFamily}
                                 onChange={(e) => setFontFamily(e.target.value)}
@@ -393,13 +395,13 @@ function App() {
                     </SimpleGrid>
 
                     <Box width="100%">
-                        <Text mb={2}>Background Image:</Text>
+                        <Text mb={2}>{t('backgroundImage')}:</Text>
                         <SimpleGrid columns={[2, 2, 4]} spacing={4}>
                             {backgroundImages.map((image, index) => (
                                 <Image
                                     key={index}
                                     src={image}
-                                    alt={`Background ${index + 1}`}
+                                    alt={`${t('background')} ${index + 1}`}
                                     cursor="pointer"
                                     borderRadius="md"
                                     border={selectedImage === image ? '2px solid green' : 'none'}
@@ -414,7 +416,9 @@ function App() {
                     </Box>
 
                     <Box width="100%">
-                        <Text mb={2}>Tone: {getToneLabel(tone)}</Text>
+                        <Text mb={2}>
+                            {t('tone')}: {getToneLabel(tone)}
+                        </Text>
                         <Slider value={tone} onChange={setTone} min={0} max={100}>
                             <SliderTrack>
                                 <SliderFilledTrack />
@@ -426,14 +430,14 @@ function App() {
                     <Grid templateColumns={['1fr', '1fr', 'repeat(2, 1fr)']} gap={4} width="100%">
                         <GridItem>
                             <Input
-                                placeholder="Recipient Name"
+                                placeholder={t('recipientName')}
                                 value={recipientName}
                                 onChange={(e) => setRecipientName(e.target.value)}
                             />
                         </GridItem>
                         <GridItem>
                             <Select
-                                placeholder="Relationship"
+                                placeholder={t('relationship')}
                                 value={relationship}
                                 onChange={(e) => setRelationship(e.target.value)}
                             >
@@ -446,42 +450,42 @@ function App() {
                         </GridItem>
                         <GridItem colSpan={[1, 1, 2]}>
                             <Textarea
-                                placeholder="Special memories"
+                                placeholder={t('specialMemories')}
                                 value={memories}
                                 onChange={(e) => setMemories(e.target.value)}
                             />
                         </GridItem>
                         <GridItem colSpan={[1, 1, 2]}>
                             <Textarea
-                                placeholder="Inside jokes"
+                                placeholder={t('insideJokes')}
                                 value={insideJokes}
                                 onChange={(e) => setInsideJokes(e.target.value)}
                             />
                         </GridItem>
                         <GridItem>
                             <Textarea
-                                placeholder="Shared interests"
+                                placeholder={t('sharedInterests')}
                                 value={sharedInterests}
                                 onChange={(e) => setSharedInterests(e.target.value)}
                             />
                         </GridItem>
                         <GridItem>
                             <Textarea
-                                placeholder="Recent events"
+                                placeholder={t('recentEvents')}
                                 value={recentEvents}
                                 onChange={(e) => setRecentEvents(e.target.value)}
                             />
                         </GridItem>
                         <GridItem colSpan={[1, 1, 2]}>
                             <Textarea
-                                placeholder="Custom message additions"
+                                placeholder={t('customMessageAdditions')}
                                 value={customAdditions}
                                 onChange={(e) => setCustomAdditions(e.target.value)}
                             />
                         </GridItem>
                         <GridItem colSpan={[1, 1, 2]}>
                             <FormControl display="flex" alignItems="center">
-                                <FormLabel mb="0">Use Emojis</FormLabel>
+                                <FormLabel mb="0">{t('useEmojis')}</FormLabel>
                                 <Switch
                                     isChecked={useEmojis}
                                     onChange={() => setUseEmojis(!useEmojis)}
@@ -497,7 +501,7 @@ function App() {
                         width="100%"
                         size="lg"
                     >
-                        Generate Message
+                        {t('generateMessage')}
                     </Button>
 
                     {isLoading && <Progress value={progress} width="100%" colorScheme="green" />}
@@ -507,7 +511,7 @@ function App() {
                             <CardBody>
                                 <Image
                                     src={selectedImage}
-                                    alt="Holiday Background"
+                                    alt={t('holidayBackground')}
                                     mb={4}
                                     borderRadius="md"
                                 />
@@ -526,10 +530,10 @@ function App() {
                                         colorScheme="green"
                                         onClick={handleShare}
                                     >
-                                        Share Message
+                                        {t('shareMessage')}
                                     </Button>
                                     <Button colorScheme="blue" onClick={handleDownload}>
-                                        Download
+                                        {t('download')}
                                     </Button>
                                 </SimpleGrid>
                             </CardBody>
@@ -539,7 +543,7 @@ function App() {
                     {messageHistory.length > 0 && (
                         <Box width="100%">
                             <Text fontSize="xl" fontWeight="bold" mb={2}>
-                                Message History
+                                {t('messageHistory')}
                             </Text>
                             <VStack spacing={2} align="stretch">
                                 {messageHistory.map((message, index) => (
@@ -555,10 +559,13 @@ function App() {
 
                     <Box width="100%" textAlign="center">
                         <Text fontSize="sm" color="gray.500">
-                            By using our digital card generator, you&apos;re helping to reduce paper
-                            waste and protect the environment.{' '}
-                            <Link color="green.500" href="https://holidaycard.shop/landing.html" isExternal>
-                                Learn more about our eco-friendly initiative
+                            {t('ecoFriendlyMessage')}{' '}
+                            <Link
+                                color="green.500"
+                                href="https://holidaycard.shop/landing.html"
+                                isExternal
+                            >
+                                {t('learnMore')}
                             </Link>
                         </Text>
                     </Box>
@@ -568,7 +575,7 @@ function App() {
             <Modal isOpen={isOpen} onClose={onClose}>
                 <ModalOverlay />
                 <ModalContent>
-                    <ModalHeader>Select Holiday</ModalHeader>
+                    <ModalHeader>{t('selectHoliday')}</ModalHeader>
                     <ModalCloseButton />
                     <ModalBody>
                         <Select
@@ -584,7 +591,7 @@ function App() {
                     </ModalBody>
                     <ModalFooter>
                         <Button colorScheme="blue" mr={3} onClick={onClose}>
-                            Close
+                            {t('close')}
                         </Button>
                     </ModalFooter>
                 </ModalContent>
