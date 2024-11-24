@@ -4,8 +4,7 @@ services:
     backend:
         image: extender777/holiday
         ports:
-            - '8013:3000'
-            - '6022:6022'
+            - '8014:3000'
         environment:
             - NODE_ENV=production
             - OPENAI_KEY=${OPENAI_KEY}
