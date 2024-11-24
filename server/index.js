@@ -3,6 +3,7 @@ import cors from 'cors';
 import OpenAI from 'openai';
 import dotenv from 'dotenv';
 import rateLimit from 'express-rate-limit';
+import mongoose from 'mongoose';
 
 dotenv.config();
 
@@ -21,6 +22,17 @@ const limiter = rateLimit({
 
 app.use(limiter);
 
+mongoose.connect(process.env.MONGODB_URI, {});
+
+const UserSchema = new mongoose.Schema({
+    userId: String,
+    credits: Number,
+    messages: [{ content: String, createdAt: Date }],
+    lastDailyReward: Date
+});
+
+const User = mongoose.model('User', UserSchema);
+
 app.post('/generate-message', async (req, res) => {
     try {
         const {
@@ -33,8 +45,14 @@ app.post('/generate-message', async (req, res) => {
             interests,
             events,
             additions,
-            emojis
+            emojis,
+            userId
         } = req.body;
+
+        const user = await User.findOne({ userId });
+        if (!user || user.credits < 1) {
+            return res.status(403).json({ error: 'Insufficient credits' });
+        }
 
         const prompt = `Generate a Christmas card message with the following details:
     Style: ${style}
@@ -53,6 +71,13 @@ app.post('/generate-message', async (req, res) => {
             messages: [{ role: 'user', content: prompt }]
         });
 
+        user.credits -= 1;
+        user.messages.push({
+            content: completion.choices[0].message.content,
+            createdAt: new Date()
+        });
+        await user.save();
+
         res.json({ message: completion.choices[0].message.content });
     } catch (error) {
         console.error('Error generating message:', error);
@@ -60,74 +85,64 @@ app.post('/generate-message', async (req, res) => {
     }
 });
 
-app.get('/user-credits', (req, res) => {
+app.get('/user-credits', async (req, res) => {
     const userId = req.query.userId;
-    const credits = getUserCredits(userId);
-    res.json({ credits });
+    const user = await User.findOne({ userId });
+    res.json({ credits: user ? user.credits : 0 });
 });
 
-app.post('/use-credit', (req, res) => {
+app.post('/use-credit', async (req, res) => {
     const { userId } = req.body;
-    const success = useCredit(userId);
-    res.json({ success });
+    const user = await User.findOne({ userId });
+    if (user && user.credits > 0) {
+        user.credits -= 1;
+        await user.save();
+        res.json({ success: true });
+    } else {
+        res.json({ success: false });
+    }
 });
 
 app.get('/themes', (req, res) => {
-    const themes = getThemes();
+    const themes = ['Winter Wonderland', 'Cozy Fireplace', "Santa's Workshop"];
     res.json({ themes });
 });
 
-app.post('/save-message', (req, res) => {
+app.post('/save-message', async (req, res) => {
     const { userId, message } = req.body;
-    const success = saveMessage(userId, message);
-    res.json({ success });
+    const user = await User.findOne({ userId });
+    if (user) {
+        user.messages.push({ content: message, createdAt: new Date() });
+        await user.save();
+        res.json({ success: true });
+    } else {
+        res.json({ success: false });
+    }
 });
 
-app.get('/message-history', (req, res) => {
+app.get('/message-history', async (req, res) => {
     const userId = req.query.userId;
-    const history = getMessageHistory(userId);
-    res.json({ history });
+    const user = await User.findOne({ userId });
+    res.json({ history: user ? user.messages : [] });
 });
 
-app.post('/referral', (req, res) => {
-    const { userId, referralCode } = req.body;
-    const success = processReferral(userId, referralCode);
-    res.json({ success });
-});
-
-app.post('/daily-reward', (req, res) => {
+app.post('/daily-reward', async (req, res) => {
     const { userId } = req.body;
-    const reward = claimDailyReward(userId);
-    res.json({ reward });
+    const user = await User.findOne({ userId });
+    if (user) {
+        const today = new Date().setHours(0, 0, 0, 0);
+        if (!user.lastDailyReward || user.lastDailyReward < today) {
+            user.credits += 1;
+            user.lastDailyReward = new Date();
+            await user.save();
+            res.json({ reward: 1 });
+        } else {
+            res.json({ reward: 0 });
+        }
+    } else {
+        res.json({ reward: 0 });
+    }
 });
-
-function getUserCredits(userId) {
-    return 10;
-}
-
-function useCredit(userId) {
-    return true;
-}
-
-function getThemes() {
-    return ['Winter Wonderland', 'Cozy Fireplace', "Santa's Workshop"];
-}
-
-function saveMessage(userId, message) {
-    return true;
-}
-
-function getMessageHistory(userId) {
-    return [];
-}
-
-function processReferral(userId, referralCode) {
-    return true;
-}
-
-function claimDailyReward(userId) {
-    return 1;
-}
 
 app.listen(port, () => {
     console.log(`Server running on port ${port}`);
