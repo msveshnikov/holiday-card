@@ -8,6 +8,10 @@ import ruTranslations from './locales/ru.json';
 import deTranslations from './locales/de.json';
 import frTranslations from './locales/fr.json';
 import itTranslations from './locales/it.json';
+import nlTranslations from './locales/nl.json';
+import plTranslations from './locales/pl.json';
+import svTranslations from './locales/sv.json';
+
 const availableLanguages = ['en', 'es', 'pt', 'ru', 'nl', 'pl', 'sv', 'de', 'fr', 'it'];
 
 i18n.use(initReactI18next)
@@ -20,16 +24,33 @@ i18n.use(initReactI18next)
             ru: { translation: ruTranslations },
             de: { translation: deTranslations },
             fr: { translation: frTranslations },
-            it: { translation: itTranslations }
+            it: { translation: itTranslations },
+            nl: { translation: nlTranslations },
+            pl: { translation: plTranslations },
+            sv: { translation: svTranslations }
         },
         lng: undefined,
         fallbackLng: 'en',
-        interpolation: { escapeValue: false },
-        detection: {
-            order: ['navigator'],
-            caches: ['localStorage']
+        interpolation: {
+            escapeValue: false
         },
-        supportedLngs: availableLanguages
+        detection: {
+            order: ['querystring', 'cookie', 'localStorage', 'navigator', 'htmlTag'],
+            lookupQuerystring: 'lang',
+            lookupCookie: 'i18next',
+            lookupLocalStorage: 'i18nextLng',
+            caches: ['localStorage', 'cookie']
+        },
+        supportedLngs: availableLanguages,
+        react: {
+            useSuspense: true,
+            bindI18n: 'languageChanged',
+            bindI18nStore: '',
+            transEmptyNodeValue: '',
+            transSupportBasicHtmlNodes: true,
+            transKeepBasicHtmlNodesFor: ['br', 'strong', 'i', 'p'],
+            skipTranslationOnMissingKey: false
+        }
     });
 
 export default i18n;

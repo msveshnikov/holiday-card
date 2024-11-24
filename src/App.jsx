@@ -205,7 +205,7 @@ function App() {
                 sharedInterests ? ` Mention our shared interests in: ${sharedInterests}.` : ''
             }${recentEvents ? ` Acknowledge these recent events: ${recentEvents}.` : ''}${
                 customAdditions ? ` Add this custom message: ${customAdditions}.` : ''
-            }${useEmojis ? ' Include appropriate emojis.' : ''} Also, mention the eco-friendly aspect of digital cards.`;
+            }${useEmojis ? ' Include appropriate emojis.' : ''}`;
 
             const response = await fetch(`${API_URL}/interact`, {
                 method: 'POST',
