@@ -94,13 +94,6 @@ function App() {
         localStorage.setItem('messageHistory', JSON.stringify(messageHistory));
     }, [messageHistory]);
 
-    const backgroundImages = [
-        'https://plus.unsplash.com/premium_photo-1661766896016-16e307246d5d?q=80&w=570&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D',
-        'https://images.unsplash.com/photo-1480930700499-dc44aa7cb2cf?q=80&w=570&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D',
-        'https://images.unsplash.com/photo-1483373018724-770a096812ff?q=80&w=570&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D',
-        'https://images.unsplash.com/photo-1461010083959-8a5727311252?q=80&w=570&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D'
-    ];
-
     const styles = [
         { id: 'formal', name: t('formal'), icon: '🎩' },
         { id: 'casual', name: t('casual'), icon: '😊' },
@@ -117,55 +110,11 @@ function App() {
         100: t('sentimental')
     };
 
-    const relationships = [
-        'Family',
-        'Friend',
-        'Colleague',
-        'Acquaintance',
-        'Romantic Partner',
-        'Mentor',
-        'Student',
-        'Neighbor',
-        'Boss',
-        'Employee',
-        'Client',
-        'Teacher',
-        'Classmate',
-        'Relative',
-        'In-law',
-        'Childhood Friend',
-        'Business Partner',
-        'Roommate',
-        'Pet Owner',
-        'Coach',
-        'Team Member',
-        'Religious Leader',
-        'Community Member',
-        'Online Friend',
-        'Ex-partner',
-        'Distant Relative',
-        'Pen Pal',
-        'Social Media Follower',
-        'Celebrity',
-        'Fan',
-        'Volunteer',
-        'Sponsor',
-        'Mentee',
-        'Service Provider',
-        'Customer'
-    ];
-
-    const holidays = [
-        'Christmas',
-        'New Year',
-        "Valentine's Day",
-        'Easter',
-        "Mother's Day",
-        "Father's Day",
-        'Halloween',
-        'Thanksgiving',
-        'Birthday',
-        'Anniversary'
+    const backgroundImages = [
+        'https://plus.unsplash.com/premium_photo-1661766896016-16e307246d5d?q=80&w=570&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D',
+        'https://images.unsplash.com/photo-1480930700499-dc44aa7cb2cf?q=80&w=570&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D',
+        'https://images.unsplash.com/photo-1483373018724-770a096812ff?q=80&w=570&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D',
+        'https://images.unsplash.com/photo-1461010083959-8a5727311252?q=80&w=570&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D'
     ];
 
     const generateMessage = async () => {
@@ -381,7 +330,7 @@ function App() {
                             <Card
                                 key={style.id}
                                 cursor="pointer"
-                                bg={messageStyle === style.id ? 'green.100' : 'grey.100'}
+                                bg={messageStyle === style.id ? 'green.100' : 'white'}
                                 onClick={() => setMessageStyle(style.id)}
                                 transition="transform 0.2s"
                                 _hover={{ transform: 'scale(1.05)' }}
@@ -446,9 +395,11 @@ function App() {
                                     value={relationship}
                                     onChange={(e) => setRelationship(e.target.value)}
                                 >
-                                    {relationships.map((rel) => (
-                                        <option key={rel} value={rel.toLowerCase()}>
-                                            {rel}
+                                    {Object.entries(
+                                        t('relationships', { returnObjects: true })
+                                    ).map(([key, value]) => (
+                                        <option key={key} value={key}>
+                                            {value}
                                         </option>
                                     ))}
                                 </Select>
@@ -588,11 +539,13 @@ function App() {
                             value={selectedHoliday}
                             onChange={(e) => setSelectedHoliday(e.target.value)}
                         >
-                            {holidays.map((holiday) => (
-                                <option key={holiday} value={holiday}>
-                                    {holiday}
-                                </option>
-                            ))}
+                            {Object.entries(t('holidays', { returnObjects: true })).map(
+                                ([key, value]) => (
+                                    <option key={key} value={key}>
+                                        {value}
+                                    </option>
+                                )
+                            )}
                         </Select>
                     </ModalBody>
                     <ModalFooter>

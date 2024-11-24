@@ -109,4 +109,4 @@ tones, and personalization options.
 
 # TODO
 
--   localize holidays and relationships
+-   localize holidays and relationships - use t() 
