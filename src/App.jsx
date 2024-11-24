@@ -429,24 +429,30 @@ function App() {
 
                     <Grid templateColumns={['1fr', '1fr', 'repeat(2, 1fr)']} gap={4} width="100%">
                         <GridItem>
-                            <Input
-                                placeholder={t('recipientName')}
-                                value={recipientName}
-                                onChange={(e) => setRecipientName(e.target.value)}
-                            />
+                            <FormControl isRequired>
+                                <FormLabel>{t('recipientName')}</FormLabel>
+                                <Input
+                                    placeholder={t('recipientName')}
+                                    value={recipientName}
+                                    onChange={(e) => setRecipientName(e.target.value)}
+                                />
+                            </FormControl>
                         </GridItem>
                         <GridItem>
-                            <Select
-                                placeholder={t('relationship')}
-                                value={relationship}
-                                onChange={(e) => setRelationship(e.target.value)}
-                            >
-                                {relationships.map((rel) => (
-                                    <option key={rel} value={rel.toLowerCase()}>
-                                        {rel}
-                                    </option>
-                                ))}
-                            </Select>
+                            <FormControl isRequired>
+                                <FormLabel>{t('relationship')}</FormLabel>
+                                <Select
+                                    placeholder={t('relationship')}
+                                    value={relationship}
+                                    onChange={(e) => setRelationship(e.target.value)}
+                                >
+                                    {relationships.map((rel) => (
+                                        <option key={rel} value={rel.toLowerCase()}>
+                                            {rel}
+                                        </option>
+                                    ))}
+                                </Select>
+                            </FormControl>
                         </GridItem>
                         <GridItem colSpan={[1, 1, 2]}>
                             <Textarea
