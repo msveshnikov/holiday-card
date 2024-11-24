@@ -557,7 +557,7 @@ function App() {
                         <Text fontSize="sm" color="gray.500">
                             By using our digital card generator, you&apos;re helping to reduce paper
                             waste and protect the environment.{' '}
-                            <Link color="green.500" href="#" isExternal>
+                            <Link color="green.500" href="https://holidaycard.shop/landing.html" isExternal>
                                 Learn more about our eco-friendly initiative
                             </Link>
                         </Text>
