@@ -1,7 +1,7 @@
 {
-    "name": "ai-christmas-card-generator-server",
+    "name": "ai-holiday-card-generator-server",
     "version": "1.0.0",
-    "description": "Backend server for AI Christmas Card Message Generator",
+    "description": "Backend server for AI Holiday Card Message Generator",
     "main": "index.js",
     "scripts": {
         "dev": "nodemon index.js"

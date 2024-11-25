@@ -3,7 +3,7 @@
 ## Overview
 
 This file contains the main React component for the Holiday Card Generator application. It provides
-a user interface for generating personalized Christmas messages using various inputs and styling
+a user interface for generating personalized Holiday messages using various inputs and styling
 options. The component integrates with an API to generate messages and manages user credits and
 message history.
 

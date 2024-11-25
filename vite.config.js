@@ -9,7 +9,7 @@ export default defineConfig({
             registerType: 'autoUpdate',
             includeAssets: ['favicon.ico', 'robots.txt', 'apple-touch-icon.png'],
             manifest: {
-                name: 'AI Christmas Card Message Generator',
+                name: 'AI Holiday Card Message Generator',
                 short_name: 'Holiday Cards',
                 theme_color: '#ffffff',
                 icons: [

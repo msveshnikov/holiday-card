@@ -1,4 +1,4 @@
-# AI Christmas Card Message Generator - Documentation
+# AI Holiday Card Message Generator - Documentation
 
 ## Table of Contents
 
@@ -15,7 +15,7 @@
 
 ## Project Overview
 
-The AI Christmas Card Message Generator is a modern web application that leverages artificial
+The AI Holiday Card Message Generator is a modern web application that leverages artificial
 intelligence to create personalized holiday messages. Built with React and Node.js, it offers a
 sophisticated platform for generating customized holiday greetings in multiple languages with
 various styles and tones.

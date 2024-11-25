@@ -1,4 +1,4 @@
-# Marketing Strategy: AI Christmas Card Message Generator 🎄
+# Marketing Strategy: AI Holiday Card Message Generator 🎄
 
 ## Executive Summary
 
@@ -94,7 +94,7 @@ communication solutions during the holiday season.
 
 ## Campaign Ideas
 
-### 1. "12 Days of Christmas Messages"
+### 1. "12 Days of Holiday Messages"
 
 -   Daily themed message templates
 -   Social media challenge
