@@ -1,4 +1,4 @@
-# AI Christmas Card Message Generator 🎄 (built by [AutoCode](https://autocode.work) in 20 minutes)
+# AI Holiday Card Message Generator 🎄 (built by [AutoCode](https://autocode.work) in 20 minutes)
 
 A web application that generates personalized holiday messages using AI, with customizable styles,
 tones, and personalization options.
