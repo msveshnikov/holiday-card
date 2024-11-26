@@ -1,9 +1,14 @@
 import { useState, useEffect } from 'react';
 import {
     Box,
-    VStack,
     Container,
+    VStack,
+    HStack,
+    Heading,
     Text,
+    SimpleGrid,
+    Card,
+    CardBody,
     Select,
     Slider,
     SliderTrack,
@@ -12,31 +17,27 @@ import {
     Input,
     Textarea,
     Button,
-    useToast,
-    Badge,
-    Card,
-    CardBody,
-    SimpleGrid,
     IconButton,
     Image,
-    Tooltip,
     Progress,
     FormControl,
     FormLabel,
     Switch,
-    Grid,
-    GridItem,
+    Badge,
+    Tooltip,
+    useToast,
     Modal,
     ModalOverlay,
     ModalContent,
     ModalHeader,
-    ModalFooter,
     ModalBody,
+    ModalFooter,
     ModalCloseButton,
     useDisclosure,
-    Link
+    Link,
+    Divider
 } from '@chakra-ui/react';
-import { FaShareAlt, FaCrown, FaGift, FaCalendarAlt } from 'react-icons/fa';
+import { FaShareAlt, FaCrown, FaGift, FaCalendarAlt, FaDownload } from 'react-icons/fa';
 import ReactGA from 'react-ga4';
 import { useTranslation } from 'react-i18next';
 import theme from './theme.js';
@@ -280,210 +281,217 @@ function App() {
     };
 
     return (
-        <Box minHeight="100vh" bg={theme.colors.background}>
+        <Box minH="100vh" bg={theme.colors.background}>
             <Container maxW="container.xl" py={8}>
                 <VStack spacing={8}>
-                    <Box textAlign="center" position="relative" width="100%">
-                        <Text fontSize="3xl" fontWeight="bold" color={theme.colors.primary}>
+                    {/* Header Section */}
+                    <Box w="full" textAlign="center">
+                        <Heading color={theme.colors.primary} mb={4}>
                             {t('cardGenerator', { holiday: t('holidays.' + selectedHoliday) })}
-                        </Text>
-                        <br />
-                        <Badge colorScheme="green" ml={2}>
-                            {t('credits')}: {credits}
-                        </Badge>
-                        <Tooltip label={t('claimDailyReward')}>
-                            <IconButton
-                                aria-label={t('claimDailyReward')}
-                                icon={<FaGift />}
-                                ml={2}
-                                onClick={handleDailyReward}
-                                colorScheme="pink"
-                            />
-                        </Tooltip>
-                        <Tooltip label={t('upgradeToPremium')}>
-                            <IconButton
-                                aria-label={t('upgradeToPremium')}
-                                icon={<FaCrown />}
-                                ml={2}
-                                colorScheme="yellow"
-                            />
-                        </Tooltip>
-                        <Tooltip label={t('selectHoliday')}>
-                            <IconButton
-                                aria-label={t('selectHoliday')}
-                                icon={<FaCalendarAlt />}
-                                ml={2}
-                                onClick={onOpen}
-                                colorScheme="blue"
-                            />
-                        </Tooltip>
+                        </Heading>
+                        <HStack justify="center" spacing={4}>
+                            <Badge colorScheme="green" p={2} fontSize="md">
+                                {t('credits')}: {credits}
+                            </Badge>
+                            <Tooltip label={t('claimDailyReward')}>
+                                <IconButton
+                                    icon={<FaGift />}
+                                    colorScheme="pink"
+                                    onClick={handleDailyReward}
+                                />
+                            </Tooltip>
+                            <Tooltip label={t('upgradeToPremium')}>
+                                <IconButton icon={<FaCrown />} colorScheme="yellow" />
+                            </Tooltip>
+                            <Tooltip label={t('selectHoliday')}>
+                                <IconButton
+                                    icon={<FaCalendarAlt />}
+                                    colorScheme="blue"
+                                    onClick={onOpen}
+                                />
+                            </Tooltip>
+                        </HStack>
                     </Box>
 
-                    <SimpleGrid columns={[1, 2, 3]} spacing={4} width="100%">
-                        <FormControl>
-                            <FormLabel>{t('fontSize')}</FormLabel>
-                            <br />
-                            <Slider value={fontSize} min={12} max={24} onChange={setFontSize}>
-                                <SliderTrack>
-                                    <SliderFilledTrack />
-                                </SliderTrack>
-                                <SliderThumb />
-                            </Slider>
-                        </FormControl>
-                        <FormControl>
-                            <FormLabel>{t('fontFamily')}</FormLabel>
-                            <Select
-                                value={fontFamily}
-                                onChange={(e) => setFontFamily(e.target.value)}
-                            >
-                                {fonts.map((font) => (
-                                    <option key={font} value={font}>
-                                        {font}
-                                    </option>
+                    {/* Style Selection */}
+                    <Card w="full" variant="elevated">
+                        <CardBody>
+                            <SimpleGrid columns={[2, 2, 4]} spacing={4}>
+                                {styles.map((style) => (
+                                    <Card
+                                        key={style.id}
+                                        cursor="pointer"
+                                        bg={messageStyle === style.id ? 'green.100' : 'white'}
+                                        onClick={() => setMessageStyle(style.id)}
+                                        _hover={{ transform: 'scale(1.05)' }}
+                                        transition="all 0.2s"
+                                    >
+                                        <CardBody textAlign="center">
+                                            <Text fontSize="2xl">{style.icon}</Text>
+                                            <Text>{style.name}</Text>
+                                        </CardBody>
+                                    </Card>
                                 ))}
-                            </Select>
-                        </FormControl>
-                    </SimpleGrid>
+                            </SimpleGrid>
+                        </CardBody>
+                    </Card>
 
-                    <SimpleGrid columns={[2, 2, 4]} spacing={4} width="100%">
-                        {styles.map((style) => (
-                            <Card
-                                key={style.id}
-                                cursor="pointer"
-                                bg={messageStyle === style.id ? 'green.100' : 'white'}
-                                onClick={() => setMessageStyle(style.id)}
-                                transition="transform 0.2s"
-                                _hover={{ transform: 'scale(1.05)' }}
-                            >
-                                <CardBody textAlign="center">
-                                    <Text fontSize="2xl">{style.icon}</Text>
-                                    <Text>{style.name}</Text>
-                                </CardBody>
-                            </Card>
-                        ))}
-                    </SimpleGrid>
+                    {/* Background Images */}
+                    <Card w="full">
+                        <CardBody>
+                            <Text fontSize="lg" mb={4}>
+                                {t('backgroundImage')}:
+                            </Text>
+                            <SimpleGrid columns={[2, 2, 4]} spacing={4}>
+                                {backgroundImages?.slice(0, 4)?.map((image, index) => (
+                                    <Image
+                                        key={index}
+                                        src={image}
+                                        alt={`Background ${index + 1}`}
+                                        cursor="pointer"
+                                        borderRadius="md"
+                                        border={
+                                            selectedImage === image
+                                                ? '3px solid green'
+                                                : '1px solid gray'
+                                        }
+                                        onClick={() => setSelectedImage(image)}
+                                        h="150px"
+                                        objectFit="cover"
+                                        _hover={{ transform: 'scale(1.05)' }}
+                                        transition="all 0.2s"
+                                    />
+                                ))}
+                            </SimpleGrid>
+                        </CardBody>
+                    </Card>
 
-                    <Box width="100%">
-                        <Text mb={2}>{t('backgroundImage')}:</Text>
-                        <SimpleGrid columns={[2, 2, 4]} spacing={4}>
-                            {backgroundImages?.slice(0, 4)?.map((image, index) => (
-                                <Image
-                                    key={index}
-                                    src={image}
-                                    alt={`${t('background')} ${index + 1}`}
-                                    cursor="pointer"
-                                    borderRadius="md"
-                                    border={selectedImage === image ? '2px solid green' : 'none'}
-                                    onClick={() => setSelectedImage(image)}
-                                    height="200px"
-                                    objectFit="cover"
-                                    transition="transform 0.2s"
-                                    _hover={{ transform: 'scale(1.05)' }}
+                    {/* Message Configuration */}
+                    <Card w="full">
+                        <CardBody>
+                            <SimpleGrid columns={[1, 2]} spacing={6}>
+                                <FormControl isRequired>
+                                    <FormLabel>{t('recipientName')}</FormLabel>
+                                    <Input
+                                        value={recipientName}
+                                        onChange={(e) => setRecipientName(e.target.value)}
+                                        placeholder={t('recipientName')}
+                                    />
+                                </FormControl>
+
+                                <FormControl isRequired>
+                                    <FormLabel>{t('relationship')}</FormLabel>
+                                    <Select
+                                        value={relationship}
+                                        onChange={(e) => setRelationship(e.target.value)}
+                                    >
+                                        {Object.entries(
+                                            t('relationships', { returnObjects: true })
+                                        ).map(([key, value]) => (
+                                            <option key={key} value={key}>
+                                                {value}
+                                            </option>
+                                        ))}
+                                    </Select>
+                                </FormControl>
+                            </SimpleGrid>
+
+                            <Box mt={6}>
+                                <Text mb={2}>
+                                    {t('tone')}: {getToneLabel(tone)}
+                                </Text>
+                                <Slider value={tone} onChange={setTone} min={0} max={100}>
+                                    <SliderTrack>
+                                        <SliderFilledTrack />
+                                    </SliderTrack>
+                                    <SliderThumb />
+                                </Slider>
+                            </Box>
+
+                            <SimpleGrid columns={[1, 1, 2]} spacing={4} mt={6}>
+                                <FormControl>
+                                    <FormLabel>{t('fontSize')}</FormLabel>
+                                    <Slider
+                                        value={fontSize}
+                                        min={12}
+                                        max={24}
+                                        onChange={setFontSize}
+                                    >
+                                        <SliderTrack>
+                                            <SliderFilledTrack />
+                                        </SliderTrack>
+                                        <SliderThumb />
+                                    </Slider>
+                                </FormControl>
+
+                                <FormControl>
+                                    <FormLabel>{t('fontFamily')}</FormLabel>
+                                    <Select
+                                        value={fontFamily}
+                                        onChange={(e) => setFontFamily(e.target.value)}
+                                    >
+                                        {fonts.map((font) => (
+                                            <option key={font} value={font}>
+                                                {font}
+                                            </option>
+                                        ))}
+                                    </Select>
+                                </FormControl>
+                            </SimpleGrid>
+
+                            <VStack spacing={4} mt={6}>
+                                <Textarea
+                                    placeholder={t('specialMemories')}
+                                    value={memories}
+                                    onChange={(e) => setMemories(e.target.value)}
                                 />
-                            ))}
-                        </SimpleGrid>
-                    </Box>
-
-                    <Box width="100%">
-                        <Text mb={2}>
-                            {t('tone')}: {getToneLabel(tone)}
-                        </Text>
-                        <Slider value={tone} onChange={setTone} min={0} max={100}>
-                            <SliderTrack>
-                                <SliderFilledTrack />
-                            </SliderTrack>
-                            <SliderThumb />
-                        </Slider>
-                    </Box>
-
-                    <Grid templateColumns={['1fr', '1fr', 'repeat(2, 1fr)']} gap={4} width="100%">
-                        <GridItem>
-                            <FormControl isRequired>
-                                <FormLabel>{t('recipientName')}</FormLabel>
-                                <Input
-                                    placeholder={t('recipientName')}
-                                    value={recipientName}
-                                    onChange={(e) => setRecipientName(e.target.value)}
+                                <Textarea
+                                    placeholder={t('insideJokes')}
+                                    value={insideJokes}
+                                    onChange={(e) => setInsideJokes(e.target.value)}
                                 />
-                            </FormControl>
-                        </GridItem>
-                        <GridItem>
-                            <FormControl isRequired>
-                                <FormLabel>{t('relationship')}</FormLabel>
-                                <Select
-                                    value={relationship}
-                                    onChange={(e) => setRelationship(e.target.value)}
-                                >
-                                    {Object.entries(
-                                        t('relationships', { returnObjects: true })
-                                    ).map(([key, value]) => (
-                                        <option key={key} value={key}>
-                                            {value}
-                                        </option>
-                                    ))}
-                                </Select>
-                            </FormControl>
-                        </GridItem>
-                        <GridItem colSpan={[1, 1, 2]}>
-                            <Textarea
-                                placeholder={t('specialMemories')}
-                                value={memories}
-                                onChange={(e) => setMemories(e.target.value)}
-                            />
-                        </GridItem>
-                        <GridItem colSpan={[1, 1, 2]}>
-                            <Textarea
-                                placeholder={t('insideJokes')}
-                                value={insideJokes}
-                                onChange={(e) => setInsideJokes(e.target.value)}
-                            />
-                        </GridItem>
-                        <GridItem>
-                            <Textarea
-                                placeholder={t('sharedInterests')}
-                                value={sharedInterests}
-                                onChange={(e) => setSharedInterests(e.target.value)}
-                            />
-                        </GridItem>
-                        <GridItem>
-                            <Textarea
-                                placeholder={t('recentEvents')}
-                                value={recentEvents}
-                                onChange={(e) => setRecentEvents(e.target.value)}
-                            />
-                        </GridItem>
-                        <GridItem colSpan={[1, 1, 2]}>
-                            <Textarea
-                                placeholder={t('customMessageAdditions')}
-                                value={customAdditions}
-                                onChange={(e) => setCustomAdditions(e.target.value)}
-                            />
-                        </GridItem>
-                        <GridItem colSpan={[1, 1, 2]}>
-                            <FormControl display="flex" alignItems="center">
+                                <Textarea
+                                    placeholder={t('sharedInterests')}
+                                    value={sharedInterests}
+                                    onChange={(e) => setSharedInterests(e.target.value)}
+                                />
+                                <Textarea
+                                    placeholder={t('recentEvents')}
+                                    value={recentEvents}
+                                    onChange={(e) => setRecentEvents(e.target.value)}
+                                />
+                                <Textarea
+                                    placeholder={t('customMessageAdditions')}
+                                    value={customAdditions}
+                                    onChange={(e) => setCustomAdditions(e.target.value)}
+                                />
+                            </VStack>
+
+                            <FormControl display="flex" alignItems="center" mt={6}>
                                 <FormLabel mb="0">{t('useEmojis')}</FormLabel>
                                 <Switch
                                     isChecked={useEmojis}
                                     onChange={() => setUseEmojis(!useEmojis)}
                                 />
                             </FormControl>
-                        </GridItem>
-                    </Grid>
+                        </CardBody>
+                    </Card>
 
                     <Button
                         colorScheme="green"
+                        size="lg"
+                        width="full"
                         isLoading={isLoading}
                         onClick={generateMessage}
-                        width="100%"
-                        size="lg"
                     >
                         {t('generateMessage')}
                     </Button>
 
-                    {isLoading && <Progress value={progress} width="100%" colorScheme="green" />}
+                    {isLoading && <Progress value={progress} width="full" colorScheme="green" />}
 
+                    {/* Generated Message Display */}
                     {generatedMessage && (
-                        <Card width="100%">
+                        <Card w="full">
                             <CardBody>
                                 <Image
                                     src={selectedImage}
@@ -500,47 +508,56 @@ function App() {
                                 >
                                     {generatedMessage}
                                 </Text>
-                                <SimpleGrid columns={[1, 2]} spacing={4} mt={4}>
+                                <HStack mt={4} spacing={4}>
                                     <Button
                                         leftIcon={<FaShareAlt />}
                                         colorScheme="green"
+                                        flex={1}
                                         onClick={handleShare}
                                     >
                                         {t('shareMessage')}
                                     </Button>
-                                    <Button colorScheme="blue" onClick={handleDownload}>
+                                    <Button
+                                        leftIcon={<FaDownload />}
+                                        colorScheme="blue"
+                                        flex={1}
+                                        onClick={handleDownload}
+                                    >
                                         {t('download')}
                                     </Button>
-                                </SimpleGrid>
+                                </HStack>
                             </CardBody>
                         </Card>
                     )}
 
+                    {/* Message History */}
                     {messageHistory.length > 0 && (
-                        <Box width="100%">
-                            <Text fontSize="xl" fontWeight="bold" mb={2}>
-                                {t('messageHistory')}
-                            </Text>
-                            <VStack spacing={2} align="stretch">
-                                {messageHistory.map((message, index) => (
-                                    <Card key={index}>
-                                        <CardBody>
-                                            <Text>{message}</Text>
-                                        </CardBody>
-                                    </Card>
-                                ))}
-                            </VStack>
-                        </Box>
+                        <Card w="full">
+                            <CardBody>
+                                <Heading size="md" mb={4}>
+                                    {t('messageHistory')}
+                                </Heading>
+                                <VStack spacing={4} align="stretch">
+                                    {messageHistory.map((message, index) => (
+                                        <Card key={index} variant="outline">
+                                            <CardBody>
+                                                <Text>{message}</Text>
+                                            </CardBody>
+                                        </Card>
+                                    ))}
+                                </VStack>
+                            </CardBody>
+                        </Card>
                     )}
 
-                    <Box width="100%" textAlign="center">
-                        <Text fontSize="sm" color="gray.500">
-                            {t('ecoFriendlyMessage')}{' '}
-                            <Link color="green.500" href="https://holidaycard.shop/landing.html">
-                                {t('learnMore')}
-                            </Link>
-                        </Text>
-                    </Box>
+                    <Divider />
+
+                    <Text fontSize="sm" color="gray.500" textAlign="center">
+                        {t('ecoFriendlyMessage')}{' '}
+                        <Link color="green.500" href="https://holidaycard.shop/landing.html">
+                            {t('learnMore')}
+                        </Link>
+                    </Text>
                 </VStack>
             </Container>
 
@@ -564,7 +581,7 @@ function App() {
                         </Select>
                     </ModalBody>
                     <ModalFooter>
-                        <Button colorScheme="blue" mr={3} onClick={onClose}>
+                        <Button colorScheme="blue" onClick={onClose}>
                             {t('close')}
                         </Button>
                     </ModalFooter>
