@@ -530,14 +530,13 @@ function App() {
                         </Card>
                     )}
 
-                    {/* Message History */}
                     {messageHistory.length > 0 && (
                         <Card w="full">
                             <CardBody>
                                 <Heading size="md" mb={4}>
                                     {t('messageHistory')}
                                 </Heading>
-                                <VStack spacing={4} align="stretch">
+                                <SimpleGrid columns={[1, 1, 3]} spacing={4}>
                                     {messageHistory.map((message, index) => (
                                         <Card key={index} variant="outline">
                                             <CardBody>
@@ -545,7 +544,7 @@ function App() {
                                             </CardBody>
                                         </Card>
                                     ))}
-                                </VStack>
+                                </SimpleGrid>
                             </CardBody>
                         </Card>
                     )}
