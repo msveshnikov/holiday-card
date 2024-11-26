@@ -1,0 +1,19 @@
+Version 1.0.0
+• Initial release
+• AI-powered message generation
+• 10 language support
+• Multiple message styles and tones
+• Unsplash integration for backgrounds
+• Credit system implementation
+• Theme customization options
+• Real-time preview feature
+• Mobile-responsive design
+• Basic and Premium plan options
+
+Bug fixes:
+• None (initial release)
+
+Known issues:
+• Some language translations pending
+• Image loading optimization in progress
+• Mobile experience being enhanced
