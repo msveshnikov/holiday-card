@@ -4,7 +4,7 @@ dotenv.config();
 
 export const getUnsplashImages = async (prompt) => {
     const response = await fetch(
-        `https://api.unsplash.com/search/photos?query=${prompt}&client_id=${process.env.UNSPLASH_API_KEY}&w=800&per_page=10`
+        `https://api.unsplash.com/search/photos?query=${prompt}&client_id=${process.env.UNSPLASH_API_KEY}&w=800&per_page=30`
     );
     if (!response.ok) {
         throw new Error('Unsplash API error:' + response.status);
