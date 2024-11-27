@@ -72,6 +72,10 @@ function App() {
 
     const toast = useToast();
 
+    const getRandomRotation = () => {
+        return Math.random() * 6 - 3; // Random rotation between -10 and +10 degrees
+    };
+
     useEffect(() => {
         const savedCredits = localStorage.getItem('credits');
         if (savedCredits) {
@@ -538,7 +542,17 @@ function App() {
                                 </Heading>
                                 <SimpleGrid columns={[1, 1, 3]} spacing={4}>
                                     {messageHistory.map((message, index) => (
-                                        <Card key={index} variant="outline">
+                                        <Card
+                                            key={index}
+                                            variant="outline"
+                                            style={{
+                                                transform: `rotate(${getRandomRotation()}deg)`,
+                                                transition: 'transform 0.3s ease'
+                                            }}
+                                            _hover={{
+                                                transform: 'rotate(0deg)'
+                                            }}
+                                        >
                                             <CardBody>
                                                 <Text>{message}</Text>
                                             </CardBody>
