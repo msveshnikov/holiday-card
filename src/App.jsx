@@ -73,7 +73,7 @@ function App() {
     const toast = useToast();
 
     const getRandomRotation = () => {
-        return Math.random() * 6 - 3; // Random rotation between -10 and +10 degrees
+        return Math.random() * 6 - 3;
     };
 
     useEffect(() => {
@@ -98,8 +98,8 @@ function App() {
         const response = await fetch(`${API_URL}/images/${selectedHoliday}`);
         const images = await response.json();
         setBackgroundImages(images.images);
-        if (images.length > 0) {
-            setSelectedImage(images[0]);
+        if (images.images.length > 0) {
+            setSelectedImage(images.images[0]);
         }
     };
 
