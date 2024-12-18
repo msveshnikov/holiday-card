@@ -2,11 +2,11 @@
 
 ## Recently Completed
 
--   Project structure setup
--   Initial README documentation
--   Basic project configuration
--   Multi-language support foundation (i18n implementation)
--   Landing page creation
+- Project structure setup
+- Initial README documentation
+- Basic project configuration
+- Multi-language support foundation (i18n implementation)
+- Landing page creation
 
 ## High Priority (Must Have) - Sprint 1-2
 
@@ -94,12 +94,12 @@
 
 ## Future Considerations
 
--   Voice message generation
--   Custom card designs
--   Bulk generation feature
--   Printing service integration
--   AI image generation integration
--   Message scheduling system
+- Voice message generation
+- Custom card designs
+- Bulk generation feature
+- Printing service integration
+- AI image generation integration
+- Message scheduling system
 
 ## Changes from Previous Backlog
 

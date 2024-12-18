@@ -53,7 +53,8 @@
         "halloween": "Хэллоуин",
         "thanksgiving": "День благодарения",
         "birthday": "День рождения",
-        "anniversary": "Годовщина"
+        "anniversary": "Годовщина",
+        "wedding": "Свадьба"
     },
     "relationships": {
         "familyMember": "Семья",

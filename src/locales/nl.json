@@ -53,7 +53,8 @@
         "halloween": "Halloween",
         "thanksgiving": "Thanksgiving",
         "birthday": "Verjaardag",
-        "anniversary": "Jubileum"
+        "anniversary": "Jubileum",
+        "wedding": "Bruiloft"
     },
     "relationships": {
         "familyMember": "Familie",

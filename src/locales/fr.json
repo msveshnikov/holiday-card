@@ -53,7 +53,8 @@
         "halloween": "Halloween",
         "thanksgiving": "Action de Grâce",
         "birthday": "Anniversaire",
-        "anniversary": "Anniversaire de mariage"
+        "anniversary": "Anniversaire de mariage",
+        "wedding": "Mariage"
     },
     "relationships": {
         "familyMember": "Famille",

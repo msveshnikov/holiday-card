@@ -53,7 +53,8 @@
         "halloween": "Halloween",
         "thanksgiving": "Erntedankfest",
         "birthday": "Geburtstag",
-        "anniversary": "Jahrestag"
+        "anniversary": "Jahrestag",
+        "wedding": "Hochzeit"
     },
     "relationships": {
         "familyMember": "Familie",

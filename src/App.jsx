@@ -493,7 +493,6 @@ function App() {
 
                     {isLoading && <Progress value={progress} width="full" colorScheme="green" />}
 
-                    {/* Generated Message Display */}
                     {generatedMessage && (
                         <Card w="full">
                             <CardBody>

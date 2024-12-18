@@ -5,48 +5,48 @@ tones, and personalization options.
 
 # DEMO
 
--   https://holidaycard.shop/landing.html
+- https://holidaycard.shop/landing.html
 
 ## Features
 
--   AI-powered message generation
--   Multiple message styles (Formal, Casual, Funny, Heartfelt)
--   Tone selector (Warm, Professional, Playful, Sentimental)
--   Personalization options
--   Credit-based system for message generation
--   Theme customization
--   Real-time message preview
--   Multi-language support (10 languages)
--   Unsplash integration for background images
+- AI-powered message generation
+- Multiple message styles (Formal, Casual, Funny, Heartfelt)
+- Tone selector (Warm, Professional, Playful, Sentimental)
+- Personalization options
+- Credit-based system for message generation
+- Theme customization
+- Real-time message preview
+- Multi-language support (10 languages)
+- Unsplash integration for background images
 
 ## Technical Stack
 
--   React + Vite
--   Chakra UI
--   OpenAI API
--   Theme Provider
--   i18next
--   Docker
--   Node.js backend
--   Unsplash API
+- React + Vite
+- Chakra UI
+- OpenAI API
+- Theme Provider
+- i18next
+- Docker
+- Node.js backend
+- Unsplash API
 
 ## Design Considerations
 
 ### UI Components
 
--   Message input form
--   Style selector cards
--   Tone slider/selector
--   Personalization questionnaire
--   Credit balance display
--   Message preview card
--   Download/Share options
--   Theme switcher
--   Progress indicator
--   Toast notifications
--   Language selector
--   Background image gallery
--   Mobile-responsive layout
+- Message input form
+- Style selector cards
+- Tone slider/selector
+- Personalization questionnaire
+- Credit balance display
+- Message preview card
+- Download/Share options
+- Theme switcher
+- Progress indicator
+- Toast notifications
+- Language selector
+- Background image gallery
+- Mobile-responsive layout
 
 ### User Flow
 
@@ -63,71 +63,71 @@ tones, and personalization options.
 
 ### Personalization Fields
 
--   Recipient name
--   Relationship
--   Special occasions/memories
--   Inside jokes
--   Shared interests
--   Recent events
--   Custom message additions
--   Emoji preferences
--   Background image preferences
--   Language preference
+- Recipient name
+- Relationship
+- Special occasions/memories
+- Inside jokes
+- Shared interests
+- Recent events
+- Custom message additions
+- Emoji preferences
+- Background image preferences
+- Language preference
 
 ### Credit System
 
--   Free trial: 3 messages
--   Basic plan: 10 credits
--   Premium plan: 50 credits
--   Referral bonuses
--   Daily rewards
--   Language-specific discounts
--   Bulk purchase options
+- Free trial: 3 messages
+- Basic plan: 10 credits
+- Premium plan: 50 credits
+- Referral bonuses
+- Daily rewards
+- Language-specific discounts
+- Bulk purchase options
 
 ## Theme Customization
 
--   Custom color schemes
--   Seasonal themes
--   Font selection
--   Card layouts
--   Background image filters
--   Typography combinations
--   Animation effects
+- Custom color schemes
+- Seasonal themes
+- Font selection
+- Card layouts
+- Background image filters
+- Typography combinations
+- Animation effects
 
 ## State Management
 
--   User preferences
--   Theme settings
--   Message history
--   Credit balance
--   Generation status
--   Form validation
--   Language settings
--   Image cache
--   Session persistence
+- User preferences
+- Theme settings
+- Message history
+- Credit balance
+- Generation status
+- Form validation
+- Language settings
+- Image cache
+- Session persistence
 
 ## Internationalization
 
--   10 supported languages
--   Region-specific themes
--   Cultural customizations
--   Local holiday variations
--   Date/time formatting
+- 10 supported languages
+- Region-specific themes
+- Cultural customizations
+- Local holiday variations
+- Date/time formatting
 
 ## Future Enhancements
 
--   Voice message generation
--   Custom card designs
--   Template library
--   Bulk generation for businesses
--   Integration with printing services
--   Social media sharing
--   Saved messages history
--   AI image generation
--   Message scheduling
--   Video message support
--   Gift card integration
--   Calendar sync
--   Contact import
+- Voice message generation
+- Custom card designs
+- Template library
+- Bulk generation for businesses
+- Integration with printing services
+- Social media sharing
+- Saved messages history
+- AI image generation
+- Message scheduling
+- Video message support
+- Gift card integration
+- Calendar sync
+- Contact import
 
 # TODO

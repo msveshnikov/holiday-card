@@ -14,20 +14,20 @@ interactions, and renders the UI for the Holiday Card Generator.
 
 ### State Variables
 
--   `messageStyle`: Controls the style of the message (formal, casual, funny, heartfelt)
--   `tone`: Numeric value representing the tone of the message
--   `recipientName`: Name of the message recipient
--   `relationship`: Relationship to the recipient
--   `memories`, `insideJokes`, `sharedInterests`, `recentEvents`, `customAdditions`: Additional
-    context for message generation
--   `generatedMessage`: Stores the generated message
--   `credits`: Number of credits available to the user
--   `isLoading`: Boolean indicating if a message is being generated
--   `selectedImage`: URL of the selected background image
--   `useEmojis`: Boolean to include emojis in the message
--   `progress`: Numeric value for the progress bar during message generation
--   `fontSize`, `fontFamily`, `animation`: Styling options for the generated message
--   `messageHistory`: Array of previously generated messages
+- `messageStyle`: Controls the style of the message (formal, casual, funny, heartfelt)
+- `tone`: Numeric value representing the tone of the message
+- `recipientName`: Name of the message recipient
+- `relationship`: Relationship to the recipient
+- `memories`, `insideJokes`, `sharedInterests`, `recentEvents`, `customAdditions`: Additional
+  context for message generation
+- `generatedMessage`: Stores the generated message
+- `credits`: Number of credits available to the user
+- `isLoading`: Boolean indicating if a message is being generated
+- `selectedImage`: URL of the selected background image
+- `useEmojis`: Boolean to include emojis in the message
+- `progress`: Numeric value for the progress bar during message generation
+- `fontSize`, `fontFamily`, `animation`: Styling options for the generated message
+- `messageHistory`: Array of previously generated messages
 
 ### Main Functions
 
@@ -73,8 +73,8 @@ handleDailyReward();
 
 ### Helper Functions
 
--   `getToneLabel`: Converts the numeric tone value to a descriptive label
--   `useEffect` hooks: Manage local storage for credits and message history
+- `getToneLabel`: Converts the numeric tone value to a descriptive label
+- `useEffect` hooks: Manage local storage for credits and message history
 
 ### UI Sections
 
@@ -97,10 +97,10 @@ deployment environment.
 
 ## Dependencies
 
--   React
--   Chakra UI components
--   react-icons
--   Environment variables (VITE_CHAT_TOKEN)
+- React
+- Chakra UI components
+- react-icons
+- Environment variables (VITE_CHAT_TOKEN)
 
 ## Usage Example
 

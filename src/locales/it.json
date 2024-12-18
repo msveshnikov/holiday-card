@@ -14,6 +14,10 @@
     "warm": "Caloroso",
     "playful": "Giocoso",
     "sentimental": "Sentimentale",
+    "formal": "Formale",
+    "casual": "Informale",
+    "funny": "Divertente",
+    "heartfelt": "Sincero",
     "recipientName": "Nome destinatario",
     "relationship": "Relazione",
     "specialMemories": "Ricordi speciali",
@@ -49,7 +53,8 @@
         "halloween": "Halloween",
         "thanksgiving": "Festa del Ringraziamento",
         "birthday": "Compleanno",
-        "anniversary": "Anniversario"
+        "anniversary": "Anniversario",
+        "wedding": "Matrimonio"
     },
     "relationships": {
         "familyMember": "Famiglia",

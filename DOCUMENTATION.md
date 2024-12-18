@@ -22,32 +22,32 @@ various styles and tones.
 
 ### Key Features
 
--   AI-powered message generation
--   Support for 10 languages
--   Customizable message styles and tones
--   Credit-based usage system
--   Theme customization
--   Background image integration via Unsplash
--   Mobile-responsive design
+- AI-powered message generation
+- Support for 10 languages
+- Customizable message styles and tones
+- Credit-based usage system
+- Theme customization
+- Background image integration via Unsplash
+- Mobile-responsive design
 
 ## Architecture
 
 ### Frontend Stack
 
--   React + Vite
--   Chakra UI for components
--   i18next for internationalization
--   Zustand for state management
--   React Query for data fetching
--   PWA support
+- React + Vite
+- Chakra UI for components
+- i18next for internationalization
+- Zustand for state management
+- React Query for data fetching
+- PWA support
 
 ### Backend Stack
 
--   Node.js
--   MongoDB
--   Docker containerization
--   OpenAI API integration
--   Unsplash API integration
+- Node.js
+- MongoDB
+- Docker containerization
+- OpenAI API integration
+- Unsplash API integration
 
 ### System Components
 
@@ -64,10 +64,10 @@ graph TD
 
 ### Prerequisites
 
--   Node.js 16+
--   Docker and Docker Compose
--   MongoDB
--   Bun runtime
+- Node.js 16+
+- Docker and Docker Compose
+- MongoDB
+- Bun runtime
 
 ### Local Development Setup
 
@@ -105,24 +105,24 @@ EMAIL_PASSWORD=
 
 ### Message Generation
 
--   Multiple style options (Formal, Casual, Funny, Heartfelt)
--   Tone selection (Warm, Professional, Playful, Sentimental)
--   Personalization fields
--   Real-time preview
+- Multiple style options (Formal, Casual, Funny, Heartfelt)
+- Tone selection (Warm, Professional, Playful, Sentimental)
+- Personalization fields
+- Real-time preview
 
 ### User Management
 
--   Optional authentication
--   Credit system
--   Preference saving
--   Message history
+- Optional authentication
+- Credit system
+- Preference saving
+- Message history
 
 ### Internationalization
 
--   10 supported languages
--   Cultural customizations
--   RTL support
--   Region-specific themes
+- 10 supported languages
+- Cultural customizations
+- RTL support
+- Region-specific themes
 
 ## Technical Implementation
 
@@ -199,58 +199,58 @@ docker-compose -f docker-compose.prod.yml up -d
 
 ### Deployment Checklist
 
--   [ ] Environment variables configured
--   [ ] Database backup verified
--   [ ] SSL certificates installed
--   [ ] CDN configuration
--   [ ] Monitoring setup
+- [ ] Environment variables configured
+- [ ] Database backup verified
+- [ ] SSL certificates installed
+- [ ] CDN configuration
+- [ ] Monitoring setup
 
 ## API Documentation
 
 ### Endpoints
 
--   `/api/messages/generate` - Generate new message
--   `/api/users/credits` - Manage user credits
--   `/api/themes` - Theme management
--   `/api/images` - Background image handling
+- `/api/messages/generate` - Generate new message
+- `/api/users/credits` - Manage user credits
+- `/api/themes` - Theme management
+- `/api/images` - Background image handling
 
 ### Authentication
 
--   JWT-based authentication
--   Google OAuth integration
+- JWT-based authentication
+- Google OAuth integration
 
 ## Security
 
 ### Implemented Measures
 
--   API key protection
--   Rate limiting
--   Input validation
--   XSS protection
--   CSRF protection
+- API key protection
+- Rate limiting
+- Input validation
+- XSS protection
+- CSRF protection
 
 ### Best Practices
 
--   Regular security audits
--   Dependency updates
--   Access control
--   Data encryption
+- Regular security audits
+- Dependency updates
+- Access control
+- Data encryption
 
 ## Maintenance & Monitoring
 
 ### Regular Tasks
 
--   Database backups
--   Log rotation
--   Performance monitoring
--   Error tracking
+- Database backups
+- Log rotation
+- Performance monitoring
+- Error tracking
 
 ### Monitoring Tools
 
--   Server metrics
--   Application performance
--   User analytics
--   Error logging
+- Server metrics
+- Application performance
+- User analytics
+- Error logging
 
 ## Contributing
 

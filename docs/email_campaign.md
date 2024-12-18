@@ -18,11 +18,11 @@ feelings in exactly the right way.
 
 ✨ What makes us special:
 
--   AI-powered personalization
--   Multiple message styles (Formal to Funny)
--   Customizable tones
--   Real-time preview
--   Theme customization
+- AI-powered personalization
+- Multiple message styles (Formal to Funny)
+- Customizable tones
+- Real-time preview
+- Theme customization
 
 Try it now and get 3 FREE message generations!
 
@@ -78,10 +78,10 @@ The holiday season is in full swing, and time is running out to send your person
 
 🎁 Special Holiday Offer Act now and receive:
 
--   25% off Premium Plan
--   50 message credits
--   Access to all premium themes
--   Priority support
+- 25% off Premium Plan
+- 50 message credits
+- Access to all premium themes
+- Priority support
 
 Why Our Users Love Us: "Generated the perfect message for my boss in seconds!" - Sarah K. "Finally,
 holiday messages that don't sound robotic!" - Mike T. "Saved hours of writing time!" - Jennifer R.
@@ -99,11 +99,11 @@ P.S. Remember, you can still try 3 message generations for FREE!
 
 ### Email Campaign Notes:
 
--   Timing: Send emails 1 week apart
--   Best send times: Tuesday-Thursday, 10 AM-2 PM local time
--   A/B test subject lines
--   Include social proof in follow-up emails
--   Track click-through rates on CTA buttons
--   Segment users based on interaction with previous emails
--   Include social media links in footer
--   Add unsubscribe option in compliance with email regulations
+- Timing: Send emails 1 week apart
+- Best send times: Tuesday-Thursday, 10 AM-2 PM local time
+- A/B test subject lines
+- Include social proof in follow-up emails
+- Track click-through rates on CTA buttons
+- Segment users based on interaction with previous emails
+- Include social media links in footer
+- Add unsubscribe option in compliance with email regulations
